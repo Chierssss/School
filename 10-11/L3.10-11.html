@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ERROR</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background:
+                radial-gradient(circle at center, #353535 0%, #1d1d1d 58%, #111 100%);
+
+            color: #dedede;
+            font-family: "Courier New", monospace;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(255,255,255,0.012) 0px,
+                rgba(255,255,255,0.012) 1px,
+                transparent 1px,
+                transparent 4px
+            );
+        }
+
+        .system {
+            width: min(720px, 90%);
+
+            padding: 45px 35px;
+
+            border: 1px solid #666;
+
+            background: rgba(25, 25, 25, 0.94);
+
+            box-shadow:
+                0 0 40px rgba(0,0,0,0.65),
+                inset 0 0 50px rgba(255,255,255,0.035);
+
+            text-align: center;
+        }
+
+        .title {
+            color: #c7c7c7;
+
+            font-size: clamp(22px, 4vw, 34px);
+            font-weight: bold;
+
+            letter-spacing: 5px;
+
+            margin-bottom: 22px;
+        }
+
+        .subtitle {
+            color: #aaa;
+
+            font-size: 13px;
+            letter-spacing: 2px;
+
+            margin-bottom: 42px;
+        }
+
+        .status {
+            display: flex;
+            justify-content: space-between;
+
+            border-top: 1px solid #484848;
+            border-bottom: 1px solid #484848;
+
+            padding: 14px 0;
+            margin-bottom: 40px;
+
+            color: #999;
+            font-size: 12px;
+        }
+
+        .status-ok {
+            color: #a8a8a8;
+        }
+
+        .level {
+            font-size: 18px;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 32px;
+
+            color: #ddd;
+        }
+
+        .message {
+            color: #b8b8b8;
+
+            line-height: 1.8;
+
+            margin-bottom: 30px;
+
+            font-size: 14px;
+        }
+
+        .label {
+            color: #888;
+
+            font-size: 11px;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 12px;
+        }
+
+        input {
+            width: min(360px, 100%);
+            height: 55px;
+
+            background: #181818;
+
+            border: 1px solid #777;
+
+            color: #eee;
+
+            text-align: center;
+
+            font-family: "Courier New", monospace;
+            font-size: 20px;
+
+            letter-spacing: 6px;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #aaa;
+
+            box-shadow:
+                0 0 18px rgba(255,255,255,0.08);
+        }
+
+        button {
+            display: block;
+
+            width: min(360px, 100%);
+            height: 50px;
+
+            margin: 18px auto 0;
+
+            background: #292929;
+
+            border: 1px solid #858585;
+
+            color: #ccc;
+
+            font-family: "Courier New", monospace;
+
+            font-size: 12px;
+            letter-spacing: 3px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #363636;
+            color: #fff;
+            border-color: #aaa;
+        }
+
+        .result {
+            min-height: 25px;
+
+            margin-top: 25px;
+
+            font-size: 13px;
+
+            letter-spacing: 1px;
+        }
+
+        .denied {
+            color: #c0c0c0;
+        }
+
+        .granted {
+            color: #d6d6d6;
+        }
+
+        .progress {
+            margin: 20px auto;
+
+            width: min(360px, 100%);
+            height: 8px;
+
+            background: #303030;
+
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+
+            background: #d0d0d0;
+
+            transition: width 1.5s ease;
+        }
+
+        .restored {
+            color: #f0f0f0;
+
+            font-size: 18px;
+
+            letter-spacing: 4px;
+
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+
+            .system {
+                padding: 30px 20px;
+            }
+
+            .title {
+                letter-spacing: 2px;
+            }
+
+            .status {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="system">
+
+    <div class="title">
+        SYSTEM RECOVERY
+    </div>
+
+    <div class="subtitle">
+        CORE ACCESS PARTIALLY RESTORED
+    </div>
+
+    <div class="status">
+        <span>RECOVERY: 40%</span>
+        <span class="status-ok">● STABLE</span>
+    </div>
+
+    <div class="level">
+        LEVEL 03 / 06
+    </div>
+
+    <div class="message">
+        СИСТЕМА ПОЧИНАЄ ВІДНОВЛЮВАТИСЯ.<br>
+        ОСНОВНІ МОДУЛІ ПРАЦЮЮТЬ.<br>
+        ДОСТУП ДО НАСТУПНОГО РІВНЯ ЗА КОДОМ.
+
+        КОД ДОСТУПУ В КАБ. 
+    </div>
+
+    <div class="label">
+        ACCESS CODE
+    </div>
+
+    <input
+        type="text"
+        id="password"
+        autocomplete="off"
+        spellcheck="false"
+        maxlength="20"
+    >
+
+    <button onclick="checkPassword()">
+        VERIFY CODE
+    </button>
+
+    <div class="result" id="result"></div>
+
+</div>
+
+
+<script>
+
+    // ==========================================
+    // ПАРОЛЬ LEVEL 03
+    // ==========================================
+
+    const CORRECT_PASSWORD = "CHANGE_ME_3";
+
+
+    // ==========================================
+    // НАСТУПНИЙ РІВЕНЬ
+    // ==========================================
+
+    const NEXT_PAGE = "L4.10-11.html";
+
+
+    // ==========================================
+    // ПЕРЕВІРКА
+    // ==========================================
+
+    function checkPassword() {
+
+        const input = document
+            .getElementById("password")
+            .value
+            .trim();
+
+        const result = document.getElementById("result");
+
+        if (input === CORRECT_PASSWORD) {
+
+            result.innerHTML = `
+                <div class="granted">
+                    ACCESS GRANTED
+                </div>
+
+                <div style="margin-top:10px;">
+                    SYSTEM CHECK...
+                </div>
+
+                <div class="progress">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+
+                <div class="restored">
+                    LEVEL 03 RESTORED
+                </div>
+            `;
+
+            document.getElementById("progressBar").style.width = "100%";
+
+            document.getElementById("password").disabled = true;
+
+            setTimeout(() => {
+                window.location.href = NEXT_PAGE;
+            }, 2500);
+
+        } else {
+
+            result.innerHTML = `
+                <div class="denied">
+                    ACCESS DENIED
+                </div>
+
+                <div style="margin-top:8px;">
+                    INVALID ACCESS CODE.<br>
+                    TRY AGAIN.
+                </div>
+            `;
+
+            document.getElementById("password").value = "";
+
+            document.getElementById("password").focus();
+        }
+    }
+
+
+    // ENTER = VERIFY
+
+    document.getElementById("password").addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            checkPassword();
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

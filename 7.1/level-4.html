@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ERROR // 7.1 клас</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at center,rgb(173,173,173) 0%,rgb(158,158,158) 100%);color:#ddd;font-family:"Courier New",monospace;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:background 0.54s ease}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,rgba(255,255,255,.025) 0px,rgba(255,255,255,.025) 1px,transparent 2px,transparent 4px);opacity:.45}
+.system{position:relative;z-index:1;width:min(720px,92%);padding:clamp(24px,5vw,45px);border:1px solid #666;background:rgba(8,8,8,.88);box-shadow:0 0 45px #0008}
+.top{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:#aaa;border-bottom:1px solid #444;padding-bottom:14px}.critical{color:#f55}.level{margin-top:28px;color:#aaa;font-size:13px;letter-spacing:2px}h1{font-size:clamp(24px,5vw,36px);margin:12px 0;color:#f1f1f1}.message{line-height:1.8;font-size:14px;color:#bbb;margin:22px 0}
+label{display:block;font-size:12px;letter-spacing:2px;color:#999;margin-bottom:9px}input{width:100%;padding:14px;background:#050505;border:1px solid #666;color:#fff;font:16px "Courier New",monospace;outline:none}input:focus{border-color:#f55}
+button{margin-top:14px;padding:13px 20px;background:#242424;border:1px solid #777;color:#eee;font:13px "Courier New",monospace;letter-spacing:1px;cursor:pointer}button:hover{background:#383838;border-color:#f55}button:disabled{opacity:.5;cursor:default}
+#result{min-height:70px;margin-top:22px;font-size:13px;line-height:1.7;color:#aaa}.granted{color:#8cff9b;font-size:18px}.denied{color:#ff5555;font-size:18px}.progress{height:7px;background:#333;margin:14px 0;overflow:hidden}.progress-bar{height:100%;width:0;background:#8cff9b;transition:width 2s linear}.restored{color:#8cff9b;margin-top:10px}
+</style></head><body><main class="system"><div class="top"><span>RECOVERY: 75%</span><span class="critical">● ONLINE</span></div>
+<div class="level">LEVEL 04 / 05 · 7.1 КЛАС</div><h1>SYSTEM FAILURE</h1>
+<div class="message">СИСТЕМА ЧАСТКОВО ВІДНОВЛЕНА.<br>ДЕЯКІ МОДУЛІ ВСЕ ЩЕ ЗАБЛОКОВАНІ.<br>ВВЕДІТЬ КОД ДЛЯ ПРОДОВЖЕННЯ.<br><br>КОД ДОСТУПУ В КАБІНЕТІ ВЧИТЕЛЯ №___</div>
+<label for="password">ACCESS CODE</label><input id="password" type="text" autocomplete="off" placeholder="Введіть код доступу"><button id="verify">VERIFY CODE</button><div id="result" aria-live="polite"></div></main>
+<script>
+const CORRECT_PASSWORD="CHANGE_ME_7_1_4";
+const NEXT_PAGE="level-5.html";
+function checkPassword(){
+ const input=document.getElementById("password").value.trim();
+ const result=document.getElementById("result");
+ if(input.toLowerCase()===CORRECT_PASSWORD.toLowerCase() && !CORRECT_PASSWORD.startsWith("CHANGE_ME_")){
+  result.innerHTML='<div class="granted">ACCESS GRANTED</div><div>VERIFYING...</div><div class="progress"><div class="progress-bar" id="progressBar"></div></div><div class="restored">LEVEL 04 RESTORED</div>';
+  document.getElementById("progressBar").style.width="100%";
+  document.getElementById("password").disabled=true;document.getElementById("verify").disabled=true;
+  setTimeout(()=>window.location.href=NEXT_PAGE,2200);
+ }else{
+  result.innerHTML='<div class="denied">ACCESS DENIED</div><div>INVALID ACCESS CODE.<br>TRY AGAIN.</div>';
+  document.getElementById("password").value="";document.getElementById("password").focus();
+ }
+}
+document.getElementById("verify").addEventListener("click",checkPassword);
+document.getElementById("password").addEventListener("keydown",e=>{if(e.key==="Enter")checkPassword();});
+</script></body></html>
