@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ERROR // SCHOOL SYSTEM</title>
+<title>RECOVERY // 3 клас</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;500;600;700;800&display=swap');
@@ -14,9 +14,10 @@
 }
 
 :root {
-    --red: #ff303b;
-    --dark-red: #8d101b;
-    --white: #e8e8e8;
+    --green: #238653;
+    --light-green: #dff5e8;
+    --dark: #26352d;
+    --gray: #718078;
 }
 
 body {
@@ -29,14 +30,16 @@ body {
     overflow-x: hidden;
 
     background:
-        radial-gradient(ellipse at 50% 45%,
-        #281014 0%,
-        #0c0809 55%,
-        #030303 100%);
+        radial-gradient(circle at 50% 40%,
+        #ffffff 0%,
+        #edf4f0 55%,
+        #dce8e1 100%);
 
-    color: var(--white);
+    color: var(--dark);
     font-family: 'Share Tech Mono', monospace;
 }
+
+/* Світла цифрова сітка */
 
 body::before {
     content: "";
@@ -45,8 +48,8 @@ body::before {
     pointer-events: none;
 
     background-image:
-        linear-gradient(rgba(255, 40, 50, .045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 40, 50, .045) 1px, transparent 1px);
+        linear-gradient(rgba(35, 134, 83, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(35, 134, 83, .045) 1px, transparent 1px);
 
     background-size: 30px 30px;
 }
@@ -61,29 +64,27 @@ body::after {
         to bottom,
         transparent 0px,
         transparent 3px,
-        rgba(255,255,255,.025) 4px
+        rgba(35, 134, 83, .025) 4px
     );
 }
+
+/* Основна панель */
 
 .system {
     position: relative;
     z-index: 1;
+
     width: min(760px, 100%);
     padding: clamp(25px, 5vw, 48px);
 
-    background: linear-gradient(
-        145deg,
-        rgba(25, 13, 16, .98),
-        rgba(7, 7, 8, .98)
-    );
+    background: rgba(255, 255, 255, .94);
 
-    border: 1px solid #64232b;
-    border-top: 2px solid var(--red);
+    border: 1px solid #c7dcd0;
+    border-top: 3px solid var(--green);
 
     box-shadow:
-        0 0 30px rgba(255, 35, 45, .14),
-        0 0 100px rgba(150, 0, 15, .09),
-        inset 0 0 35px rgba(255, 0, 20, .035);
+        0 10px 40px rgba(40, 90, 60, .10),
+        0 0 80px rgba(35, 134, 83, .07);
 
     animation: appear .7s ease;
 }
@@ -100,6 +101,8 @@ body::after {
     }
 }
 
+/* Верхня панель */
+
 .top {
     display: flex;
     justify-content: space-between;
@@ -108,15 +111,15 @@ body::after {
     gap: 12px;
 
     padding-bottom: 17px;
-    border-bottom: 1px solid #452127;
+    border-bottom: 1px solid #dce9e0;
 
     font-size: 11px;
     letter-spacing: 2px;
-    color: #999;
+    color: #78877e;
 }
 
 .logo {
-    color: var(--red);
+    color: var(--green);
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
     letter-spacing: 2px;
@@ -126,111 +129,100 @@ body::after {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--red);
+    color: var(--green);
 }
 
 .dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--red);
-    box-shadow: 0 0 12px var(--red);
-    animation: blink .8s infinite;
+
+    background: #35a66c;
+    box-shadow: 0 0 10px rgba(35, 134, 83, .5);
+
+    animation: blink 1.5s infinite;
 }
 
 @keyframes blink {
     50% {
-        opacity: .2;
+        opacity: .35;
     }
 }
 
+/* Заголовок */
+
 .level {
     margin-top: 35px;
-    color: #a9a9a9;
+    color: #87958c;
     font-size: 12px;
     letter-spacing: 3px;
 }
 
 h1 {
     margin: 17px 0 8px;
-    color: #f3f3f3;
+
+    color: #263b30;
 
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(27px, 6vw, 43px);
     font-weight: 800;
     letter-spacing: 2px;
 
-    text-shadow: 0 0 20px rgba(255, 40, 50, .25);
-    animation: glitch 4s infinite;
-}
+    text-shadow: 0 2px 10px rgba(35, 134, 83, .08);
 
-@keyframes glitch {
-    0%, 90%, 100% {
-        transform: translateX(0);
-        text-shadow: 0 0 20px rgba(255, 40, 50, .25);
-    }
-
-    92% {
-        transform: translateX(-2px);
-        text-shadow: 3px 0 #ff303b, -3px 0 #8b252b;
-    }
-
-    94% {
-        transform: translateX(2px);
-        text-shadow: -3px 0 #ff303b, 3px 0 #8b252b;
-    }
-
-    96% {
-        transform: translateX(0);
-    }
+    animation: appear .8s ease;
 }
 
 .subtitle {
-    color: var(--red);
+    color: var(--green);
     font-size: 12px;
     letter-spacing: 3px;
 }
+
+/* Повідомлення */
 
 .message {
     margin: 30px 0;
     padding: 20px;
 
-    background: rgba(255, 35, 45, .05);
+    background: #f2f8f4;
 
-    border-left: 3px solid var(--red);
-    border-top: 1px solid rgba(255, 50, 60, .13);
-    border-bottom: 1px solid rgba(255, 50, 60, .13);
+    border-left: 3px solid var(--green);
+    border-top: 1px solid #e0eee5;
+    border-bottom: 1px solid #e0eee5;
 
-    color: #bcbcbc;
+    color: #526158;
     font-size: 14px;
     line-height: 1.9;
 }
 
 .warning {
-    color: #ff626b;
+    color: #238653;
     font-weight: bold;
 }
 
 .teacher {
     margin-top: 15px;
-    color: #f0a0a5;
+    color: #438461;
     font-size: 12px;
     letter-spacing: 1px;
 }
+
+/* Індикатор прогресу */
 
 .progress-info {
     display: flex;
     justify-content: space-between;
     margin-bottom: 9px;
 
-    color: #999;
+    color: #78877e;
     font-size: 11px;
     letter-spacing: 1px;
 }
 
 .progress {
-    height: 6px;
-    background: #302124;
+    height: 7px;
+    background: #e1ebe4;
     overflow: hidden;
     margin-bottom: 30px;
 }
@@ -238,16 +230,20 @@ h1 {
 .progress-bar {
     height: 100%;
     width: 66%;
-    background: var(--red);
-    box-shadow: 0 0 12px var(--red);
-    transition: width .9s ease;
+
+    background: linear-gradient(90deg, #58a77b, #238653);
+    box-shadow: 0 0 10px rgba(35, 134, 83, .2);
+
+    transition: width 1s ease;
 }
+
+/* Поле пароля */
 
 label {
     display: block;
     margin-bottom: 12px;
 
-    color: #aaa;
+    color: #65746a;
     font-size: 12px;
     letter-spacing: 3px;
 }
@@ -256,9 +252,10 @@ input {
     width: 100%;
     padding: 17px 18px;
 
-    background: #080808;
-    border: 1px solid #493034;
-    color: white;
+    background: #f8fbf9;
+    border: 1px solid #cbdcd0;
+
+    color: #26352d;
 
     font-family: 'Share Tech Mono', monospace;
     font-size: 17px;
@@ -269,26 +266,29 @@ input {
 }
 
 input::placeholder {
-    color: #555;
+    color: #a3afa7;
     letter-spacing: 1px;
 }
 
 input:focus {
-    border-color: var(--red);
-    box-shadow: 0 0 18px rgba(255, 40, 50, .15);
+    border-color: var(--green);
+    box-shadow: 0 0 15px rgba(35, 134, 83, .10);
 }
 
 input:disabled {
-    opacity: .5;
+    opacity: .6;
 }
+
+/* Кнопка */
 
 button {
     width: 100%;
     margin-top: 15px;
     padding: 16px;
 
-    background: linear-gradient(90deg, #97131e, #d92735);
-    border: 1px solid #ff4650;
+    background: linear-gradient(90deg, #287d50, #35a66c);
+    border: 1px solid #238653;
+
     color: white;
 
     font-family: 'Orbitron', sans-serif;
@@ -301,8 +301,8 @@ button {
 }
 
 button:hover {
-    background: linear-gradient(90deg, #c51c29, #ff414b);
-    box-shadow: 0 0 20px rgba(255, 35, 45, .3);
+    background: linear-gradient(90deg, #206b43, #238653);
+    box-shadow: 0 0 18px rgba(35, 134, 83, .2);
 }
 
 button:active {
@@ -314,6 +314,8 @@ button:disabled {
     cursor: default;
 }
 
+/* Результат */
+
 #result {
     min-height: 75px;
     margin-top: 25px;
@@ -321,18 +323,18 @@ button:disabled {
     text-align: center;
     font-size: 13px;
     line-height: 1.8;
-    color: #aaa;
+    color: #718078;
 }
 
 .granted {
-    color: #8cff9b;
+    color: #238653;
     font-family: 'Orbitron', sans-serif;
     font-size: 19px;
-    text-shadow: 0 0 15px #35ff65;
+    text-shadow: 0 0 12px rgba(35, 134, 83, .15);
 }
 
 .denied {
-    color: #ff5555;
+    color: #d94b4b;
     font-family: 'Orbitron', sans-serif;
     font-size: 17px;
     animation: shake .3s;
@@ -345,10 +347,12 @@ button:disabled {
 }
 
 .restored {
-    color: #8cff9b;
+    color: #238653;
     margin-top: 12px;
     letter-spacing: 2px;
 }
+
+/* Нижня панель */
 
 .footer {
     display: flex;
@@ -358,9 +362,9 @@ button:disabled {
 
     margin-top: 20px;
     padding-top: 15px;
-    border-top: 1px solid #382124;
+    border-top: 1px solid #e0eae3;
 
-    color: #666;
+    color: #9aa69e;
     font-size: 10px;
     letter-spacing: 1px;
 }
@@ -403,7 +407,7 @@ button:disabled {
 
         <span class="critical">
             <span class="dot"></span>
-            FINAL RECOVERY
+            SYSTEM STABILIZED
         </span>
     </div>
 
@@ -411,7 +415,7 @@ button:disabled {
         LEVEL 03 / 03 &nbsp;·&nbsp; 3 КЛАС
     </div>
 
-    <h1>SYSTEM FAILURE</h1>
+    <h1>SYSTEM RECOVERY</h1>
 
     <div class="subtitle">
         FINAL DATABASE RESTORATION
@@ -420,22 +424,20 @@ button:disabled {
     <div class="message">
 
         <span class="warning">
-            УВАГА! ВИЯВЛЕНО ОСТАННІЙ ЗАБЛОКОВАНИЙ МОДУЛЬ.
+            СИСТЕМУ МАЙЖЕ ПОВНІСТЮ ВІДНОВЛЕНО.
         </span>
 
         <br><br>
 
-        Більшу частину шкільної системи вже відновлено.
+        Основні модулі знову працюють.
 
-        Залишився останній рівень захисту.
-        Щоб завершити відновлення бази даних,
-        необхідно знайти фінальний секретний код.
+        Шкільну базу даних майже повністю відновлено.
+        Залишився лише останній заблокований модуль.
 
         <br><br>
 
-        <span class="warning">
-            ЦЕ ОСТАННІЙ ЕТАП ВІДНОВЛЕННЯ.
-        </span>
+        Знайдіть фінальний секретний код,
+        щоб завершити відновлення школи.
 
         <div class="teacher">
             [ ФІНАЛЬНИЙ КОД: КАБІНЕТ ВЧИТЕЛЯ №___ ]
@@ -476,7 +478,7 @@ button:disabled {
     <div id="result" aria-live="polite"></div>
 
     <div class="footer">
-        <span>SECURITY PROTOCOL: ACTIVE</span>
+        <span>SECURITY PROTOCOL: RESTORED</span>
         <span>DEVICE ID: SCH-003</span>
     </div>
 
