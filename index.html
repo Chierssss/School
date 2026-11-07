@@ -1,2 +1,557 @@
-<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Зламана школа</title><style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle,#202020,#050505 75%);color:#eee;font-family:"Courier New",monospace;display:grid;place-items:center;padding:24px}main{width:min(900px,100%)}.tag{color:#ff5555;letter-spacing:3px;font-size:12px}h1{font-size:clamp(28px,5vw,48px)}p{color:#aaa;line-height:1.6}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:28px}.card{display:block;text-decoration:none;color:#eee;border:1px solid #555;background:#111;padding:20px;transition:.2s}.card:hover{border-color:#f44;transform:translateY(-2px)}.card span{display:block;font-size:18px}.card small{display:block;color:#999;margin-top:10px}</style></head><body><main><div class="tag">SCHOOL SYSTEM // EMERGENCY ACCESS</div><h1>ЗЛАМАНА ШКОЛА</h1><p>Оберіть групу класів, щоб відкрити відповідну версію квесту. Для відновлення системи потрібно знайти коди доступу у вчителів.</p><div class="grid"><a class="card" href="1/index.html"><span>1 клас</span><small>2 рівні відновлення</small></a><a class="card" href="3/index.html"><span>3 клас</span><small>3 рівні відновлення</small></a><a class="card" href="4/index.html"><span>4 клас</span><small>3 рівні відновлення</small></a><a class="card" href="5-6/index.html"><span>5–6 класи</span><small>4 рівні відновлення</small></a><a class="card" href="7.1/index.html"><span>7.1 клас</span><small>5 рівні відновлення</small></a><a class="card" href="7.2/index.html"><span>7.2 клас</span><small>5 рівні відновлення</small></a><a class="card" href="8-9/index.html"><span>8–9 класи</span><small>5 рівні відновлення</small></a><a class="card" href="10-11/index.html"><span>10–11 класи</span><small>6 рівні відновлення</small></a></div></main></body></html>
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Зламана школа // System Access</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;500;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --red: #ff3545;
+    --green: #65d99a;
+    --white: #ededed;
+    --muted: #888;
+}
+
+body {
+    min-height: 100vh;
+    padding: 55px 22px;
+
+    background:
+        radial-gradient(ellipse at 50% 0%, #291116 0%, transparent 55%),
+        radial-gradient(ellipse at 100% 100%, #10231c 0%, transparent 40%),
+        #070809;
+
+    color: var(--white);
+    font-family: 'Share Tech Mono', monospace;
+    overflow-x: hidden;
+}
+
+/* Цифрова сітка */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+
+    background-size: 35px 35px;
+
+    mask-image: linear-gradient(to bottom, black, transparent 90%);
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(255,255,255,.018) 4px
+    );
+}
+
+main {
+    position: relative;
+    z-index: 1;
+    width: min(1000px, 100%);
+    margin: auto;
+}
+
+/* Верхній статус */
+
+.system-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    padding-bottom: 16px;
+    border-bottom: 1px solid #303030;
+
+    color: #777;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.status-online {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--green);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 12px var(--green);
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: .25;
+    }
+}
+
+/* Заголовок */
+
+.hero {
+    padding: 65px 0 42px;
+    text-align: center;
+}
+
+.tag {
+    color: var(--red);
+    font-size: 12px;
+    letter-spacing: 4px;
+    margin-bottom: 22px;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(32px, 7vw, 65px);
+    font-weight: 800;
+    letter-spacing: 3px;
+    line-height: 1.2;
+
+    color: #f3f3f3;
+
+    text-shadow:
+        0 0 20px rgba(255, 53, 69, .2),
+        0 0 50px rgba(255, 53, 69, .08);
+
+    animation: titleAppear .9s ease;
+}
+
+@keyframes titleAppear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.subtitle {
+    margin-top: 16px;
+    color: #aaa;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.description {
+    max-width: 620px;
+    margin: 25px auto 0;
+
+    color: #888;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+/* Лінія-попередження */
+
+.warning-line {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    margin: 10px 0 30px;
+    padding: 15px 18px;
+
+    background: rgba(255, 53, 69, .055);
+    border: 1px solid rgba(255, 53, 69, .18);
+    border-left: 3px solid var(--red);
+
+    color: #c3a5a7;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.warning-icon {
+    color: var(--red);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+}
+
+/* Заголовок груп */
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+.section-heading h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: #ddd;
+}
+
+.section-heading span {
+    color: #777;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+/* Картки */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 170px;
+
+    padding: 21px;
+
+    text-decoration: none;
+    color: var(--white);
+
+    background: linear-gradient(
+        145deg,
+        rgba(28, 28, 30, .96),
+        rgba(12, 13, 14, .98)
+    );
+
+    border: 1px solid #343638;
+    border-top: 2px solid #555;
+
+    overflow: hidden;
+    transition: .3s ease;
+
+    animation: cardAppear .6s ease both;
+}
+
+.card:nth-child(1) { animation-delay: .05s; }
+.card:nth-child(2) { animation-delay: .1s; }
+.card:nth-child(3) { animation-delay: .15s; }
+.card:nth-child(4) { animation-delay: .2s; }
+.card:nth-child(5) { animation-delay: .25s; }
+.card:nth-child(6) { animation-delay: .3s; }
+.card:nth-child(7) { animation-delay: .35s; }
+.card:nth-child(8) { animation-delay: .4s; }
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    right: -45px;
+    bottom: -50px;
+
+    background: var(--red);
+    filter: blur(55px);
+    opacity: 0;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #8d343b;
+    border-top-color: var(--red);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.3),
+        0 0 20px rgba(255,53,69,.07);
+}
+
+.card:hover::before {
+    opacity: .3;
+}
+
+.card-number {
+    color: #777;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.card-name {
+    margin-top: 20px;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.card-info {
+    margin-top: 9px;
+    color: #858585;
+    font-size: 12px;
+}
+
+.card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: auto;
+    padding-top: 23px;
+
+    color: #777;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.card-arrow {
+    color: var(--red);
+    font-size: 19px;
+    transition: .2s;
+}
+
+.card:hover .card-arrow {
+    transform: translateX(5px);
+    color: #ff7882;
+}
+
+/* Нижня частина */
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 38px;
+    padding-top: 18px;
+
+    border-top: 1px solid #292929;
+
+    color: #666;
+    font-size: 10px;
+    letter-spacing: 1px;
+    line-height: 1.7;
+}
+
+.footer strong {
+    color: #999;
+    font-weight: normal;
+}
+
+/* Адаптація */
+
+@media(max-width: 750px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero {
+        padding-top: 48px;
+    }
+}
+
+@media(max-width: 430px) {
+    body {
+        padding: 25px 14px;
+    }
+
+    .grid {
+        gap: 10px;
+    }
+
+    .card {
+        min-height: 155px;
+        padding: 16px;
+    }
+
+    .card-name {
+        font-size: 16px;
+    }
+
+    .card-info {
+        font-size: 11px;
+    }
+
+    .system-status {
+        font-size: 9px;
+    }
+
+    .description {
+        font-size: 13px;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main>
+
+    <div class="system-status">
+        <span>SCHOOL NETWORK // MAIN SERVER</span>
+
+        <span class="status-online">
+            <span class="status-dot"></span>
+            CONNECTION ESTABLISHED
+        </span>
+    </div>
+
+    <header class="hero">
+
+        <div class="tag">
+            SYSTEM ALERT // EMERGENCY ACCESS
+        </div>
+
+        <h1>ЗЛАМАНА ШКОЛА</h1>
+
+        <div class="subtitle">
+            SCHOOL SYSTEM RECOVERY
+        </div>
+
+        <p class="description">
+            Шкільну систему пошкоджено.
+            Частину даних заблоковано, а доступ до бази втрачено.
+            Оберіть свою групу класів, щоб розпочати відновлення.
+        </p>
+
+    </header>
+
+    <div class="warning-line">
+        <span class="warning-icon">!</span>
+        <span>
+            УВАГА: ДЛЯ ВІДНОВЛЕННЯ СИСТЕМИ ПОТРІБНО ЗНАЙТИ СЕКРЕТНІ КОДИ У ВЧИТЕЛІВ.
+        </span>
+    </div>
+
+    <div class="section-heading">
+        <h2>SELECT YOUR LEVEL</h2>
+        <span>AVAILABLE ACCESS POINTS: 08</span>
+    </div>
+
+    <div class="grid">
+
+        <a class="card" href="1/index.html">
+            <span class="card-number">ACCESS POINT // 01</span>
+            <span class="card-name">1 КЛАС</span>
+            <span class="card-bottom">
+                <span>ENTER SYSTEM</span>
+                <span class="card-arrow">→</span>
+            </span>
+        </a>
+
+        <a class="card" href="3/index.html">
+            <span class="card-number">ACCESS POINT // 02</span>
+            <span class="card-name">3 КЛАС</span>
+            <span class="card-bottom">
+                <span>ENTER SYSTEM</span>
+                <span class="card-arrow">→</span>
+            </span>
+        </a>
+
+        <a class="card" href="4/index.html">
+            <span class="card-number">ACCESS POINT // 03</span>
+            <span class="card-name">4 КЛАС</span>
+            <span class="card-bottom">
+                <span>ENTER SYSTEM</span>
+                <span class="card-arrow">→</span>
+            </span>
+        </a>
+
+        <a class="card" href="5-6/index.html">
+            <span class="card-number">ACCESS POINT // 04</span>
+            <span class="card-name">5–6 КЛАСИ</span>
+            <span class="card-bottom">
+                <span>ENTER SYSTEM</span>
+                <span class="card-arrow">→</span>
+            </span>
+        </a>
+
+        <a class="card" href="7.1/index.html">
+            <span class="card-number">ACCESS POINT // 05</span>
+            <span class="card-name">7.1 КЛАС</span>
+            <span class="card-bottom">
+                <span>ENTER SYSTEM</span>
+                <span class="card-arrow">→</span>
+            </span>
+        </a>
+
+        <a class="card" href="7.2/index.html">
+            <span class="card-number">ACCESS POINT // 06</span>
+            <span class="card-name">7.2 КЛАС</span>
+            <span class="card-bottom">
+                <span>ENTER SYSTEM</span>
+                <span class="card-arrow">→</span>
+            </span>
+        </a>
+
+        <a class="card" href="8-9/index.html">
+            <span class="card-number">ACCESS POINT // 07</span>
+            <span class="card-name">8–9 КЛАСИ</span>
+            <span class="card-bottom">
+                <span>ENTER SYSTEM</span>
+                <span class="card-arrow">→</span>
+            </span>
+        </a>
+
+        <a class="card" href="10-11/index.html">
+            <span class="card-number">ACCESS POINT // 08</span>
+            <span class="card-name">10–11 КЛАСИ</span>
+            <span class="card-bottom">
+                <span>ENTER SYSTEM</span>
+                <span class="card-arrow">→</span>
+            </span>
+        </a>
+
+    </div>
+
+    <footer class="footer">
+        <span>SCHOOL SYSTEM © RECOVERY PROJECT</span>
+        <span><strong>STATUS:</strong> WAITING FOR USER ACCESS...</span>
+    </footer>
+
+</main>
+
+</body>
+</html>
