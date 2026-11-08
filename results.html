@@ -62,7 +62,12 @@ body:after {
 
 header {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 22px;
+  padding-right: 185px;
+  min-height: 115px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .eyebrow {
@@ -92,32 +97,37 @@ h1 {
 }
 
 .summary {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  width: 170px;
   text-align: center;
-  padding: 23px 20px;
-  margin-bottom: 25px;
+  padding: 12px 10px;
+  margin: 0;
   border: 1px solid #287d61;
-  border-radius: 16px;
+  border-radius: 12px;
   background: linear-gradient(145deg, #10251f, #08120f);
-  box-shadow: 0 0 40px #42f0ad18;
+  box-shadow: 0 0 25px #42f0ad20;
+  z-index: 2;
 }
 
 .summary-label {
   color: var(--green);
-  font: 600 10px Orbitron, sans-serif;
-  letter-spacing: 3px;
+  font: 600 8px Orbitron, sans-serif;
+  letter-spacing: 1.2px;
 }
 
 .summary-time {
-  font: 800 clamp(36px, 8vw, 60px) Orbitron, sans-serif;
+  font: 800 clamp(18px, 2.2vw, 25px) Orbitron, sans-serif;
   color: #fff;
-  text-shadow: 0 0 22px #42f0ad88;
-  margin: 12px 0;
+  text-shadow: 0 0 15px #42f0ad88;
+  margin: 7px 0 4px;
   font-variant-numeric: tabular-nums;
 }
 
 .summary-note {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 9px;
 }
 
 /* ВКЛАДКИ */
@@ -180,7 +190,7 @@ h1 {
 /* ПАНЕЛЬ РЕЙТИНГУ */
 
 .category {
-  padding: 22px;
+  padding: 28px;
   border: 1px solid #287d61;
   border-radius: 16px;
   background: linear-gradient(145deg, #111c29ed, #080d14f5);
@@ -239,9 +249,10 @@ h1 {
 }
 
 .podium-card.first {
-  border-color: #b38b39;
-  background: linear-gradient(160deg, #302613, #11100c);
-  box-shadow: 0 0 28px #ffd36b18;
+  border-color: #ffd36b;
+  background: radial-gradient(ellipse at 50% 0%, #604719 0%, #241b0c 55%, #11100c 100%);
+  box-shadow: 0 0 35px #ffd36b33, inset 0 0 25px #ffd36b12;
+  transform: scale(1.035);
 }
 
 .medal {
@@ -351,6 +362,21 @@ h1 {
   transform: translateY(-2px);
 }
 
+@media(max-width: 650px) {
+  header {
+    padding-right: 0;
+    min-height: 0;
+    margin-bottom: 18px;
+  }
+  .summary {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: min(230px, 100%);
+    margin: 0 auto 18px;
+  }
+}
+
 @media(max-width: 560px) {
   .wrap { padding-top: 25px; }
   .category { padding: 15px; }
@@ -387,8 +413,8 @@ header {
 }
 
 @keyframes summaryPulse {
-  0%, 100% { box-shadow: 0 0 25px #42f0ad18; }
-  50% { box-shadow: 0 0 48px #42f0ad44; }
+  0%, 100% { box-shadow: 0 0 15px #42f0ad18; }
+  50% { box-shadow: 0 0 28px #42f0ad44; }
 }
 
 .summary:after {
