@@ -16,30 +16,31 @@
 }
 
 :root {
-    --red: #c77b70;
-    --green: #8bd5a5;
-    --white: #e0e6e2;
-    --muted: #aab2ad;
+    --green: #a3e9b7;
+    --light-green: #d1f5da;
+    --white: #f4f4f4;
 }
 
 body {
+    margin: 0;
     min-height: 100vh;
-    padding: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 25px;
     overflow-x: hidden;
 
     background:
-        radial-gradient(ellipse at 50% 0%, #858e89 0%, transparent 55%),
-        radial-gradient(ellipse at 100% 100%, #505b55 0%, transparent 45%),
-        #777f7d;
+        radial-gradient(ellipse at 50% 45%,
+        #858d89 0%,
+        #707976 55%,
+        #59635e 100%);
 
-    color: var(--white);
+    color: #ddd;
     font-family: 'Share Tech Mono', monospace;
 }
 
-/* Цифрова сітка */
+/* Фонова сітка */
 
 body::before {
     content: "";
@@ -48,10 +49,10 @@ body::before {
     pointer-events: none;
 
     background-image:
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
 
-    background-size: 35px 35px;
+    background-size: 32px 32px;
 }
 
 body::after {
@@ -64,7 +65,7 @@ body::after {
         to bottom,
         transparent 0px,
         transparent 3px,
-        rgba(0,0,0,.035) 4px
+        rgba(255,255,255,.06) 4px
     );
 }
 
@@ -74,32 +75,39 @@ body::after {
     position: relative;
     z-index: 1;
 
-    width: min(720px, 100%);
-    padding: clamp(24px, 5vw, 45px);
+    width: min(760px, 100%);
+    padding: clamp(25px, 5vw, 48px);
 
-    background: rgba(32, 39, 37, .96);
-    border: 1px solid #59645e;
-    border-top: 2px solid #8bd5a5;
+    background: linear-gradient(
+        145deg,
+        rgba(32, 39, 37, .98),
+        rgba(20, 26, 23, .98)
+    );
+
+    border: 1px solid #69766e;
+    border-top: 2px solid #a3e9b7;
 
     box-shadow:
-        0 0 45px rgba(0,0,0,.25),
-        0 0 25px rgba(139,213,165,.05);
+        0 0 30px rgba(0,0,0,.25),
+        0 0 100px rgba(255,255,255,.06),
+        inset 0 0 35px rgba(255,255,255,.025);
 
-    animation: appear .7s ease;
+    animation: appear .8s ease;
 }
 
 @keyframes appear {
     from {
         opacity: 0;
-        transform: translateY(15px);
+        transform: translateY(18px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-/* Верхній статус */
+/* Верхня панель */
 
 .top {
     display: flex;
@@ -108,76 +116,177 @@ body::after {
     flex-wrap: wrap;
     gap: 12px;
 
-    padding-bottom: 14px;
-    border-bottom: 1px solid #46514b;
+    padding-bottom: 17px;
+    border-bottom: 1px solid #48534c;
 
     font-size: 11px;
     letter-spacing: 2px;
-    color: #b0bbb4;
+    color: #aaa;
 }
 
-.critical {
-    color: #d7b18a;
+.logo {
+    color: #d7d7d7;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
 }
 
-/* Рівень */
+.status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--green);
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+
+    background: var(--green);
+    box-shadow: 0 0 12px var(--green);
+
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: .3;
+    }
+}
+
+/* Заголовок */
 
 .level {
-    margin-top: 30px;
-    color: var(--green);
+    margin-top: 35px;
+
+    color: #bdbdbd;
     font-size: 12px;
     letter-spacing: 3px;
 }
 
 h1 {
-    margin: 13px 0;
+    margin: 17px 0 8px;
+
+    color: #f3f3f3;
 
     font-family: 'Orbitron', sans-serif;
-    font-size: clamp(25px, 5vw, 37px);
+    font-size: clamp(26px, 6vw, 40px);
     font-weight: 800;
     letter-spacing: 2px;
 
-    color: #e0e6e2;
-    text-shadow: 0 0 20px rgba(139,213,165,.12);
+    text-shadow: 0 0 20px rgba(255,255,255,.15);
 }
 
-.message {
-    margin: 22px 0;
+.subtitle {
+    color: var(--light-green);
+    font-size: 12px;
+    letter-spacing: 3px;
+}
 
-    color: #bdc6c0;
+/* Повідомлення */
+
+.message {
+    margin: 30px 0;
+    padding: 20px;
+
+    background: rgba(255,255,255,.045);
+
+    border-left: 3px solid #a8b5aa;
+    border-top: 1px solid rgba(255,255,255,.12);
+    border-bottom: 1px solid rgba(255,255,255,.12);
+
+    color: #c5c5c5;
     font-size: 14px;
     line-height: 1.9;
 }
 
-/* Поле введення */
+.success-text {
+    color: var(--light-green);
+    font-weight: bold;
+}
+
+.teacher {
+    margin-top: 15px;
+
+    color: #d0d0d0;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+/* Прогрес */
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+
+    color: #b0b0b0;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.progress {
+    height: 6px;
+    background: #383f3a;
+
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 33%;
+
+    background: linear-gradient(
+        90deg,
+        #8f8f8f,
+        var(--green)
+    );
+
+    box-shadow: 0 0 12px rgba(150,255,180,.35);
+
+    transition: width 1.5s ease;
+}
+
+/* Поле пароля */
 
 label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 
-    color: #bdc6c0;
+    color: #bdbdbd;
     font-size: 12px;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 }
 
 input {
     width: 100%;
-    padding: 15px;
+    padding: 17px 18px;
 
     background: #151c19;
-    border: 1px solid #59645e;
-    border-radius: 2px;
+    border: 1px solid #69766e;
 
-    color: #fff;
-    font: 16px 'Share Tech Mono', monospace;
+    color: white;
+
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 17px;
+    letter-spacing: 3px;
 
     outline: none;
-    transition: .2s;
+    transition: .3s;
+}
+
+input::placeholder {
+    color: #858d88;
+    letter-spacing: 1px;
 }
 
 input:focus {
     border-color: var(--green);
-    box-shadow: 0 0 12px rgba(139,213,165,.12);
+    box-shadow: 0 0 18px rgba(150,255,180,.13);
 }
 
 input:disabled {
@@ -188,24 +297,41 @@ input:disabled {
 
 button {
     width: 100%;
-    margin-top: 14px;
-    padding: 15px;
+    margin-top: 15px;
+    padding: 16px;
 
-    background: rgba(139,213,165,.08);
-    border: 1px solid var(--green);
+    background: linear-gradient(
+        90deg,
+        #45564a,
+        #657b6a
+    );
 
-    color: var(--green);
-    font: 700 12px 'Orbitron', sans-serif;
-    letter-spacing: 2px;
+    border: 1px solid #a5c7ad;
+
+    color: white;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
 
     cursor: pointer;
-    transition: .25s;
+    transition: .3s;
 }
 
 button:hover:not(:disabled) {
-    background: var(--green);
-    color: #17211b;
-    box-shadow: 0 0 20px rgba(139,213,165,.2);
+    background: linear-gradient(
+        90deg,
+        #657b6a,
+        #91b99a
+    );
+
+    box-shadow: 0 0 22px rgba(150,255,180,.2);
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: scale(.99);
 }
 
 button:disabled {
@@ -216,60 +342,85 @@ button:disabled {
 /* Результат */
 
 #result {
-    min-height: 85px;
-    margin-top: 22px;
+    min-height: 75px;
+    margin-top: 25px;
 
-    color: #bdc6c0;
+    text-align: center;
     font-size: 13px;
     line-height: 1.8;
+    color: #aaa;
 }
 
 .granted {
     color: var(--green);
+
     font-family: 'Orbitron', sans-serif;
-    font-size: 17px;
+    font-size: 19px;
+
+    text-shadow: 0 0 15px rgba(100,255,150,.4);
 }
 
 .denied {
-    color: #d98b83;
+    color: #ff7777;
+
     font-family: 'Orbitron', sans-serif;
     font-size: 17px;
+
+    animation: shake .3s;
 }
 
-/* Прогрес */
-
-.progress {
-    height: 7px;
-    margin: 14px 0;
-    overflow: hidden;
-    background: #46514b;
-}
-
-.progress-bar {
-    width: 0;
-    height: 100%;
-    background: var(--green);
-    box-shadow: 0 0 12px var(--green);
-    transition: width 2s linear;
+@keyframes shake {
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-3px); }
 }
 
 .restored {
     color: var(--green);
-    margin-top: 10px;
+    margin-top: 12px;
+    letter-spacing: 2px;
+}
+
+/* Нижня панель */
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-top: 20px;
+    padding-top: 15px;
+
+    border-top: 1px solid #48534c;
+
+    color: #888;
+    font-size: 10px;
     letter-spacing: 1px;
 }
 
-@media(max-width: 480px) {
+@media(max-width: 500px) {
     body {
-        padding: 14px;
+        padding: 12px;
     }
 
     .system {
-        padding: 24px 19px;
+        padding: 23px 18px;
+    }
+
+    .top {
+        font-size: 9px;
     }
 
     .message {
-        font-size: 13px;
+        font-size: 12px;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
     }
 }
 </style>
@@ -280,41 +431,88 @@ button:disabled {
 <main class="system">
 
     <div class="top">
-        <span>RECOVERY: 33%</span>
-        <span class="critical">● WARNING</span>
+
+        <span class="logo">
+            SCHOOL SYSTEM // RECOVERY
+        </span>
+
+        <span class="status">
+            <span class="dot"></span>
+            WARNING
+        </span>
+
     </div>
 
     <div class="level">
-        LEVEL 02 / 03 · 4 КЛАС
+        LEVEL 02 / 03 &nbsp;·&nbsp; 4 КЛАС
     </div>
 
-    <h1>SYSTEM FAILURE</h1>
+    <h1>SYSTEM RECOVERY</h1>
+
+    <div class="subtitle">
+        PARTIAL DATA RESTORATION
+    </div>
 
     <div class="message">
-        СИСТЕМА ЧАСТКОВО ВІДНОВЛЕНА.<br>
-        ДЕЯКІ МОДУЛІ ВСЕ ЩЕ ЗАБЛОКОВАНІ.<br>
-        ДЛЯ ПРОДОВЖЕННЯ ВІДНОВЛЕННЯ ПОТРІБНО ПІДТВЕРДИТИ ДОСТУП.<br>
-        <br>
-        КОД ДОСТУПУ ЗНАХОДИТЬСЯ В КАБІНЕТІ ВЧИТЕЛЯ № ___
+
+        <span class="success-text">
+            СИСТЕМУ ЧАСТКОВО ВІДНОВЛЕНО.
+        </span>
+
+        <br><br>
+
+        Перший блок даних успішно відновлено.
+
+        Частина системи вже працює, але
+        деякі важливі модулі залишаються заблокованими.
+
+        <br><br>
+
+        Для продовження відновлення необхідно
+        знайти наступний секретний код.
+
+        <div class="teacher">
+            [ КОД ДОСТУПУ: КАБІНЕТ ВЧИТЕЛЯ №___ ]
+        </div>
+
     </div>
 
-    <label for="password">ACCESS CODE</label>
+    <div class="progress-info">
+        <span>SYSTEM RECOVERY</span>
+        <span id="percent">33%</span>
+    </div>
 
-    <form id="passwordForm">
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form id="recoveryForm">
+
+        <label for="password">
+            ENTER ACCESS CODE
+        </label>
+
         <input
             id="password"
             type="text"
             autocomplete="off"
-            placeholder="Введіть код доступу"
+            spellcheck="false"
+            placeholder="Введіть наступний код..."
             required
         >
 
-        <button id="verify" type="submit">
-            VERIFY CODE
+        <button type="submit" id="verify">
+            CONTINUE RECOVERY →
         </button>
+
     </form>
 
     <div id="result" aria-live="polite"></div>
+
+    <div class="footer">
+        <span>SECURITY PROTOCOL: ACTIVE</span>
+        <span>DEVICE ID: SCH-004</span>
+    </div>
 
 </main>
 
@@ -322,67 +520,60 @@ button:disabled {
 const CORRECT_PASSWORD = "parol2";
 const NEXT_PAGE = "level-3.html";
 
-const form = document.getElementById("passwordForm");
-const input = document.getElementById("password");
-const button = document.getElementById("verify");
+const form = document.getElementById("recoveryForm");
+const password = document.getElementById("password");
 const result = document.getElementById("result");
+const button = document.getElementById("verify");
+const progressBar = document.getElementById("progressBar");
+const percent = document.getElementById("percent");
 
-function checkPassword(event) {
-    event.preventDefault();
+form.addEventListener("submit", function(e) {
 
-    const enteredPassword = input.value.trim();
+    e.preventDefault();
+
+    const input = password.value.trim();
 
     if (
         CORRECT_PASSWORD.startsWith("CHANGE_ME_") ||
         !CORRECT_PASSWORD
     ) {
-        result.innerHTML = `
-            <div class="denied">SYSTEM NOT CONFIGURED</div>
-            <div>ПАРОЛЬ ЩЕ НЕ ВСТАНОВЛЕНО.</div>
-        `;
+        result.innerHTML =
+            '<div class="denied">SYSTEM NOT CONFIGURED</div>' +
+            '<div>Спочатку встановіть пароль у коді сторінки.</div>';
+
         return;
     }
 
-    if (
-        enteredPassword.toLowerCase() ===
-        CORRECT_PASSWORD.toLowerCase()
-    ) {
-        result.innerHTML = `
-            <div class="granted">ACCESS GRANTED</div>
-            <div>VERIFYING SYSTEM...</div>
+    if (input.toLowerCase() === CORRECT_PASSWORD.toLowerCase()) {
 
-            <div class="progress">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
+        result.innerHTML =
+            '<div class="granted">ACCESS GRANTED</div>' +
+            '<div>VERIFYING SECURITY CODE...</div>' +
+            '<div class="restored">LEVEL 02 RESTORED</div>';
 
-            <div class="restored">
-                LEVEL 02 RESTORED — 66%
-            </div>
-        `;
-
-        input.disabled = true;
+        password.disabled = true;
         button.disabled = true;
 
-        requestAnimationFrame(() => {
-            document.getElementById("progressBar").style.width = "66%";
-        });
+        percent.textContent = "66%";
+        progressBar.style.width = "66%";
 
-        setTimeout(() => {
+        setTimeout(function() {
             window.location.href = NEXT_PAGE;
-        }, 2200);
+        }, 2500);
 
     } else {
-        result.innerHTML = `
-            <div class="denied">ACCESS DENIED</div>
-            <div>INVALID ACCESS CODE.<br>TRY AGAIN.</div>
-        `;
 
-        input.value = "";
-        input.focus();
+        result.innerHTML =
+            '<div class="denied">ACCESS DENIED</div>' +
+            '<div>НЕПРАВИЛЬНИЙ КОД ДОСТУПУ.</div>' +
+            '<div>СПРОБУЙТЕ ЩЕ РАЗ.</div>';
+
+        password.value = "";
+        password.focus();
+
     }
-}
 
-form.addEventListener("submit", checkPassword);
+});
 </script>
 
 </body>
