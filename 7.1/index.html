@@ -1,32 +1,333 @@
-<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ERROR // 7.1 клас</title>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ERROR // 7.1 КЛАС</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at center,rgb(18,18,18) 0%,rgb(3,3,3) 100%);color:#ddd;font-family:"Courier New",monospace;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:background 0.54s ease}
-body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,rgba(255,255,255,.025) 0px,rgba(255,255,255,.025) 1px,transparent 2px,transparent 4px);opacity:.45}
-.system{position:relative;z-index:1;width:min(720px,92%);padding:clamp(24px,5vw,45px);border:1px solid #666;background:rgba(8,8,8,.88);box-shadow:0 0 45px #0008}
-.top{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:#aaa;border-bottom:1px solid #444;padding-bottom:14px}.critical{color:#f55}.level{margin-top:28px;color:#aaa;font-size:13px;letter-spacing:2px}h1{font-size:clamp(24px,5vw,36px);margin:12px 0;color:#f1f1f1}.message{line-height:1.8;font-size:14px;color:#bbb;margin:22px 0}
-label{display:block;font-size:12px;letter-spacing:2px;color:#999;margin-bottom:9px}input{width:100%;padding:14px;background:#050505;border:1px solid #666;color:#fff;font:16px "Courier New",monospace;outline:none}input:focus{border-color:#f55}
-button{margin-top:14px;padding:13px 20px;background:#242424;border:1px solid #777;color:#eee;font:13px "Courier New",monospace;letter-spacing:1px;cursor:pointer}button:hover{background:#383838;border-color:#f55}button:disabled{opacity:.5;cursor:default}
-#result{min-height:70px;margin-top:22px;font-size:13px;line-height:1.7;color:#aaa}.granted{color:#8cff9b;font-size:18px}.denied{color:#ff5555;font-size:18px}.progress{height:7px;background:#333;margin:14px 0;overflow:hidden}.progress-bar{height:100%;width:0;background:#8cff9b;transition:width 2s linear}.restored{color:#8cff9b;margin-top:10px}
-</style></head><body><main class="system"><div class="top"><span>RECOVERY: 0%</span><span class="critical">● CRITICAL</span></div>
-<div class="level">LEVEL 01 / 05 · 7.1 КЛАС</div><h1>SYSTEM FAILURE</h1>
-<div class="message">ШКІЛЬНУ СИСТЕМУ ЗАБЛОКОВАНО.<br>ДОСТУП ДО НАСТУПНОГО РІВНЯ МОЖЛИВИЙ ЛИШЕ ЗА КОДОМ ДОСТУПУ.<br><br>КОД ДОСТУПУ В КАБІНЕТІ ВЧИТЕЛЯ №___</div>
-<label for="password">ACCESS CODE</label><input id="password" type="text" autocomplete="off" placeholder="Введіть код доступу"><button id="verify">VERIFY CODE</button><div id="result" aria-live="polite"></div></main>
-<script>
-const CORRECT_PASSWORD="CHANGE_ME_7_1_1";
-const NEXT_PAGE="level-2.html";
-function checkPassword(){
- const input=document.getElementById("password").value.trim();
- const result=document.getElementById("result");
- if(input.toLowerCase()===CORRECT_PASSWORD.toLowerCase() && !CORRECT_PASSWORD.startsWith("CHANGE_ME_")){
-  result.innerHTML='<div class="granted">ACCESS GRANTED</div><div>VERIFYING...</div><div class="progress"><div class="progress-bar" id="progressBar"></div></div><div class="restored">LEVEL 01 RESTORED</div>';
-  document.getElementById("progressBar").style.width="100%";
-  document.getElementById("password").disabled=true;document.getElementById("verify").disabled=true;
-  setTimeout(()=>window.location.href=NEXT_PAGE,2200);
- }else{
-  result.innerHTML='<div class="denied">ACCESS DENIED</div><div>INVALID ACCESS CODE.<br>TRY AGAIN.</div>';
-  document.getElementById("password").value="";document.getElementById("password").focus();
- }
+* {
+    box-sizing: border-box;
 }
-document.getElementById("verify").addEventListener("click",checkPassword);
-document.getElementById("password").addEventListener("keydown",e=>{if(e.key==="Enter")checkPassword();});
-</script></body></html>
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 50% 45%, rgba(110,20,25,.2), transparent 55%),
+        linear-gradient(135deg, #10090b, #211012 55%, #0b0809);
+    color: #e5dddd;
+    font-family: 'Share Tech Mono', monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(255,80,80,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,80,80,.045) 1px, transparent 1px);
+    background-size: 35px 35px;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        rgba(255,255,255,.025) 1px,
+        transparent 3px,
+        transparent 5px
+    );
+}
+
+.system {
+    position: relative;
+    z-index: 1;
+    width: min(720px, 100%);
+    padding: clamp(24px, 5vw, 45px);
+    background: rgba(12,7,8,.94);
+    border: 1px solid #773b40;
+    box-shadow:
+        0 0 40px rgba(0,0,0,.7),
+        0 0 25px rgba(180,35,45,.12);
+    animation: appear .8s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #512a2e;
+    color: #a99a9b;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.critical {
+    color: #ff5555;
+}
+
+.level {
+    margin-top: 30px;
+    color: #c27b80;
+    font-size: 13px;
+    letter-spacing: 3px;
+}
+
+h1 {
+    margin: 14px 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(25px, 5vw, 38px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #f0e6e6;
+}
+
+.message {
+    margin: 25px 0;
+    color: #c5b5b6;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 0 8px;
+    color: #aa999a;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.progress {
+    width: 100%;
+    height: 8px;
+    background: #302022;
+    overflow: hidden;
+    border: 1px solid #65383c;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #a52d36, #ff7777);
+    box-shadow: 0 0 12px rgba(255,70,80,.35);
+    transition: width 1.8s ease;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #b5a5a6;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    background: #080506;
+    border: 1px solid #754348;
+    color: #fff;
+    font: 16px 'Share Tech Mono', monospace;
+    outline: none;
+    transition: .25s;
+}
+
+input:focus {
+    border-color: #ff7777;
+    box-shadow: 0 0 12px rgba(255,70,80,.2);
+}
+
+button {
+    margin-top: 15px;
+    padding: 14px 22px;
+    background: #321417;
+    border: 1px solid #a34b52;
+    color: #f3e7e7;
+    font: 13px 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+button:hover {
+    background: #501c22;
+    border-color: #ff7777;
+    box-shadow: 0 0 15px rgba(255,70,80,.2);
+}
+
+button:disabled {
+    opacity: .5;
+    cursor: default;
+}
+
+#result {
+    min-height: 75px;
+    margin-top: 23px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #aa999a;
+}
+
+.granted {
+    color: #8cff9b;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+}
+
+.denied {
+    color: #ff5555;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+}
+
+.restored {
+    margin-top: 10px;
+    color: #8cff9b;
+}
+
+.footer {
+    margin-top: 25px;
+    padding-top: 13px;
+    border-top: 1px solid #512a2e;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    color: #827273;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+</style>
+</head>
+
+<body>
+
+<main class="system">
+
+    <div class="top">
+        <span id="recovery">RECOVERY: 0%</span>
+        <span class="critical">● CRITICAL</span>
+    </div>
+
+    <div class="level">LEVEL 01 / 05 · 7.1 КЛАС</div>
+
+    <h1>SYSTEM FAILURE</h1>
+
+    <div class="message">
+        ШКІЛЬНУ СИСТЕМУ ЗАБЛОКОВАНО.<br>
+        ДОСТУП ДО НАСТУПНОГО РІВНЯ МОЖЛИВИЙ ЛИШЕ ЗА КОДОМ ДОСТУПУ.<br><br>
+        КОД ДОСТУПУ В КАБІНЕТІ ВЧИТЕЛЯ № ___
+    </div>
+
+    <div class="progress-info">
+        <span>RESTORATION PROGRESS</span>
+        <span id="progressText">0%</span>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <br>
+
+    <label for="password">ACCESS CODE</label>
+
+    <input
+        id="password"
+        type="text"
+        autocomplete="off"
+        placeholder="Введіть код доступу"
+    >
+
+    <button id="verify">VERIFY CODE</button>
+
+    <div id="result" aria-live="polite"></div>
+
+    <div class="footer">
+        <span>DEVICE ID: SCH-071</span>
+        <span>MODULE 01 // LOCKED</span>
+    </div>
+
+</main>
+
+<script>
+const CORRECT_PASSWORD = "parol";
+const NEXT_PAGE = "level-2.html";
+
+function checkPassword() {
+    const password = document.getElementById("password");
+    const button = document.getElementById("verify");
+    const result = document.getElementById("result");
+    const input = password.value.trim();
+
+    if (
+        input.toLowerCase() === CORRECT_PASSWORD.toLowerCase() &&
+        !CORRECT_PASSWORD.startsWith("CHANGE_ME_")
+    ) {
+        result.innerHTML = `
+            <div class="granted">ACCESS GRANTED</div>
+            <div>INITIALIZING RECOVERY...</div>
+            <div class="restored">LEVEL 01 RESTORED</div>
+        `;
+
+        document.getElementById("progressBar").style.width = "20%";
+        document.getElementById("progressText").textContent = "20%";
+        document.getElementById("recovery").textContent = "RECOVERY: 20%";
+
+        password.disabled = true;
+        button.disabled = true;
+
+        setTimeout(() => {
+            window.location.href = NEXT_PAGE;
+        }, 2200);
+
+    } else {
+        result.innerHTML = `
+            <div class="denied">ACCESS DENIED</div>
+            <div>INVALID ACCESS CODE.<br>TRY AGAIN.</div>
+        `;
+
+        password.value = "";
+        password.focus();
+    }
+}
+
+document.getElementById("verify").addEventListener("click", checkPassword);
+
+document.getElementById("password").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        checkPassword();
+    }
+});
+</script>
+
+</body>
+</html>
