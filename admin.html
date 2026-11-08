@@ -27,9 +27,38 @@ h1{font:800 clamp(28px,5vw,48px) Orbitron,sans-serif;margin:17px 0 7px;letter-sp
 .final-access{margin-top:22px;text-align:center;padding:28px;border-color:#329c75;background:radial-gradient(ellipse at 50% 0%,#1b654c55,#0a1715 72%);box-shadow:0 0 45px #42f0ad20}.final-access p{color:var(--green);font:600 11px Orbitron,sans-serif;letter-spacing:2px;margin:0 0 18px}.final-button{background:linear-gradient(135deg,#65ffc0,#22c987);color:#03140c;padding:17px 28px;font-size:12px;box-shadow:0 0 28px #42f0ad44}.final-access[hidden]{display:none}.foot{text-align:center;color:#617482;font-size:10px;margin-top:24px;line-height:1.8;letter-spacing:.4px}
 
 /* WOW EFFECTS */
-.timer-panel:after{content:"";position:absolute;left:50%;top:48%;width:230px;height:230px;transform:translate(-50%,-50%);border:1px solid #ff536833;border-radius:50%;box-shadow:0 0 0 12px #ff53680a,0 0 0 26px #ff536807;pointer-events:none;animation:corePulse 3s ease-in-out infinite}
-.timer-panel.running:after{animation:corePulse .9s ease-in-out infinite;border-color:#ff536899;box-shadow:0 0 0 12px #ff53681c,0 0 0 26px #ff53680c,0 0 35px #ff334f33}
-.timer-panel.paused:after{animation-play-state:paused;opacity:.45}
+/* ПУЛЬСУВАННЯ ВСІЄЇ ПАНЕЛІ ТАЙМЕРА */
+.timer-panel {
+  transition: box-shadow .4s, border-color .4s;
+}
+
+.timer-panel.running {
+  animation: timerBlockPulse 2s ease-in-out infinite;
+}
+
+.timer-panel.paused {
+  animation: none;
+}
+
+@keyframes timerBlockPulse {
+  0%, 100% {
+    box-shadow:
+      0 20px 70px #0009,
+      0 0 22px #ff334f22,
+      inset 0 1px #ffffff08;
+    border-color: #79313e;
+  }
+
+  50% {
+    box-shadow:
+      0 20px 70px #0009,
+      0 0 55px #ff334f66,
+      0 0 85px #ff334f22,
+      inset 0 1px #ffffff15;
+    border-color: #ff5368;
+  }
+}
+
 @keyframes corePulse{0%,100%{opacity:.35;scale:.94}50%{opacity:1;scale:1.05}}
 .network-panel{margin:0 0 22px;padding:20px 22px;overflow:hidden}
 .network-title{font:600 11px Orbitron,sans-serif;letter-spacing:2px;color:var(--cyan);margin-bottom:16px}
@@ -86,13 +115,6 @@ body.restored:after{animation:restoreFlash .8s ease}
 
 <section class="grid" id="groups"></section>
 
-<section class="panel results">
-<div class="results-head">
-<h2>ТАБЛИЦЯ РЕЗУЛЬТАТІВ</h2>
-<div class="section-label" id="progress">0 / 9</div>
-</div>
-<div id="resultsTable" class="empty">Результатів поки немає.</div>
-</section>
 
 <section class="panel final-access" id="finalAccess" hidden>
 <p>УСІ 9 ГРУП ЗАРАХОВАНО. КВЕСТ ЗАВЕРШЕНО.</p>
@@ -292,7 +314,6 @@ function render(){
   const done=GROUPS.filter(g=>state.completed[g.id])
     .sort((a,b)=>state.completed[a.id].timeMs-state.completed[b.id].timeMs);
 
-  document.getElementById("progress").textContent=`${done.length} / ${GROUPS.length}`;
   document.getElementById("progressBig").textContent=`${done.length} / ${GROUPS.length}`;
   document.getElementById("progressFill").style.width=`${done.length/GROUPS.length*100}%`;
 
@@ -304,25 +325,6 @@ function render(){
   document.getElementById("finalAccess").hidden=!allDone;
   document.body.classList.toggle("restored",allDone);
 
-  const table=document.getElementById("resultsTable");
-  if(!done.length){
-    table.className="empty";
-    table.textContent="Результатів поки немає.";
-  }else{
-    table.className="";
-    table.innerHTML=`
-      <table>
-        <thead><tr><th>Місце</th><th>Група</th><th>Час</th></tr></thead>
-        <tbody>
-        ${done.map((g,i)=>`
-          <tr>
-            <td class="${i===0?"winner":""}">${i+1}${i===0?" 🏆":""}</td>
-            <td>${g.name}</td>
-            <td>${fmt(state.completed[g.id].timeMs)}</td>
-          </tr>`).join("")}
-        </tbody>
-      </table>`;
-  }
 }
 
 document.getElementById("openResults").onclick=()=>{
