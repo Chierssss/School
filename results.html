@@ -13,8 +13,6 @@
 <style>
 :root {
   --bg: #05070b;
-  --panel: #0b111a;
-  --line: #263b4a;
   --text: #edf5fa;
   --muted: #8295a3;
   --red: #ff334f;
@@ -30,8 +28,7 @@ body {
   min-height: 100vh;
   color: var(--text);
   font-family: "Share Tech Mono", monospace;
-  background:
-    radial-gradient(ellipse at 50% -15%, #3a101b 0%, #101722 35%, var(--bg) 75%);
+  background: radial-gradient(ellipse at 50% -15%, #3a101b 0%, #101722 35%, var(--bg) 75%);
   overflow-x: hidden;
 }
 
@@ -52,22 +49,20 @@ body:after {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom, transparent 0 3px, #ffffff04 4px
-  );
+  background: repeating-linear-gradient(to bottom, transparent 0 3px, #ffffff04 4px);
 }
 
 .wrap {
   position: relative;
   z-index: 1;
-  width: min(1050px, calc(100% - 30px));
+  width: min(1000px, calc(100% - 30px));
   margin: auto;
   padding: 42px 0 60px;
 }
 
 header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }
 
 .eyebrow {
@@ -98,7 +93,7 @@ h1 {
 
 .summary {
   text-align: center;
-  padding: 25px 20px;
+  padding: 23px 20px;
   margin-bottom: 25px;
   border: 1px solid #287d61;
   border-radius: 16px;
@@ -125,14 +120,83 @@ h1 {
   font-size: 12px;
 }
 
+/* ВКЛАДКИ */
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 17px;
+}
+
+.tab {
+  position: relative;
+  padding: 17px 8px;
+  border: 1px solid #293b49;
+  border-radius: 11px;
+  background: linear-gradient(145deg, #111c29, #080d14);
+  color: var(--muted);
+  cursor: pointer;
+  text-align: center;
+  transition: .25s;
+  font-family: "Share Tech Mono", monospace;
+}
+
+.tab:hover {
+  border-color: var(--cyan);
+  color: var(--text);
+  transform: translateY(-2px);
+}
+
+.tab.active {
+  color: var(--green);
+  border-color: var(--green);
+  background: linear-gradient(145deg, #123025, #091710);
+  box-shadow: 0 0 24px #42f0ad22, inset 0 0 18px #42f0ad0b;
+}
+
+.tab-title {
+  display: block;
+  font: 700 clamp(9px, 2vw, 12px) Orbitron, sans-serif;
+  letter-spacing: 1px;
+}
+
+.tab-subtitle {
+  display: block;
+  margin-top: 7px;
+  font-size: 10px;
+  opacity: .75;
+}
+
+.tab-count {
+  display: inline-block;
+  margin-top: 9px;
+  padding: 4px 9px;
+  border-radius: 20px;
+  background: #ffffff0b;
+  font-size: 10px;
+}
+
+/* ПАНЕЛЬ РЕЙТИНГУ */
+
 .category {
-  margin-top: 25px;
   padding: 22px;
-  border: 1px solid var(--line);
+  border: 1px solid #287d61;
   border-radius: 16px;
   background: linear-gradient(145deg, #111c29ed, #080d14f5);
-  box-shadow: 0 18px 50px #0008;
-  overflow: hidden;
+  box-shadow: 0 18px 50px #0008, 0 0 25px #42f0ad0c;
+  animation: appear .35s ease;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .category-head {
@@ -162,12 +226,10 @@ h1 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  align-items: stretch;
   margin-bottom: 20px;
 }
 
 .podium-card {
-  position: relative;
   text-align: center;
   padding: 20px 10px;
   border: 1px solid #314352;
@@ -252,23 +314,13 @@ h1 {
 }
 
 .empty {
-  padding: 22px;
+  padding: 25px;
   text-align: center;
   border: 1px dashed #344653;
   border-radius: 10px;
   color: var(--muted);
   font-size: 12px;
-  line-height: 1.8;
-}
-
-.loading-error {
-  text-align: center;
-  padding: 25px;
-  color: var(--red);
-  border: 1px solid #ff334f66;
-  border-radius: 12px;
-  background: #ff334f0b;
-  line-height: 1.8;
+  line-height: 1.9;
 }
 
 .footer {
@@ -281,7 +333,7 @@ h1 {
 
 .back-button {
   display: block;
-  margin: 28px auto 0;
+  margin: 25px auto 0;
   padding: 14px 22px;
   border: 1px solid #51dff577;
   border-radius: 8px;
@@ -302,9 +354,16 @@ h1 {
 @media(max-width: 560px) {
   .wrap { padding-top: 25px; }
   .category { padding: 15px; }
+  .tabs { gap: 6px; }
+  .tab { padding: 13px 4px; }
+  .tab-subtitle { font-size: 9px; }
   .podium { gap: 6px; }
   .podium-card { padding: 15px 5px; }
-  .rank-row { grid-template-columns: 30px 1fr auto; gap: 7px; padding: 12px 9px; }
+  .rank-row {
+    grid-template-columns: 30px 1fr auto;
+    gap: 7px;
+    padding: 12px 9px;
+  }
   .rank-name, .rank-time { font-size: 11px; }
 }
 </style>
@@ -315,7 +374,7 @@ h1 {
 
 <header>
   <div class="eyebrow">SYSTEM RESTORED // FINAL REPORT</div>
-  <h1>РЕЗУЛЬТАТИ</h1>
+  <h1>РЕЗУЛЬТАТИ КВЕСТУ</h1>
   <div class="subtitle">ЗЛАМАНА ШКОЛА · ТАБЛИЦЯ ПЕРЕМОЖЦІВ</div>
 </header>
 
@@ -324,6 +383,30 @@ h1 {
   <div class="summary-time" id="totalTime">00:00:00</div>
   <div class="summary-note" id="summaryNote">Завантаження результатів...</div>
 </section>
+
+<!-- ПЕРЕМИКАЧІ КАТЕГОРІЙ -->
+
+<nav class="tabs" aria-label="Категорії результатів">
+  <button class="tab active" data-tab="junior">
+    <span class="tab-title">МОЛОДША</span>
+    <span class="tab-subtitle">1, 3, 4 класи</span>
+    <span class="tab-count" id="count-junior">0 / 3</span>
+  </button>
+
+  <button class="tab" data-tab="middle">
+    <span class="tab-title">СЕРЕДНЯ</span>
+    <span class="tab-subtitle">5–7 класи</span>
+    <span class="tab-count" id="count-middle">0 / 4</span>
+  </button>
+
+  <button class="tab" data-tab="senior">
+    <span class="tab-title">СТАРША</span>
+    <span class="tab-subtitle">8–11 класи</span>
+    <span class="tab-count" id="count-senior">0 / 2</span>
+  </button>
+</nav>
+
+<!-- ТУТ ПОКАЗУЄТЬСЯ ОБРАНИЙ РЕЙТИНГ -->
 
 <div id="rankings"></div>
 
@@ -355,26 +438,29 @@ const GROUPS = [
   { id: "10-11", name: "10–11 класи", category: "senior" }
 ];
 
-const CATEGORIES = [
-  {
-    id: "junior",
+const CATEGORIES = {
+  junior: {
     title: "МОЛОДША ШКОЛА",
     tag: "1, 3, 4 КЛАСИ",
-    icon: "🟢"
+    icon: "🟢",
+    total: 3
   },
-  {
-    id: "middle",
+  middle: {
     title: "СЕРЕДНЯ ШКОЛА",
     tag: "5, 6, 7.1, 7.2 КЛАСИ",
-    icon: "🔵"
+    icon: "🔵",
+    total: 4
   },
-  {
-    id: "senior",
+  senior: {
     title: "СТАРША ШКОЛА",
     tag: "8–9, 10–11 КЛАСИ",
-    icon: "🔴"
+    icon: "🔴",
+    total: 2
   }
-];
+};
+
+let currentTab = "junior";
+let savedState = null;
 
 function formatTime(ms) {
   let seconds = Math.max(0, Math.floor(ms / 1000));
@@ -397,21 +483,27 @@ function loadResults() {
   }
 }
 
-function renderCategory(category, state) {
+function renderCategory(categoryId) {
+  const category = CATEGORIES[categoryId];
+
   const groups = GROUPS
-    .filter(g => g.category === category.id)
-    .filter(g => state.completed && state.completed[g.id])
+    .filter(g => g.category === categoryId)
+    .filter(g => savedState.completed && savedState.completed[g.id])
     .sort((a, b) =>
-      state.completed[a.id].timeMs - state.completed[b.id].timeMs
+      savedState.completed[a.id].timeMs -
+      savedState.completed[b.id].timeMs
     );
 
   if (!groups.length) {
     return `
       <section class="category">
         <div class="category-head">
-          <div class="category-title">${category.icon} ${category.title}</div>
+          <div class="category-title">
+            ${category.icon} ${category.title}
+          </div>
           <div class="category-tag">${category.tag}</div>
         </div>
+
         <div class="empty">
           РЕЗУЛЬТАТІВ ПОКИ НЕМАЄ<br>
           Очікуємо завершення групами цього рівня.
@@ -427,22 +519,30 @@ function renderCategory(category, state) {
       <div class="medal">${["🏆", "🥈", "🥉"][i]}</div>
       <div class="place">${i + 1} МІСЦЕ</div>
       <div class="team">${g.name}</div>
-      <div class="time">${formatTime(state.completed[g.id].timeMs)}</div>
+      <div class="time">
+        ${formatTime(savedState.completed[g.id].timeMs)}
+      </div>
     </div>
   `).join("");
 
   const rankingHTML = groups.map((g, i) => `
     <div class="rank-row">
-      <div class="rank-number">${String(i + 1).padStart(2, "0")}</div>
+      <div class="rank-number">
+        ${String(i + 1).padStart(2, "0")}
+      </div>
       <div class="rank-name">${g.name}</div>
-      <div class="rank-time">${formatTime(state.completed[g.id].timeMs)}</div>
+      <div class="rank-time">
+        ${formatTime(savedState.completed[g.id].timeMs)}
+      </div>
     </div>
   `).join("");
 
   return `
     <section class="category">
       <div class="category-head">
-        <div class="category-title">${category.icon} ${category.title}</div>
+        <div class="category-title">
+          ${category.icon} ${category.title}
+        </div>
         <div class="category-tag">${category.tag}</div>
       </div>
 
@@ -452,16 +552,31 @@ function renderCategory(category, state) {
   `;
 }
 
-function render() {
-  const state = loadResults();
-  const root = document.getElementById("rankings");
+function switchTab(tabId) {
+  if (!CATEGORIES[tabId]) return;
 
-  if (!state) {
+  currentTab = tabId;
+
+  document.querySelectorAll(".tab").forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.tab === tabId
+    );
+  });
+
+  document.getElementById("rankings").innerHTML =
+    renderCategory(tabId);
+}
+
+function render() {
+  savedState = loadResults();
+
+  if (!savedState) {
     document.getElementById("summaryNote").textContent =
       "Дані адмінпанелі не знайдено.";
 
-    root.innerHTML = `
-      <div class="loading-error">
+    document.getElementById("rankings").innerHTML = `
+      <div class="empty">
         НЕ ВДАЛОСЯ ЗАВАНТАЖИТИ РЕЗУЛЬТАТИ.<br>
         Переконайся, що адмінпанель і ця сторінка відкриті
         в одному браузері та з однієї адреси.
@@ -471,19 +586,34 @@ function render() {
   }
 
   document.getElementById("totalTime").textContent =
-    formatTime(state.elapsedMs || 0);
+    formatTime(savedState.elapsedMs || 0);
 
   const completedCount = GROUPS.filter(g =>
-    state.completed && state.completed[g.id]
+    savedState.completed && savedState.completed[g.id]
   ).length;
 
   document.getElementById("summaryNote").textContent =
     `${completedCount} / ${GROUPS.length} ГРУП ЗАРАХОВАНО`;
 
-  root.innerHTML = CATEGORIES
-    .map(category => renderCategory(category, state))
-    .join("");
+  Object.keys(CATEGORIES).forEach(categoryId => {
+    const count = GROUPS.filter(g =>
+      g.category === categoryId &&
+      savedState.completed &&
+      savedState.completed[g.id]
+    ).length;
+
+    document.getElementById(`count-${categoryId}`).textContent =
+      `${count} / ${CATEGORIES[categoryId].total}`;
+  });
+
+  switchTab(currentTab);
 }
+
+document.querySelectorAll(".tab").forEach(button => {
+  button.addEventListener("click", () => {
+    switchTab(button.dataset.tab);
+  });
+});
 
 render();
 </script>
