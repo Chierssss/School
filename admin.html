@@ -1,65 +1,651 @@
 <!doctype html>
 <html lang="uk">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ADMIN // Зламана школа</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
 <style>
-:root{--bg:#080b10;--panel:#111821;--line:#263543;--text:#e8f0f4;--muted:#8da0ad;--red:#ff4d5e;--green:#45e0a0;--cyan:#55d9ed;--gold:#ffd166}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);background:linear-gradient(#ff4d5e09 1px,transparent 1px),linear-gradient(90deg,#ff4d5e09 1px,transparent 1px),radial-gradient(ellipse at 50% 0%,#202a36,var(--bg) 58%);background-size:32px 32px,32px 32px,auto;font-family:"Share Tech Mono",monospace}
-.wrap{width:min(1100px,calc(100% - 30px));margin:auto;padding:34px 0 60px}header{text-align:center;margin-bottom:26px}.eyebrow{color:var(--red);letter-spacing:4px;font-size:12px}h1{font:800 clamp(25px,5vw,43px) Orbitron,sans-serif;margin:12px 0 8px;letter-spacing:2px}.sub{color:var(--muted);font-size:14px}
-.panel{background:linear-gradient(145deg,#141e29f7,#0a1017f7);border:1px solid var(--line);border-radius:15px;padding:22px;box-shadow:0 18px 50px #0008}.timer-panel{text-align:center;margin-bottom:20px}.section-label{color:var(--cyan);font:600 12px Orbitron,sans-serif;letter-spacing:2px}#timer{font:700 clamp(42px,9vw,76px) Orbitron,sans-serif;letter-spacing:3px;margin:13px 0;font-variant-numeric:tabular-nums}#timerState{color:var(--muted);min-height:20px}
-.controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}button{border:0;border-radius:8px;padding:12px 18px;cursor:pointer;font:700 12px Orbitron,sans-serif;letter-spacing:1px;transition:.2s}button:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.12)}button:disabled{opacity:.4;cursor:not-allowed}.start{background:var(--green);color:#07130e}.pause{background:var(--cyan);color:#061116}.reset{background:transparent;color:var(--red);border:1px solid var(--red)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.group{padding:18px}.group-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.group h2{font:600 15px Orbitron,sans-serif;margin:0}.status{font-size:11px;color:var(--gold);border:1px solid #6b5728;border-radius:30px;padding:5px 9px;white-space:nowrap}.status.done{color:var(--green);border-color:#287b5b}
-.field-row{display:flex;gap:8px}input{min-width:0;flex:1;background:#070c12;border:1px solid #344654;color:var(--text);border-radius:7px;padding:12px;outline:none;font:16px "Share Tech Mono",monospace;text-transform:uppercase}input:focus{border-color:var(--cyan);box-shadow:0 0 0 2px #55d9ed22}.verify{background:var(--red);color:#1a0508;padding-inline:13px}.group-time{margin-top:13px;color:var(--muted);font-size:13px;min-height:18px}.message{min-height:18px;margin-top:8px;font-size:12px}.error{color:var(--red)}.success{color:var(--green)}
-.results{margin-top:20px}.results-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.results h2{margin:0;font:600 14px Orbitron,sans-serif;color:var(--cyan);letter-spacing:1px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:normal}td:last-child,th:last-child{text-align:right}.empty{color:var(--muted);padding:14px 0 2px;font-size:13px}.winner{color:var(--gold)}.foot{text-align:center;color:#60717d;font-size:11px;margin-top:22px;line-height:1.7}
-@media(max-width:700px){.grid{grid-template-columns:1fr}.panel{padding:17px}}@media(max-width:420px){.field-row{flex-direction:column}.verify{width:100%}}
-</style></head>
-<body><main class="wrap">
-<header><div class="eyebrow">RESTRICTED ACCESS // ORGANIZER CONSOLE</div><h1>ЗЛАМАНА ШКОЛА</h1><div class="sub">Панель керування квестом · локальний режим</div></header>
-<section class="panel timer-panel"><div class="section-label">ЗАГАЛЬНИЙ ЧАС КВЕСТУ</div><div id="timer">00:00:00</div><div id="timerState">Очікування запуску</div>
-<div class="controls"><button class="start" id="startBtn">▶ ЗАПУСТИТИ</button><button class="pause" id="pauseBtn" disabled>Ⅱ ПАУЗА</button><button class="reset" id="resetBtn">↻ СКИНУТИ КВЕСТ</button></div></section>
-<section class="grid" id="groups"></section>
-<section class="panel results"><div class="results-head"><h2>ТАБЛИЦЯ РЕЗУЛЬТАТІВ</h2><div class="section-label" id="progress">0 / 8</div></div><div id="resultsTable" class="empty">Результатів поки немає.</div></section>
-<div class="foot">ДАНІ ЗБЕРІГАЮТЬСЯ В ЦЬОМУ БРАУЗЕРІ НА ЦЬОМУ НОУТБУЦІ<br>Не очищуй дані сайту/браузера, поки результати потрібні.</div>
-</main>
-<script>
-const GROUPS=[
-{id:"1",name:"1 клас",code:"SCHOOL-101"},{id:"3",name:"3 клас",code:"SCHOOL-303"},
-{id:"4",name:"4 клас",code:"SCHOOL-404"},{id:"5-6",name:"5–6 класи",code:"SCHOOL-506"},
-{id:"7.1",name:"7.1 клас",code:"SCHOOL-710"},{id:"7.2",name:"7.2 клас",code:"SCHOOL-720"},
-{id:"8-9",name:"8–9 класи",code:"SCHOOL-809"},{id:"10-11",name:"10–11 класи",code:"SCHOOL-1011"}];
-const KEY="brokenSchoolAdmin_v1",fresh=()=>({started:false,running:false,finished:false,elapsedMs:0,runStartedAt:null,completed:{}});
-function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&typeof s==="object")return {...fresh(),...s,completed:s.completed||{}}}catch(e){}return fresh()}
-let state=load();const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
-function elapsed(){return state.elapsedMs+(state.running&&state.runStartedAt?Date.now()-state.runStartedAt:0)}
-function fmt(ms){let n=Math.max(0,Math.floor(ms/1000)),h=Math.floor(n/3600),m=Math.floor(n%3600/60),s=n%60;return [h,m,s].map(x=>String(x).padStart(2,"0")).join(":")}
-const root=document.getElementById("groups");
-root.innerHTML=GROUPS.map(g=>`<article class="panel group"><div class="group-top"><h2>${g.name}</h2><span class="status" data-status="${g.id}">ОЧІКУЄ</span></div><form data-form="${g.id}"><div class="field-row"><input name="code" placeholder="Введи код відновлення" autocomplete="off" aria-label="Код для ${g.name}"><button class="verify" type="submit">ЗАРАХУВАТИ</button></div></form><div class="group-time" data-time="${g.id}">Час проходження: —</div><div class="message" data-message="${g.id}" aria-live="polite"></div></article>`).join("");
-function msg(el,t,c){el.textContent=t;el.className="message "+c}
-GROUPS.forEach(g=>{const form=document.querySelector(`[data-form="${g.id}"]`);form.addEventListener("submit",e=>{
-e.preventDefault();const input=form.elements.code,notice=document.querySelector(`[data-message="${g.id}"]`);
-if(!state.started||state.finished){msg(notice,"Спочатку запусти квест.","error");return}
-if(state.completed[g.id]){msg(notice,"Цю групу вже зараховано.","error");return}
-if(!input.value.trim()){msg(notice,"Введи код, який повідомили учні.","error");input.focus();return}
-if(input.value.trim().toUpperCase()!==g.code){msg(notice,"НЕПРАВИЛЬНИЙ КОД. Перевір і спробуй ще раз.","error");input.select();return}
-state.completed[g.id]={timeMs:elapsed(),completedAt:Date.now()};
-if(GROUPS.every(x=>state.completed[x.id])){state.finished=true;if(state.running){state.elapsedMs+=Date.now()-state.runStartedAt;state.runStartedAt=null;state.running=false}}
-save();input.value="";render();msg(document.querySelector(`[data-message="${g.id}"]`),`КОД ПІДТВЕРДЖЕНО · ${fmt(state.completed[g.id].timeMs)}`,"success");
-})});
-document.getElementById("startBtn").onclick=()=>{if(state.finished||state.running)return;state.started=true;state.running=true;state.runStartedAt=Date.now();save();render()};
-document.getElementById("pauseBtn").onclick=()=>{if(!state.started||state.finished)return;if(state.running){state.elapsedMs+=Date.now()-state.runStartedAt;state.running=false;state.runStartedAt=null}else{state.running=true;state.runStartedAt=Date.now()}save();render()};
-document.getElementById("resetBtn").onclick=()=>{if(!confirm("Точно скинути квест і видалити всі результати груп? Цю дію не можна скасувати."))return;state=fresh();save();GROUPS.forEach(g=>{document.querySelector(`[data-form="${g.id}"]`).elements.code.value="";msg(document.querySelector(`[data-message="${g.id}"]`),"","")});render()};
-function render(){
-document.getElementById("timer").textContent=fmt(elapsed());
-document.getElementById("timerState").textContent=state.finished?"УСІ ГРУПИ ЗАВЕРШИЛИ КВЕСТ · ТАЙМЕР ЗУПИНЕНО":state.running?"КВЕСТ АКТИВНИЙ · ЧАС ВІДЛІЧУЄТЬСЯ":state.started?"ПАУЗА · ЧАС ЗУПИНЕНО":"Очікування запуску";
-document.getElementById("startBtn").disabled=state.running||state.finished;document.getElementById("startBtn").textContent=state.started?"▶ ПРОДОВЖИТИ":"▶ ЗАПУСТИТИ";
-document.getElementById("pauseBtn").disabled=!state.started||state.finished;document.getElementById("pauseBtn").textContent=state.running?"Ⅱ ПАУЗА":"▶ ПРОДОВЖИТИ";
-GROUPS.forEach(g=>{const done=state.completed[g.id],status=document.querySelector(`[data-status="${g.id}"]`),form=document.querySelector(`[data-form="${g.id}"]`);status.textContent=done?"ЗАРАХОВАНО":"ОЧІКУЄ";status.classList.toggle("done",!!done);document.querySelector(`[data-time="${g.id}"]`).textContent=`Час проходження: ${done?fmt(done.timeMs):"—"}`;form.elements.code.disabled=!!done||!state.started||state.finished;form.querySelector("button").disabled=!!done||!state.started||state.finished});
-const done=GROUPS.filter(g=>state.completed[g.id]).sort((a,b)=>state.completed[a.id].timeMs-state.completed[b.id].timeMs);
-document.getElementById("progress").textContent=`${done.length} / ${GROUPS.length}`;const table=document.getElementById("resultsTable");
-if(!done.length){table.className="empty";table.textContent="Результатів поки немає."}else{table.className="";table.innerHTML=`<table><thead><tr><th>Місце</th><th>Група</th><th>Час</th></tr></thead><tbody>${done.map((g,i)=>`<tr><td class="${i===0?"winner":""}">${i+1}${i===0?" 🏆":""}</td><td>${g.name}</td><td>${fmt(state.completed[g.id].timeMs)}</td></tr>`).join("")}</tbody></table>`}
+:root {
+  --bg: #030508;
+  --panel: #080d13;
+  --line: #1a2732;
+  --text: #edf3f6;
+  --muted: #7d909d;
+  --red: #ff4d5e;
+  --green: #45e0a0;
+  --cyan: #55d9ed;
+  --gold: #ffd166;
 }
-render();setInterval(()=>{if(state.running)document.getElementById("timer").textContent=fmt(elapsed())},250);
-</script></body></html>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    linear-gradient(#ff4d5e09 1px, transparent 1px),
+    linear-gradient(90deg, #ff4d5e09 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 0%, #101821, var(--bg) 58%);
+  background-size: 32px 32px, 32px 32px, auto;
+  font-family: "Share Tech Mono", monospace;
+}
+
+.wrap {
+  width: min(1100px, calc(100% - 30px));
+  margin: auto;
+  padding: 34px 0 60px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.eyebrow {
+  color: var(--red);
+  letter-spacing: 4px;
+  font-size: 12px;
+}
+
+h1 {
+  font: 800 clamp(25px, 5vw, 43px) Orbitron, sans-serif;
+  margin: 12px 0 8px;
+  letter-spacing: 2px;
+}
+
+.sub {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.panel {
+  background: linear-gradient(145deg, #0b1119f7, #05090efc);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 22px;
+  box-shadow: 0 18px 50px #0008;
+}
+
+.timer-panel {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.section-label {
+  color: var(--cyan);
+  font: 600 12px Orbitron, sans-serif;
+  letter-spacing: 2px;
+}
+
+#timer {
+  font: 700 clamp(42px, 9vw, 76px) Orbitron, sans-serif;
+  letter-spacing: 3px;
+  margin: 13px 0;
+  font-variant-numeric: tabular-nums;
+}
+
+#timerState {
+  color: var(--muted);
+  min-height: 20px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 18px;
+  cursor: pointer;
+  font: 700 12px Orbitron, sans-serif;
+  letter-spacing: 1px;
+  transition: .2s;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.12);
+}
+
+button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.start {
+  background: var(--green);
+  color: #07130e;
+}
+
+.pause {
+  background: var(--cyan);
+  color: #061116;
+}
+
+.reset {
+  background: transparent;
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.group {
+  padding: 18px;
+}
+
+.group-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.group h2 {
+  font: 600 15px Orbitron, sans-serif;
+  margin: 0;
+}
+
+.status {
+  font-size: 11px;
+  color: var(--gold);
+  border: 1px solid #6b5728;
+  border-radius: 30px;
+  padding: 5px 9px;
+  white-space: nowrap;
+}
+
+.status.done {
+  color: var(--green);
+  border-color: #287b5b;
+}
+
+.field-row {
+  display: flex;
+  gap: 8px;
+}
+
+input {
+  min-width: 0;
+  flex: 1;
+  background: #030609;
+  border: 1px solid #263541;
+  color: var(--text);
+  border-radius: 7px;
+  padding: 12px;
+  outline: none;
+  font: 16px "Share Tech Mono", monospace;
+  text-transform: uppercase;
+}
+
+input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 2px #55d9ed22;
+}
+
+.verify {
+  background: var(--red);
+  color: #1a0508;
+  padding-inline: 13px;
+}
+
+.group-time {
+  margin-top: 13px;
+  color: var(--muted);
+  font-size: 13px;
+  min-height: 18px;
+}
+
+.message {
+  min-height: 18px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.error {
+  color: var(--red);
+}
+
+.success {
+  color: var(--green);
+}
+
+.results {
+  margin-top: 20px;
+}
+
+.results-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.results h2 {
+  margin: 0;
+  font: 600 14px Orbitron, sans-serif;
+  color: var(--cyan);
+  letter-spacing: 1px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th, td {
+  text-align: left;
+  padding: 11px 9px;
+  border-bottom: 1px solid var(--line);
+}
+
+th {
+  color: var(--muted);
+  font-weight: normal;
+}
+
+td:last-child,
+th:last-child {
+  text-align: right;
+}
+
+.empty {
+  color: var(--muted);
+  padding: 14px 0 2px;
+  font-size: 13px;
+}
+
+.winner {
+  color: var(--gold);
+}
+
+.foot {
+  text-align: center;
+  color: #60717d;
+  font-size: 11px;
+  margin-top: 22px;
+  line-height: 1.7;
+}
+
+@media(max-width:700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    padding: 17px;
+  }
+}
+
+@media(max-width:420px) {
+  .field-row {
+    flex-direction: column;
+  }
+
+  .verify {
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+<main class="wrap">
+
+<header>
+  <div class="eyebrow">RESTRICTED ACCESS // ORGANIZER CONSOLE</div>
+  <h1>ЗЛАМАНА ШКОЛА</h1>
+  <div class="sub">Панель керування квестом · локальний режим</div>
+</header>
+
+<section class="panel timer-panel">
+  <div class="section-label">ЗАГАЛЬНИЙ ЧАС КВЕСТУ</div>
+  <div id="timer">00:00:00</div>
+  <div id="timerState">Очікування запуску</div>
+
+  <div class="controls">
+    <button class="start" id="startBtn">▶ ЗАПУСТИТИ</button>
+    <button class="pause" id="pauseBtn" disabled>Ⅱ ПАУЗА</button>
+    <button class="reset" id="resetBtn">↻ СКИНУТИ КВЕСТ</button>
+  </div>
+</section>
+
+<section class="grid" id="groups"></section>
+
+<section class="panel results">
+  <div class="results-head">
+    <h2>ТАБЛИЦЯ РЕЗУЛЬТАТІВ</h2>
+    <div class="section-label" id="progress">0 / 8</div>
+  </div>
+
+  <div id="resultsTable" class="empty">
+    Результатів поки немає.
+  </div>
+</section>
+
+<div class="foot">
+  ДАНІ ЗБЕРІГАЮТЬСЯ В ЦЬОМУ БРАУЗЕРІ НА ЦЬОМУ НОУТБУЦІ<br>
+  Не очищуй дані сайту/браузера, поки результати потрібні.
+</div>
+
+</main>
+
+<script>
+const GROUPS = [
+  {id:"1", name:"1 клас", code:"SCHOOL-101"},
+  {id:"3", name:"3 клас", code:"SCHOOL-303"},
+  {id:"4", name:"4 клас", code:"SCHOOL-404"},
+  {id:"5-6", name:"5–6 класи", code:"SCHOOL-506"},
+  {id:"7.1", name:"7.1 клас", code:"SCHOOL-710"},
+  {id:"7.2", name:"7.2 клас", code:"SCHOOL-720"},
+  {id:"8-9", name:"8–9 класи", code:"SCHOOL-809"},
+  {id:"10-11", name:"10–11 класи", code:"SCHOOL-1011"}
+];
+
+const KEY = "brokenSchoolAdmin_v1";
+
+const fresh = () => ({
+  started: false,
+  running: false,
+  finished: false,
+  elapsedMs: 0,
+  runStartedAt: null,
+  completed: {}
+});
+
+function load() {
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY));
+
+    if (s && typeof s === "object") {
+      return {
+        ...fresh(),
+        ...s,
+        completed: s.completed || {}
+      };
+    }
+  } catch(e) {}
+
+  return fresh();
+}
+
+let state = load();
+
+const save = () => {
+  localStorage.setItem(KEY, JSON.stringify(state));
+};
+
+function elapsed() {
+  return state.elapsedMs +
+    (state.running && state.runStartedAt
+      ? Date.now() - state.runStartedAt
+      : 0);
+}
+
+function fmt(ms) {
+  let n = Math.max(0, Math.floor(ms / 1000));
+  let h = Math.floor(n / 3600);
+  let m = Math.floor(n % 3600 / 60);
+  let s = n % 60;
+
+  return [h, m, s]
+    .map(x => String(x).padStart(2, "0"))
+    .join(":");
+}
+
+const root = document.getElementById("groups");
+
+root.innerHTML = GROUPS.map(g => `
+  <article class="panel group">
+    <div class="group-top">
+      <h2>${g.name}</h2>
+      <span class="status" data-status="${g.id}">ОЧІКУЄ</span>
+    </div>
+
+    <form data-form="${g.id}">
+      <div class="field-row">
+        <input
+          name="code"
+          placeholder="Введи код відновлення"
+          autocomplete="off"
+          aria-label="Код для ${g.name}"
+        >
+        <button class="verify" type="submit">ЗАРАХУВАТИ</button>
+      </div>
+    </form>
+
+    <div class="group-time" data-time="${g.id}">
+      Час проходження: —
+    </div>
+
+    <div class="message" data-message="${g.id}" aria-live="polite"></div>
+  </article>
+`).join("");
+
+function msg(el, t, c) {
+  el.textContent = t;
+  el.className = "message " + c;
+}
+
+GROUPS.forEach(g => {
+  const form = document.querySelector(`[data-form="${g.id}"]`);
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const input = form.elements.code;
+    const notice = document.querySelector(`[data-message="${g.id}"]`);
+
+    if (!state.started || state.finished) {
+      msg(notice, "Спочатку запусти квест.", "error");
+      return;
+    }
+
+    if (state.completed[g.id]) {
+      msg(notice, "Цю групу вже зараховано.", "error");
+      return;
+    }
+
+    if (!input.value.trim()) {
+      msg(notice, "Введи код, який повідомили учні.", "error");
+      input.focus();
+      return;
+    }
+
+    if (input.value.trim().toUpperCase() !== g.code) {
+      msg(notice, "НЕПРАВИЛЬНИЙ КОД. Перевір і спробуй ще раз.", "error");
+      input.select();
+      return;
+    }
+
+    state.completed[g.id] = {
+      timeMs: elapsed(),
+      completedAt: Date.now()
+    };
+
+    if (GROUPS.every(x => state.completed[x.id])) {
+      state.finished = true;
+
+      if (state.running) {
+        state.elapsedMs += Date.now() - state.runStartedAt;
+        state.runStartedAt = null;
+        state.running = false;
+      }
+    }
+
+    save();
+    input.value = "";
+    render();
+
+    msg(
+      document.querySelector(`[data-message="${g.id}"]`),
+      `КОД ПІДТВЕРДЖЕНО · ${fmt(state.completed[g.id].timeMs)}`,
+      "success"
+    );
+  });
+});
+
+document.getElementById("startBtn").onclick = () => {
+  if (state.finished || state.running) return;
+
+  state.started = true;
+  state.running = true;
+  state.runStartedAt = Date.now();
+
+  save();
+  render();
+};
+
+document.getElementById("pauseBtn").onclick = () => {
+  if (!state.started || state.finished) return;
+
+  if (state.running) {
+    state.elapsedMs += Date.now() - state.runStartedAt;
+    state.running = false;
+    state.runStartedAt = null;
+  } else {
+    state.running = true;
+    state.runStartedAt = Date.now();
+  }
+
+  save();
+  render();
+};
+
+document.getElementById("resetBtn").onclick = () => {
+  if (!confirm("Точно скинути квест і видалити всі результати груп? Цю дію не можна скасувати.")) {
+    return;
+  }
+
+  state = fresh();
+  save();
+
+  GROUPS.forEach(g => {
+    document.querySelector(`[data-form="${g.id}"]`).elements.code.value = "";
+
+    msg(
+      document.querySelector(`[data-message="${g.id}"]`),
+      "",
+      ""
+    );
+  });
+
+  render();
+};
+
+function render() {
+  document.getElementById("timer").textContent = fmt(elapsed());
+
+  document.getElementById("timerState").textContent =
+    state.finished
+      ? "УСІ ГРУПИ ЗАВЕРШИЛИ КВЕСТ · ТАЙМЕР ЗУПИНЕНО"
+      : state.running
+        ? "КВЕСТ АКТИВНИЙ · ЧАС ВІДЛІЧУЄТЬСЯ"
+        : state.started
+          ? "ПАУЗА · ЧАС ЗУПИНЕНО"
+          : "Очікування запуску";
+
+  document.getElementById("startBtn").disabled =
+    state.running || state.finished;
+
+  document.getElementById("startBtn").textContent =
+    state.started ? "▶ ПРОДОВЖИТИ" : "▶ ЗАПУСТИТИ";
+
+  document.getElementById("pauseBtn").disabled =
+    !state.started || state.finished;
+
+  document.getElementById("pauseBtn").textContent =
+    state.running ? "Ⅱ ПАУЗА" : "▶ ПРОДОВЖИТИ";
+
+  GROUPS.forEach(g => {
+    const done = state.completed[g.id];
+
+    const status = document.querySelector(`[data-status="${g.id}"]`);
+    const form = document.querySelector(`[data-form="${g.id}"]`);
+
+    status.textContent = done ? "ЗАРАХОВАНО" : "ОЧІКУЄ";
+    status.classList.toggle("done", !!done);
+
+    document.querySelector(`[data-time="${g.id}"]`).textContent =
+      `Час проходження: ${done ? fmt(done.timeMs) : "—"}`;
+
+    form.elements.code.disabled =
+      !!done || !state.started || state.finished;
+
+    form.querySelector("button").disabled =
+      !!done || !state.started || state.finished;
+  });
+
+  const done = GROUPS
+    .filter(g => state.completed[g.id])
+    .sort((a, b) =>
+      state.completed[a.id].timeMs - state.completed[b.id].timeMs
+    );
+
+  document.getElementById("progress").textContent =
+    `${done.length} / ${GROUPS.length}`;
+
+  const table = document.getElementById("resultsTable");
+
+  if (!done.length) {
+    table.className = "empty";
+    table.textContent = "Результатів поки немає.";
+  } else {
+    table.className = "";
+
+    table.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Місце</th>
+            <th>Група</th>
+            <th>Час</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          ${done.map((g, i) => `
+            <tr>
+              <td class="${i === 0 ? "winner" : ""}">
+                ${i + 1}${i === 0 ? " 🏆" : ""}
+              </td>
+              <td>${g.name}</td>
+              <td>${fmt(state.completed[g.id].timeMs)}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    `;
+  }
+}
+
+render();
+
+setInterval(() => {
+  if (state.running) {
+    document.getElementById("timer").textContent = fmt(elapsed());
+  }
+}, 250);
+</script>
+
+</body>
+</html>
