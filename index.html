@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -25,12 +24,10 @@
 body {
     min-height: 100vh;
     padding: 55px 22px;
-
     background:
         radial-gradient(ellipse at 50% 0%, #291116 0%, transparent 55%),
         radial-gradient(ellipse at 100% 100%, #10231c 0%, transparent 40%),
         #070809;
-
     color: var(--white);
     font-family: 'Share Tech Mono', monospace;
     overflow-x: hidden;
@@ -43,13 +40,10 @@ body::before {
     position: fixed;
     inset: 0;
     pointer-events: none;
-
     background-image:
         linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-
     background-size: 35px 35px;
-
     mask-image: linear-gradient(to bottom, black, transparent 90%);
 }
 
@@ -58,7 +52,6 @@ body::after {
     position: fixed;
     inset: 0;
     pointer-events: none;
-
     background: repeating-linear-gradient(
         to bottom,
         transparent 0px,
@@ -82,10 +75,8 @@ main {
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
-
     padding-bottom: 16px;
     border-bottom: 1px solid #303030;
-
     color: #777;
     font-size: 11px;
     letter-spacing: 2px;
@@ -108,9 +99,7 @@ main {
 }
 
 @keyframes blink {
-    50% {
-        opacity: .25;
-    }
+    50% { opacity: .25; }
 }
 
 /* Заголовок */
@@ -133,13 +122,10 @@ h1 {
     font-weight: 800;
     letter-spacing: 3px;
     line-height: 1.2;
-
     color: #f3f3f3;
-
     text-shadow:
         0 0 20px rgba(255, 53, 69, .2),
         0 0 50px rgba(255, 53, 69, .08);
-
     animation: titleAppear .9s ease;
 }
 
@@ -148,7 +134,6 @@ h1 {
         opacity: 0;
         transform: translateY(15px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -165,26 +150,22 @@ h1 {
 .description {
     max-width: 620px;
     margin: 25px auto 0;
-
     color: #888;
     font-size: 14px;
     line-height: 1.9;
 }
 
-/* Лінія-попередження */
+/* Попередження */
 
 .warning-line {
     display: flex;
     align-items: center;
     gap: 13px;
-
     margin: 10px 0 30px;
     padding: 15px 18px;
-
     background: rgba(255, 53, 69, .055);
     border: 1px solid rgba(255, 53, 69, .18);
     border-left: 3px solid var(--red);
-
     color: #c3a5a7;
     font-size: 12px;
     letter-spacing: 1px;
@@ -204,7 +185,6 @@ h1 {
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-
     margin-bottom: 18px;
 }
 
@@ -225,7 +205,7 @@ h1 {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 14px;
 }
 
@@ -234,24 +214,18 @@ h1 {
     display: flex;
     flex-direction: column;
     min-height: 170px;
-
     padding: 21px;
-
     text-decoration: none;
     color: var(--white);
-
     background: linear-gradient(
         145deg,
         rgba(28, 28, 30, .96),
         rgba(12, 13, 14, .98)
     );
-
     border: 1px solid #343638;
     border-top: 2px solid #555;
-
     overflow: hidden;
     transition: .3s ease;
-
     animation: cardAppear .6s ease both;
 }
 
@@ -263,13 +237,13 @@ h1 {
 .card:nth-child(6) { animation-delay: .3s; }
 .card:nth-child(7) { animation-delay: .35s; }
 .card:nth-child(8) { animation-delay: .4s; }
+.card:nth-child(9) { animation-delay: .45s; }
 
 @keyframes cardAppear {
     from {
         opacity: 0;
         transform: translateY(12px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -283,7 +257,6 @@ h1 {
     height: 100px;
     right: -45px;
     bottom: -50px;
-
     background: var(--red);
     filter: blur(55px);
     opacity: 0;
@@ -294,7 +267,6 @@ h1 {
     transform: translateY(-5px);
     border-color: #8d343b;
     border-top-color: var(--red);
-
     box-shadow:
         0 12px 30px rgba(0,0,0,.3),
         0 0 20px rgba(255,53,69,.07);
@@ -312,7 +284,6 @@ h1 {
 
 .card-name {
     margin-top: 20px;
-
     font-family: 'Orbitron', sans-serif;
     font-size: 19px;
     font-weight: 700;
@@ -329,10 +300,8 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     margin-top: auto;
     padding-top: 23px;
-
     color: #777;
     font-size: 10px;
     letter-spacing: 1px;
@@ -356,12 +325,9 @@ h1 {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 12px;
-
     margin-top: 38px;
     padding-top: 18px;
-
     border-top: 1px solid #292929;
-
     color: #666;
     font-size: 10px;
     letter-spacing: 1px;
@@ -426,7 +392,6 @@ h1 {
 </head>
 
 <body>
-
 <main>
 
     <div class="system-status">
@@ -439,7 +404,6 @@ h1 {
     </div>
 
     <header class="hero">
-
         <div class="tag">
             SYSTEM ALERT // EMERGENCY ACCESS
         </div>
@@ -455,7 +419,6 @@ h1 {
             Частину даних заблоковано, а доступ до бази втрачено.
             Оберіть свою групу класів, щоб розпочати відновлення.
         </p>
-
     </header>
 
     <div class="warning-line">
@@ -467,7 +430,7 @@ h1 {
 
     <div class="section-heading">
         <h2>SELECT YOUR LEVEL</h2>
-        <span>AVAILABLE ACCESS POINTS: 08</span>
+        <span>AVAILABLE ACCESS POINTS: 09</span>
     </div>
 
     <div class="grid">
@@ -475,6 +438,7 @@ h1 {
         <a class="card" href="1/index.html">
             <span class="card-number">ACCESS POINT // 01</span>
             <span class="card-name">1 КЛАС</span>
+            <span class="card-info">2 рівні системи</span>
             <span class="card-bottom">
                 <span>ENTER SYSTEM</span>
                 <span class="card-arrow">→</span>
@@ -484,6 +448,7 @@ h1 {
         <a class="card" href="3/index.html">
             <span class="card-number">ACCESS POINT // 02</span>
             <span class="card-name">3 КЛАС</span>
+            <span class="card-info">3 рівні системи</span>
             <span class="card-bottom">
                 <span>ENTER SYSTEM</span>
                 <span class="card-arrow">→</span>
@@ -493,15 +458,27 @@ h1 {
         <a class="card" href="4/index.html">
             <span class="card-number">ACCESS POINT // 03</span>
             <span class="card-name">4 КЛАС</span>
+            <span class="card-info">3 рівні системи</span>
             <span class="card-bottom">
                 <span>ENTER SYSTEM</span>
                 <span class="card-arrow">→</span>
             </span>
         </a>
 
-        <a class="card" href="5-6/index.html">
+        <a class="card" href="5/index.html">
             <span class="card-number">ACCESS POINT // 04</span>
-            <span class="card-name">5–6 КЛАСИ</span>
+            <span class="card-name">5 КЛАС</span>
+            <span class="card-info">Окрема група доступу</span>
+            <span class="card-bottom">
+                <span>ENTER SYSTEM</span>
+                <span class="card-arrow">→</span>
+            </span>
+        </a>
+
+        <a class="card" href="6/index.html">
+            <span class="card-number">ACCESS POINT // 05</span>
+            <span class="card-name">6 КЛАС</span>
+            <span class="card-info">Окрема група доступу</span>
             <span class="card-bottom">
                 <span>ENTER SYSTEM</span>
                 <span class="card-arrow">→</span>
@@ -509,8 +486,9 @@ h1 {
         </a>
 
         <a class="card" href="7.1/index.html">
-            <span class="card-number">ACCESS POINT // 05</span>
+            <span class="card-number">ACCESS POINT // 06</span>
             <span class="card-name">7.1 КЛАС</span>
+            <span class="card-info">5 рівнів системи</span>
             <span class="card-bottom">
                 <span>ENTER SYSTEM</span>
                 <span class="card-arrow">→</span>
@@ -518,8 +496,9 @@ h1 {
         </a>
 
         <a class="card" href="7.2/index.html">
-            <span class="card-number">ACCESS POINT // 06</span>
+            <span class="card-number">ACCESS POINT // 07</span>
             <span class="card-name">7.2 КЛАС</span>
+            <span class="card-info">5 рівнів системи</span>
             <span class="card-bottom">
                 <span>ENTER SYSTEM</span>
                 <span class="card-arrow">→</span>
@@ -527,8 +506,9 @@ h1 {
         </a>
 
         <a class="card" href="8-9/index.html">
-            <span class="card-number">ACCESS POINT // 07</span>
+            <span class="card-number">ACCESS POINT // 08</span>
             <span class="card-name">8–9 КЛАСИ</span>
+            <span class="card-info">5 рівнів системи</span>
             <span class="card-bottom">
                 <span>ENTER SYSTEM</span>
                 <span class="card-arrow">→</span>
@@ -536,8 +516,9 @@ h1 {
         </a>
 
         <a class="card" href="10-11/index.html">
-            <span class="card-number">ACCESS POINT // 08</span>
+            <span class="card-number">ACCESS POINT // 09</span>
             <span class="card-name">10–11 КЛАСИ</span>
+            <span class="card-info">6 рівнів системи</span>
             <span class="card-bottom">
                 <span>ENTER SYSTEM</span>
                 <span class="card-arrow">→</span>
@@ -552,6 +533,5 @@ h1 {
     </footer>
 
 </main>
-
 </body>
 </html>
