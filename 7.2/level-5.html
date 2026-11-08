@@ -1,32 +1,385 @@
-<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ERROR // 7.2 клас</title>
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RECOVERY // 7.2 КЛАС</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at center,rgb(225,225,225) 0%,rgb(210,210,210) 100%);color:#ddd;font-family:"Courier New",monospace;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:background 0.54s ease}
-body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,rgba(255,255,255,.025) 0px,rgba(255,255,255,.025) 1px,transparent 2px,transparent 4px);opacity:.45}
-.system{position:relative;z-index:1;width:min(720px,92%);padding:clamp(24px,5vw,45px);border:1px solid #666;background:rgba(8,8,8,.88);box-shadow:0 0 45px #0008}
-.top{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:#aaa;border-bottom:1px solid #444;padding-bottom:14px}.critical{color:#f55}.level{margin-top:28px;color:#aaa;font-size:13px;letter-spacing:2px}h1{font-size:clamp(24px,5vw,36px);margin:12px 0;color:#f1f1f1}.message{line-height:1.8;font-size:14px;color:#bbb;margin:22px 0}
-label{display:block;font-size:12px;letter-spacing:2px;color:#999;margin-bottom:9px}input{width:100%;padding:14px;background:#050505;border:1px solid #666;color:#fff;font:16px "Courier New",monospace;outline:none}input:focus{border-color:#f55}
-button{margin-top:14px;padding:13px 20px;background:#242424;border:1px solid #777;color:#eee;font:13px "Courier New",monospace;letter-spacing:1px;cursor:pointer}button:hover{background:#383838;border-color:#f55}button:disabled{opacity:.5;cursor:default}
-#result{min-height:70px;margin-top:22px;font-size:13px;line-height:1.7;color:#aaa}.granted{color:#8cff9b;font-size:18px}.denied{color:#ff5555;font-size:18px}.progress{height:7px;background:#333;margin:14px 0;overflow:hidden}.progress-bar{height:100%;width:0;background:#8cff9b;transition:width 2s linear}.restored{color:#8cff9b;margin-top:10px}
-</style></head><body><main class="system"><div class="top"><span>RECOVERY: 100%</span><span class="critical">● ONLINE</span></div>
-<div class="level">LEVEL 05 / 05 · 7.2 КЛАС</div><h1>SYSTEM FAILURE</h1>
-<div class="message">СИСТЕМА ЧАСТКОВО ВІДНОВЛЕНА.<br>ДЕЯКІ МОДУЛІ ВСЕ ЩЕ ЗАБЛОКОВАНІ.<br>ВВЕДІТЬ КОД ДЛЯ ПРОДОВЖЕННЯ.<br><br>КОД ДОСТУПУ В КАБІНЕТІ ВЧИТЕЛЯ №___</div>
-<label for="password">ACCESS CODE</label><input id="password" type="text" autocomplete="off" placeholder="Введіть код доступу"><button id="verify">VERIFY CODE</button><div id="result" aria-live="polite"></div></main>
-<script>
-const CORRECT_PASSWORD="CHANGE_ME_7_2_5";
-const NEXT_PAGE="../final.html";
-function checkPassword(){
- const input=document.getElementById("password").value.trim();
- const result=document.getElementById("result");
- if(input.toLowerCase()===CORRECT_PASSWORD.toLowerCase() && !CORRECT_PASSWORD.startsWith("CHANGE_ME_")){
-  result.innerHTML='<div class="granted">ACCESS GRANTED</div><div>VERIFYING...</div><div class="progress"><div class="progress-bar" id="progressBar"></div></div><div class="restored">LEVEL 05 RESTORED</div>';
-  document.getElementById("progressBar").style.width="100%";
-  document.getElementById("password").disabled=true;document.getElementById("verify").disabled=true;
-  setTimeout(()=>window.location.href=NEXT_PAGE,2200);
- }else{
-  result.innerHTML='<div class="denied">ACCESS DENIED</div><div>INVALID ACCESS CODE.<br>TRY AGAIN.</div>';
-  document.getElementById("password").value="";document.getElementById("password").focus();
- }
+* { box-sizing: border-box; }
+
+:root {
+    --accent: #75ff9b;
+    --accent-light: #b5ffca;
+    --border: #326b49;
 }
-document.getElementById("verify").addEventListener("click",checkPassword);
-document.getElementById("password").addEventListener("keydown",e=>{if(e.key==="Enter")checkPassword();});
-</script></body></html>
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at center, #10271a 0%, #070a08 75%);
+    color: #ddd;
+    font-family: 'Share Tech Mono', monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 15px;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(117,255,155,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(117,255,155,.045) 1px, transparent 1px);
+    background-size: 35px 35px;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.025) 0px,
+        rgba(255,255,255,.025) 1px,
+        transparent 2px,
+        transparent 4px
+    );
+    opacity: .45;
+}
+
+.system {
+    position: relative;
+    z-index: 1;
+    width: min(900px, 100%);
+    min-height: 830px;
+    padding: clamp(25px, 5vw, 45px);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    background: linear-gradient(145deg, rgba(13,28,19,.98), rgba(7,7,7,.98));
+    box-shadow: 0 0 45px rgba(0,0,0,.8), 0 0 30px rgba(117,255,155,.09);
+    animation: appear .7s ease;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #294b36;
+    color: var(--accent);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.critical { color: var(--accent); font-size: 10px; }
+
+.level {
+    margin-top: 32px;
+    color: #aaa;
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+h1 {
+    margin: 17px 0 5px;
+    color: #edfff3;
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(30px, 6vw, 43px);
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: 28px;
+}
+
+.warning-box {
+    padding: 23px 19px;
+    background: rgba(25,75,43,.16);
+    border: 1px solid #294b36;
+    border-left: 2px solid var(--accent);
+    color: #c4cec7;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+.warning-title {
+    color: var(--accent-light);
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.warning-text { margin-bottom: 18px; }
+.warning-code { color: #a7dcb8; }
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 28px 0 9px;
+    color: #a5b5aa;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.progress {
+    height: 7px;
+    background: #24372b;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 80%;
+    background: linear-gradient(90deg, #31945c, #83ffad);
+    box-shadow: 0 0 12px rgba(117,255,155,.4);
+    transition: width 1.8s ease;
+}
+
+label {
+    display: block;
+    margin: 27px 0 10px;
+    color: #b5c1b8;
+    font-size: 11px;
+    letter-spacing: 3px;
+}
+
+input {
+    width: 100%;
+    padding: 17px;
+    background: #080c09;
+    border: 1px solid var(--border);
+    color: #fff;
+    font: 15px 'Share Tech Mono', monospace;
+    outline: none;
+    transition: .25s;
+}
+
+input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(117,255,155,.15);
+}
+
+input:disabled { opacity: .5; }
+
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 16px;
+    background: linear-gradient(100deg, #246b45, #38a56b);
+    border: 1px solid #79e6a1;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+button:hover {
+    background: linear-gradient(100deg, #31945c, #55d98c);
+    box-shadow: 0 0 20px rgba(117,255,155,.22);
+}
+
+button:disabled { opacity: .5; cursor: default; }
+
+#result {
+    min-height: 105px;
+    margin-top: 25px;
+    color: #aaa;
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+.granted {
+    color: var(--accent);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+.denied {
+    color: #ff4555;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+}
+
+.restored {
+    margin-top: 10px;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.footer {
+    position: absolute;
+    bottom: 40px;
+    left: clamp(25px, 5vw, 45px);
+    right: clamp(25px, 5vw, 45px);
+    padding-top: 15px;
+    border-top: 1px solid #294b36;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    color: #718579;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+}
+
+@media (max-width: 600px) {
+    .system { min-height: 790px; }
+    .footer { bottom: 25px; }
+    .warning-box { padding: 18px 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="system">
+
+    <div class="top">
+        <span>SCHOOL SYSTEM // RECOVERY</span>
+        <span class="critical">● SYSTEM ONLINE</span>
+    </div>
+
+    <div class="level">LEVEL 05 / 05 · 7.2 КЛАС</div>
+
+    <h1>SYSTEM RECOVERY</h1>
+
+    <div class="subtitle">FINAL RECOVERY STAGE</div>
+
+    <div class="warning-box">
+        <div class="warning-title">
+            СИСТЕМА МАЙЖЕ ПОВНІСТЮ ВІДНОВЛЕНА.
+        </div>
+
+        <div class="warning-text">
+            Усі основні модулі працюють. Пошкоджені дані відновлено.
+        </div>
+
+        <div class="warning-text">
+            Залишився останній заблокований модуль. Знайдіть фінальний код доступу, щоб завершити відновлення шкільної системи.
+        </div>
+
+        <div class="warning-code">
+            [ ФІНАЛЬНИЙ КОД: КАБІНЕТ ВЧИТЕЛЯ №___ ]
+        </div>
+    </div>
+
+    <div class="progress-info">
+        <span>DATA RECOVERY</span>
+        <span id="progressText">80%</span>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <label for="password">ENTER FINAL ACCESS CODE</label>
+
+    <input
+        id="password"
+        type="text"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder="Введіть фінальний код..."
+    >
+
+    <button id="verify">COMPLETE RECOVERY →</button>
+
+    <div id="result" aria-live="polite"></div>
+
+    <div class="footer">
+        <span>SECURITY PROTOCOL: ACTIVE</span>
+        <span>DEVICE ID: SCH-072</span>
+    </div>
+
+</main>
+
+<script>
+const CORRECT_PASSWORD = "parol5";
+const NEXT_PAGE = "../final.html";
+
+function checkPassword() {
+    const password = document.getElementById("password");
+    const button = document.getElementById("verify");
+    const result = document.getElementById("result");
+    const progressBar = document.getElementById("progressBar");
+    const progressText = document.getElementById("progressText");
+
+    const input = password.value.trim();
+
+    if (CORRECT_PASSWORD.startsWith("CHANGE_ME_")) {
+        result.innerHTML = `
+            <div class="denied">SYSTEM NOT CONFIGURED</div>
+            <div>Спочатку встановіть пароль у коді сторінки.</div>
+        `;
+        return;
+    }
+
+    if (input.toLowerCase() === CORRECT_PASSWORD.toLowerCase()) {
+        result.innerHTML = `
+            <div class="granted">ACCESS GRANTED</div>
+            <div>FINAL VERIFICATION...</div>
+            <div class="restored">ALL DATA RESTORED</div>
+        `;
+
+        progressBar.style.width = "100%";
+        progressText.textContent = "100%";
+
+        password.disabled = true;
+        button.disabled = true;
+
+        setTimeout(() => {
+            window.location.href = NEXT_PAGE;
+        }, 2200);
+
+    } else {
+        result.innerHTML = `
+            <div class="denied">ACCESS DENIED</div>
+            <div>INVALID ACCESS CODE.<br>TRY AGAIN.</div>
+        `;
+
+        password.value = "";
+        password.focus();
+    }
+}
+
+document.getElementById("verify").addEventListener("click", checkPassword);
+
+document.getElementById("password").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") checkPassword();
+});
+</script>
+
+</body>
+</html>
