@@ -1,9 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ERROR // 7.1 КЛАС</title>
+<title>ERROR // SCHOOL SYSTEM</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
@@ -16,14 +17,13 @@ body {
     margin: 0;
     min-height: 100vh;
     background:
-        radial-gradient(circle at 50% 45%, rgba(110,20,25,.2), transparent 55%),
-        linear-gradient(135deg, #10090b, #211012 55%, #0b0809);
-    color: #e5dddd;
+        radial-gradient(circle at center, #1b0c0e 0%, #080606 75%);
+    color: #ddd;
     font-family: 'Share Tech Mono', monospace;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 25px 15px;
     overflow-x: hidden;
 }
 
@@ -33,8 +33,8 @@ body::before {
     inset: 0;
     pointer-events: none;
     background-image:
-        linear-gradient(rgba(255,80,80,.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,80,80,.045) 1px, transparent 1px);
+        linear-gradient(rgba(255,55,65,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,55,65,.045) 1px, transparent 1px);
     background-size: 35px 35px;
 }
 
@@ -45,24 +45,24 @@ body::after {
     pointer-events: none;
     background: repeating-linear-gradient(
         to bottom,
-        transparent 0px,
+        rgba(255,255,255,.025) 0px,
         rgba(255,255,255,.025) 1px,
-        transparent 3px,
-        transparent 5px
+        transparent 2px,
+        transparent 4px
     );
+    opacity: .45;
 }
 
 .system {
     position: relative;
     z-index: 1;
-    width: min(720px, 100%);
-    padding: clamp(24px, 5vw, 45px);
-    background: rgba(12,7,8,.94);
-    border: 1px solid #773b40;
-    box-shadow:
-        0 0 40px rgba(0,0,0,.7),
-        0 0 25px rgba(180,35,45,.12);
-    animation: appear .8s ease;
+    width: min(900px, 100%);
+    min-height: 830px;
+    padding: clamp(25px, 5vw, 45px);
+    border: 1px solid #70252b;
+    background: linear-gradient(145deg, rgba(20,12,13,.98), rgba(7,7,7,.98));
+    box-shadow: 0 0 45px rgba(0,0,0,.8);
+    animation: appear .7s ease;
 }
 
 @keyframes appear {
@@ -82,105 +82,132 @@ body::after {
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #512a2e;
-    color: #a99a9b;
-    font-size: 12px;
-    letter-spacing: 1px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #482226;
+    color: #ff3445;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
 }
 
 .critical {
-    color: #ff5555;
+    color: #ff3445;
+    font-size: 10px;
 }
 
 .level {
-    margin-top: 30px;
-    color: #c27b80;
-    font-size: 13px;
+    margin-top: 32px;
+    color: #aaa;
+    font-size: 12px;
     letter-spacing: 3px;
 }
 
 h1 {
-    margin: 14px 0;
+    margin: 17px 0 5px;
+    color: #f0e7e8;
     font-family: 'Orbitron', sans-serif;
-    font-size: clamp(25px, 5vw, 38px);
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: #f0e6e6;
+    font-size: clamp(30px, 6vw, 43px);
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 
-.message {
-    margin: 25px 0;
-    color: #c5b5b6;
-    font-size: 14px;
+.subtitle {
+    color: #ff3445;
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: 28px;
+}
+
+.warning-box {
+    padding: 23px 19px;
+    background: rgba(45,13,16,.25);
+    border: 1px solid #3c1c20;
+    border-left: 2px solid #ff263b;
+    color: #c5bfc0;
+    font-size: 13px;
     line-height: 1.9;
+}
+
+.warning-title {
+    color: #ff5360;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.warning-text {
+    margin-bottom: 18px;
+}
+
+.warning-code {
+    color: #e58b92;
 }
 
 .progress-info {
     display: flex;
     justify-content: space-between;
-    margin: 25px 0 8px;
-    color: #aa999a;
-    font-size: 12px;
-    letter-spacing: 1px;
+    margin: 28px 0 9px;
+    color: #999;
+    font-size: 10px;
+    letter-spacing: 2px;
 }
 
 .progress {
-    width: 100%;
-    height: 8px;
-    background: #302022;
+    height: 7px;
+    background: #302426;
     overflow: hidden;
-    border: 1px solid #65383c;
 }
 
 .progress-bar {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #a52d36, #ff7777);
-    box-shadow: 0 0 12px rgba(255,70,80,.35);
+    background: linear-gradient(90deg, #a91b2a, #ff5260);
+    box-shadow: 0 0 12px rgba(255,50,65,.4);
     transition: width 1.8s ease;
 }
 
 label {
     display: block;
-    margin-bottom: 10px;
-    color: #b5a5a6;
-    font-size: 12px;
-    letter-spacing: 2px;
+    margin: 27px 0 10px;
+    color: #bbb;
+    font-size: 11px;
+    letter-spacing: 3px;
 }
 
 input {
     width: 100%;
-    padding: 15px;
-    background: #080506;
-    border: 1px solid #754348;
+    padding: 17px;
+    background: #080707;
+    border: 1px solid #57272c;
     color: #fff;
-    font: 16px 'Share Tech Mono', monospace;
+    font: 15px 'Share Tech Mono', monospace;
     outline: none;
     transition: .25s;
 }
 
 input:focus {
-    border-color: #ff7777;
-    box-shadow: 0 0 12px rgba(255,70,80,.2);
+    border-color: #ff3445;
+    box-shadow: 0 0 12px rgba(255,50,65,.15);
 }
 
 button {
+    width: 100%;
     margin-top: 15px;
-    padding: 14px 22px;
-    background: #321417;
-    border: 1px solid #a34b52;
-    color: #f3e7e7;
-    font: 13px 'Orbitron', sans-serif;
+    padding: 16px;
+    background: linear-gradient(100deg, #a90f20, #e92538);
+    border: 1px solid #ff3445;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
     letter-spacing: 2px;
     cursor: pointer;
     transition: .25s;
 }
 
 button:hover {
-    background: #501c22;
-    border-color: #ff7777;
-    box-shadow: 0 0 15px rgba(255,70,80,.2);
+    background: linear-gradient(100deg, #c51a2b, #ff3548);
+    box-shadow: 0 0 20px rgba(255,40,60,.2);
 }
 
 button:disabled {
@@ -189,41 +216,60 @@ button:disabled {
 }
 
 #result {
-    min-height: 75px;
-    margin-top: 23px;
-    font-size: 13px;
-    line-height: 1.8;
-    color: #aa999a;
+    min-height: 105px;
+    margin-top: 25px;
+    color: #aaa;
+    font-size: 12px;
+    line-height: 1.9;
 }
 
 .granted {
-    color: #8cff9b;
+    color: #69ff91;
     font-family: 'Orbitron', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
+    margin-bottom: 3px;
 }
 
 .denied {
-    color: #ff5555;
+    color: #ff4555;
     font-family: 'Orbitron', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .restored {
     margin-top: 10px;
-    color: #8cff9b;
+    color: #69ff91;
+    font-weight: bold;
 }
 
 .footer {
-    margin-top: 25px;
-    padding-top: 13px;
-    border-top: 1px solid #512a2e;
+    position: absolute;
+    bottom: 40px;
+    left: clamp(25px, 5vw, 45px);
+    right: clamp(25px, 5vw, 45px);
+    padding-top: 15px;
+    border-top: 1px solid #482226;
     display: flex;
     justify-content: space-between;
-    gap: 10px;
+    gap: 12px;
     flex-wrap: wrap;
-    color: #827273;
-    font-size: 10px;
-    letter-spacing: 1px;
+    color: #777;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+}
+
+@media (max-width: 600px) {
+    .system {
+        min-height: 790px;
+    }
+
+    .footer {
+        bottom: 25px;
+    }
+
+    .warning-box {
+        padding: 18px 14px;
+    }
 }
 </style>
 </head>
@@ -233,22 +279,36 @@ button:disabled {
 <main class="system">
 
     <div class="top">
-        <span id="recovery">RECOVERY: 0%</span>
-        <span class="critical">● CRITICAL</span>
+        <span>SCHOOL SYSTEM // RECOVERY</span>
+        <span class="critical">● CRITICAL ERROR</span>
     </div>
 
     <div class="level">LEVEL 01 / 05 · 7.1 КЛАС</div>
 
     <h1>SYSTEM FAILURE</h1>
 
-    <div class="message">
-        ШКІЛЬНУ СИСТЕМУ ЗАБЛОКОВАНО.<br>
-        ДОСТУП ДО НАСТУПНОГО РІВНЯ МОЖЛИВИЙ ЛИШЕ ЗА КОДОМ ДОСТУПУ.<br><br>
-        КОД ДОСТУПУ В КАБІНЕТІ ВЧИТЕЛЯ № ___
+    <div class="subtitle">SCHOOL DATABASE DAMAGED</div>
+
+    <div class="warning-box">
+        <div class="warning-title">
+            УВАГА! ВИЯВЛЕНО КРИТИЧНУ ПОМИЛКУ.
+        </div>
+
+        <div class="warning-text">
+            Шкільну систему заблоковано. Частину важливих даних пошкоджено.
+        </div>
+
+        <div class="warning-text">
+            Щоб відновити роботу системи, необхідно знайти секретний код доступу.
+        </div>
+
+        <div class="warning-code">
+            [ КОД ДОСТУПУ: КАБІНЕТ ВЧИТЕЛЯ №___ ]
+        </div>
     </div>
 
     <div class="progress-info">
-        <span>RESTORATION PROGRESS</span>
+        <span>DATA RECOVERY</span>
         <span id="progressText">0%</span>
     </div>
 
@@ -256,24 +316,24 @@ button:disabled {
         <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <br>
-
-    <label for="password">ACCESS CODE</label>
+    <label for="password">ENTER ACCESS CODE</label>
 
     <input
         id="password"
         type="text"
         autocomplete="off"
-        placeholder="Введіть код доступу"
+        placeholder="Введіть секретний код..."
     >
 
-    <button id="verify">VERIFY CODE</button>
+    <button id="verify">
+        INITIATE RECOVERY →
+    </button>
 
     <div id="result" aria-live="polite"></div>
 
     <div class="footer">
+        <span>SECURITY PROTOCOL: ACTIVE</span>
         <span>DEVICE ID: SCH-071</span>
-        <span>MODULE 01 // LOCKED</span>
     </div>
 
 </main>
@@ -300,7 +360,6 @@ function checkPassword() {
 
         document.getElementById("progressBar").style.width = "20%";
         document.getElementById("progressText").textContent = "20%";
-        document.getElementById("recovery").textContent = "RECOVERY: 20%";
 
         password.disabled = true;
         button.disabled = true;
@@ -331,3 +390,4 @@ document.getElementById("password").addEventListener("keydown", function(e) {
 
 </body>
 </html>
+```
