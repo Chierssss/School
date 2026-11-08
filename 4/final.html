@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SYSTEM RESTORED // 4 КЛАС</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;500;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --green: #238653;
+    --light-green: #e4f5e9;
+    --dark: #263b30;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22px;
+
+    background:
+        radial-gradient(circle at 50% 40%,
+        #ffffff 0%,
+        #edf5f0 55%,
+        #d9e9df 100%);
+
+    color: var(--dark);
+    font-family: 'Share Tech Mono', monospace;
+    overflow-x: hidden;
+}
+
+/* Цифровий фон */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(rgba(35, 134, 83, .05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(35, 134, 83, .05) 1px, transparent 1px);
+
+    background-size: 32px 32px;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(35, 134, 83, .025) 4px
+    );
+}
+
+/* Основна панель */
+
+.box {
+    position: relative;
+    z-index: 1;
+
+    width: min(740px, 100%);
+    padding: clamp(28px, 6vw, 55px);
+
+    background: rgba(255, 255, 255, .94);
+
+    border: 1px solid #c9dfd0;
+    border-top: 3px solid var(--green);
+
+    box-shadow:
+        0 15px 55px rgba(35, 90, 55, .12),
+        0 0 90px rgba(35, 134, 83, .08);
+
+    text-align: center;
+
+    animation: appear .9s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Верхній статус */
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    padding-bottom: 16px;
+    border-bottom: 1px solid #dce9e0;
+
+    color: #87958c;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.online {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--green);
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #35a66c;
+    box-shadow: 0 0 10px #35a66c;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: .3;
+    }
+}
+
+/* Велика галочка */
+
+.check-wrap {
+    width: 105px;
+    height: 105px;
+    margin: 35px auto 25px;
+
+    display: grid;
+    place-items: center;
+
+    border: 2px solid #a7d9b8;
+    border-radius: 50%;
+
+    background: radial-gradient(circle, #f0fff4, #dff4e6);
+
+    box-shadow:
+        0 0 0 9px rgba(35, 134, 83, .045),
+        0 0 35px rgba(35, 134, 83, .15);
+
+    animation: checkAppear .8s .3s both;
+}
+
+.check {
+    color: var(--green);
+    font-size: 62px;
+    font-weight: bold;
+    text-shadow: 0 0 15px rgba(35, 134, 83, .2);
+}
+
+@keyframes checkAppear {
+    from {
+        opacity: 0;
+        transform: scale(.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Заголовок */
+
+h1 {
+    color: #263b30;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(27px, 6vw, 43px);
+    font-weight: 800;
+    letter-spacing: 2px;
+    line-height: 1.3;
+
+    text-shadow: 0 2px 12px rgba(35, 134, 83, .08);
+}
+
+.subtitle {
+    margin-top: 12px;
+
+    color: var(--green);
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+/* Повідомлення */
+
+.message {
+    margin-top: 30px;
+    padding: 23px;
+
+    background: #f2f8f4;
+
+    border-left: 3px solid var(--green);
+    border-top: 1px solid #e0eee5;
+    border-bottom: 1px solid #e0eee5;
+
+    color: #58675d;
+    font-size: 14px;
+    line-height: 2;
+}
+
+.message strong {
+    display: inline-block;
+    margin-top: 10px;
+
+    color: var(--green);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+    letter-spacing: 2px;
+}
+
+/* Статус відновлення */
+
+.status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 30px;
+    padding: 16px 0;
+
+    border-top: 1px solid #dce9e0;
+    border-bottom: 1px solid #dce9e0;
+
+    color: var(--green);
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.progress {
+    height: 8px;
+    margin-top: 15px;
+
+    background: #e1ebe4;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(90deg, #58a77b, #238653);
+    box-shadow: 0 0 12px rgba(35, 134, 83, .2);
+
+    animation: fill 1.5s ease;
+}
+
+@keyframes fill {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+/* Код групи */
+
+.group-code {
+    margin-top: 25px;
+    padding: 20px;
+
+    background: #eaf5ed;
+    border: 1px dashed #8fc4a0;
+}
+
+.code-label {
+    color: #718b78;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.code-value {
+    margin-top: 10px;
+
+    color: var(--green);
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(20px, 5vw, 27px);
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.code-hint {
+    margin-top: 10px;
+    color: #718076;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+/* Нижній блок */
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-top: 25px;
+    padding-top: 16px;
+
+    border-top: 1px solid #e0eae3;
+
+    color: #9aa69e;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+@media(max-width: 500px) {
+    body {
+        padding: 12px;
+    }
+
+    .box {
+        padding: 24px 18px;
+    }
+
+    .top {
+        font-size: 9px;
+    }
+
+    .message {
+        font-size: 12px;
+        padding: 17px;
+    }
+
+    .check-wrap {
+        width: 85px;
+        height: 85px;
+    }
+
+    .check {
+        font-size: 50px;
+    }
+
+    .status {
+        font-size: 10px;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="box">
+
+    <div class="top">
+        <span>SCHOOL SYSTEM // MAIN SERVER</span>
+
+        <span class="online">
+            <span class="dot"></span>
+            ONLINE
+        </span>
+    </div>
+
+    <div class="check-wrap">
+        <div class="check">✓</div>
+    </div>
+
+    <h1>SYSTEM RESTORED</h1>
+
+    <div class="subtitle">
+        FINAL RECOVERY COMPLETE
+    </div>
+
+    <div class="message">
+        Усі пошкоджені модулі успішно відновлено.<br>
+        Доступ до шкільної бази даних повернуто.<br>
+        Усі рівні пройдено, систему врятовано!
+
+        <br>
+
+        <strong>МІСІЮ ВИКОНАНО!</strong>
+    </div>
+
+    <div class="status">
+        <span>RECOVERY STATUS</span>
+        <span>100% COMPLETE</span>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar"></div>
+    </div>
+
+    <div class="group-code">
+        <div class="code-label">
+            YOUR GROUP RESTORATION CODE
+        </div>
+
+        <div class="code-value">
+            SCHOOL-404
+        </div>
+
+        <div class="code-hint">
+            Запам'ятайте цей код і повідомте його організатору.
+            Він підтверджує успішне завершення місії 4 класом.
+        </div>
+    </div>
+
+    <div class="footer">
+        <span>ALL MODULES: RESTORED</span>
+        <span>SECURITY: STABLE</span>
+    </div>
+
+</main>
+
+</body>
+</html>
