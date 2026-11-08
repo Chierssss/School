@@ -1,32 +1,386 @@
-<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ERROR // 4 клас</title>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RECOVERY // 4 клас</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at center,rgb(122,122,122) 0%,rgb(107,107,107) 100%);color:#ddd;font-family:"Courier New",monospace;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:background 0.3s ease}
-body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,rgba(255,255,255,.025) 0px,rgba(255,255,255,.025) 1px,transparent 2px,transparent 4px);opacity:.45}
-.system{position:relative;z-index:1;width:min(720px,92%);padding:clamp(24px,5vw,45px);border:1px solid #666;background:rgba(8,8,8,.88);box-shadow:0 0 45px #0008}
-.top{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:#aaa;border-bottom:1px solid #444;padding-bottom:14px}.critical{color:#f55}.level{margin-top:28px;color:#aaa;font-size:13px;letter-spacing:2px}h1{font-size:clamp(24px,5vw,36px);margin:12px 0;color:#f1f1f1}.message{line-height:1.8;font-size:14px;color:#bbb;margin:22px 0}
-label{display:block;font-size:12px;letter-spacing:2px;color:#999;margin-bottom:9px}input{width:100%;padding:14px;background:#050505;border:1px solid #666;color:#fff;font:16px "Courier New",monospace;outline:none}input:focus{border-color:#f55}
-button{margin-top:14px;padding:13px 20px;background:#242424;border:1px solid #777;color:#eee;font:13px "Courier New",monospace;letter-spacing:1px;cursor:pointer}button:hover{background:#383838;border-color:#f55}button:disabled{opacity:.5;cursor:default}
-#result{min-height:70px;margin-top:22px;font-size:13px;line-height:1.7;color:#aaa}.granted{color:#8cff9b;font-size:18px}.denied{color:#ff5555;font-size:18px}.progress{height:7px;background:#333;margin:14px 0;overflow:hidden}.progress-bar{height:100%;width:0;background:#8cff9b;transition:width 2s linear}.restored{color:#8cff9b;margin-top:10px}
-</style></head><body><main class="system"><div class="top"><span>RECOVERY: 50%</span><span class="critical">● WARNING</span></div>
-<div class="level">LEVEL 02 / 03 · 4 КЛАС</div><h1>SYSTEM FAILURE</h1>
-<div class="message">СИСТЕМА ЧАСТКОВО ВІДНОВЛЕНА.<br>ДЕЯКІ МОДУЛІ ВСЕ ЩЕ ЗАБЛОКОВАНІ.<br>ВВЕДІТЬ КОД ДЛЯ ПРОДОВЖЕННЯ.<br><br>КОД ДОСТУПУ В КАБІНЕТІ ВЧИТЕЛЯ №___</div>
-<label for="password">ACCESS CODE</label><input id="password" type="text" autocomplete="off" placeholder="Введіть код доступу"><button id="verify">VERIFY CODE</button><div id="result" aria-live="polite"></div></main>
-<script>
-const CORRECT_PASSWORD="CHANGE_ME_4_2";
-const NEXT_PAGE="level-3.html";
-function checkPassword(){
- const input=document.getElementById("password").value.trim();
- const result=document.getElementById("result");
- if(input.toLowerCase()===CORRECT_PASSWORD.toLowerCase() && !CORRECT_PASSWORD.startsWith("CHANGE_ME_")){
-  result.innerHTML='<div class="granted">ACCESS GRANTED</div><div>VERIFYING...</div><div class="progress"><div class="progress-bar" id="progressBar"></div></div><div class="restored">LEVEL 02 RESTORED</div>';
-  document.getElementById("progressBar").style.width="100%";
-  document.getElementById("password").disabled=true;document.getElementById("verify").disabled=true;
-  setTimeout(()=>window.location.href=NEXT_PAGE,2200);
- }else{
-  result.innerHTML='<div class="denied">ACCESS DENIED</div><div>INVALID ACCESS CODE.<br>TRY AGAIN.</div>';
-  document.getElementById("password").value="";document.getElementById("password").focus();
- }
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;500;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-document.getElementById("verify").addEventListener("click",checkPassword);
-document.getElementById("password").addEventListener("keydown",e=>{if(e.key==="Enter")checkPassword();});
-</script></body></html>
+
+:root {
+    --red: #ff4657;
+    --green: #65d99a;
+    --white: #ededed;
+    --muted: #929292;
+}
+
+body {
+    min-height: 100vh;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+
+    background:
+        radial-gradient(ellipse at 50% 0%, #291116 0%, transparent 55%),
+        radial-gradient(ellipse at 100% 100%, #10231c 0%, transparent 40%),
+        #070809;
+
+    color: var(--white);
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* Цифрова сітка */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+
+    background-size: 35px 35px;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(255,255,255,.018) 4px
+    );
+}
+
+/* Основна панель */
+
+.system {
+    position: relative;
+    z-index: 1;
+
+    width: min(720px, 100%);
+    padding: clamp(24px, 5vw, 45px);
+
+    background: rgba(8, 8, 10, .94);
+    border: 1px solid #473037;
+    border-top: 2px solid var(--red);
+
+    box-shadow:
+        0 0 45px #0009,
+        0 0 25px rgba(255, 70, 87, .06);
+
+    animation: appear .7s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Верхній статус */
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    padding-bottom: 14px;
+    border-bottom: 1px solid #383035;
+
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #929292;
+}
+
+.critical {
+    color: var(--red);
+}
+
+/* Рівень */
+
+.level {
+    margin-top: 30px;
+    color: var(--red);
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+h1 {
+    margin: 13px 0;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(25px, 5vw, 37px);
+    font-weight: 800;
+    letter-spacing: 2px;
+
+    color: #f2f2f2;
+
+    text-shadow: 0 0 20px rgba(255, 70, 87, .2);
+}
+
+.message {
+    margin: 22px 0;
+
+    color: #aaa;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+/* Поле введення */
+
+label {
+    display: block;
+    margin-bottom: 10px;
+
+    color: #aaa;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+
+    background: #030405;
+    border: 1px solid #484044;
+    border-radius: 2px;
+
+    color: #fff;
+    font: 16px 'Share Tech Mono', monospace;
+
+    outline: none;
+    transition: .2s;
+}
+
+input:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 12px rgba(255, 70, 87, .12);
+}
+
+input:disabled {
+    opacity: .5;
+}
+
+/* Кнопка */
+
+button {
+    width: 100%;
+    margin-top: 14px;
+    padding: 15px;
+
+    background: rgba(255, 70, 87, .08);
+    border: 1px solid var(--red);
+
+    color: #ff6674;
+    font: 700 12px 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+
+    cursor: pointer;
+    transition: .25s;
+}
+
+button:hover:not(:disabled) {
+    background: var(--red);
+    color: #100508;
+    box-shadow: 0 0 20px rgba(255, 70, 87, .2);
+}
+
+button:disabled {
+    opacity: .5;
+    cursor: default;
+}
+
+/* Результат */
+
+#result {
+    min-height: 85px;
+    margin-top: 22px;
+
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.granted {
+    color: var(--green);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+}
+
+.denied {
+    color: var(--red);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+}
+
+/* Прогрес */
+
+.progress {
+    height: 7px;
+    margin: 14px 0;
+    overflow: hidden;
+    background: #292929;
+}
+
+.progress-bar {
+    width: 0;
+    height: 100%;
+    background: var(--green);
+    box-shadow: 0 0 12px var(--green);
+    transition: width 2s linear;
+}
+
+.restored {
+    color: var(--green);
+    margin-top: 10px;
+    letter-spacing: 1px;
+}
+
+@media(max-width: 480px) {
+    body {
+        padding: 14px;
+    }
+
+    .system {
+        padding: 24px 19px;
+    }
+
+    .message {
+        font-size: 13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="system">
+
+    <div class="top">
+        <span>RECOVERY: 33%</span>
+        <span class="critical">● CRITICAL ERROR</span>
+    </div>
+
+    <div class="level">
+        LEVEL 02 / 03 · 4 КЛАС
+    </div>
+
+    <h1>SYSTEM FAILURE</h1>
+
+    <div class="message">
+        СИСТЕМА ЧАСТКОВО ВІДНОВЛЕНА.<br>
+        ДЕЯКІ МОДУЛІ ВСЕ ЩЕ ЗАБЛОКОВАНІ.<br>
+        ДЛЯ ПРОДОВЖЕННЯ ВІДНОВЛЕННЯ ПОТРІБНО ПІДТВЕРДИТИ ДОСТУП.<br>
+        <br>
+        КОД ДОСТУПУ ЗНАХОДИТЬСЯ В КАБІНЕТІ ВЧИТЕЛЯ № ___
+    </div>
+
+    <label for="password">ACCESS CODE</label>
+
+    <form id="passwordForm">
+        <input
+            id="password"
+            type="text"
+            autocomplete="off"
+            placeholder="Введіть код доступу"
+        >
+
+        <button id="verify" type="submit">
+            VERIFY CODE
+        </button>
+    </form>
+
+    <div id="result" aria-live="polite"></div>
+
+</main>
+
+<script>
+const CORRECT_PASSWORD = "parol2";
+const NEXT_PAGE = "level-3.html";
+
+const form = document.getElementById("passwordForm");
+const input = document.getElementById("password");
+const button = document.getElementById("verify");
+const result = document.getElementById("result");
+
+function checkPassword(event) {
+    event.preventDefault();
+
+    const enteredPassword = input.value.trim();
+
+    if (
+        CORRECT_PASSWORD.startsWith("CHANGE_ME_") ||
+        !CORRECT_PASSWORD
+    ) {
+        result.innerHTML = `
+            <div class="denied">SYSTEM NOT CONFIGURED</div>
+            <div>ПАРОЛЬ ЩЕ НЕ ВСТАНОВЛЕНО.</div>
+        `;
+        return;
+    }
+
+    if (
+        enteredPassword.toLowerCase() ===
+        CORRECT_PASSWORD.toLowerCase()
+    ) {
+        result.innerHTML = `
+            <div class="granted">ACCESS GRANTED</div>
+            <div>VERIFYING SYSTEM...</div>
+
+            <div class="progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <div class="restored">
+                LEVEL 02 RESTORED
+            </div>
+        `;
+
+        input.disabled = true;
+        button.disabled = true;
+
+        document.getElementById("progressBar").style.width = "100%";
+
+        setTimeout(() => {
+            window.location.href = NEXT_PAGE;
+        }, 2200);
+
+    } else {
+        result.innerHTML = `
+            <div class="denied">ACCESS DENIED</div>
+            <div>INVALID ACCESS CODE.<br>TRY AGAIN.</div>
+        `;
+
+        input.value = "";
+        input.focus();
+    }
+}
+
+form.addEventListener("submit", checkPassword);
+</script>
+
+</body>
+</html>
