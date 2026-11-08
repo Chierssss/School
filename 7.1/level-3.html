@@ -173,7 +173,7 @@ h1 {
 
 .progress-bar {
     height: 100%;
-    width: 60%;
+    width: 40%;
     background: linear-gradient(90deg, #d69b2e, #ffe078);
     box-shadow: 0 0 12px rgba(233,184,62,.4);
     transition: width 1.8s ease;
@@ -333,7 +333,7 @@ button:disabled {
 
     <div class="progress-info">
         <span>DATA RECOVERY</span>
-        <span id="progressText">60%</span>
+        <span id="progressText">40%</span>
     </div>
 
     <div class="progress">
@@ -388,6 +388,9 @@ function checkPassword() {
             <div>VERIFYING SECURITY CODE...</div>
             <div class="restored">LEVEL 03 RESTORED</div>
         `;
+
+        document.getElementById("progressBar").style.width = "60%";
+        document.getElementById("progressText").textContent = "60%";
 
         password.disabled = true;
         button.disabled = true;
