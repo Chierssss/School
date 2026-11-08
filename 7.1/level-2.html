@@ -9,9 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 :root {
     --accent: #ff713d;
@@ -22,8 +20,7 @@
 body {
     margin: 0;
     min-height: 100vh;
-    background:
-        radial-gradient(circle at center, #24130e 0%, #080706 75%);
+    background: radial-gradient(circle at center, #24130e 0%, #080706 75%);
     color: #ddd;
     font-family: 'Share Tech Mono', monospace;
     display: flex;
@@ -67,26 +64,14 @@ body::after {
     padding: clamp(25px, 5vw, 45px);
     border: 1px solid var(--border);
     border-top: 2px solid var(--accent);
-    background: linear-gradient(
-        145deg,
-        rgba(25,15,11,.98),
-        rgba(7,7,7,.98)
-    );
-    box-shadow:
-        0 0 45px rgba(0,0,0,.8),
-        0 0 30px rgba(255,113,61,.07);
+    background: linear-gradient(145deg, rgba(25,15,11,.98), rgba(7,7,7,.98));
+    box-shadow: 0 0 45px rgba(0,0,0,.8), 0 0 30px rgba(255,113,61,.07);
     animation: appear .7s ease;
 }
 
 @keyframes appear {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .top {
@@ -104,10 +89,7 @@ body::after {
     letter-spacing: 2px;
 }
 
-.critical {
-    color: var(--accent);
-    font-size: 10px;
-}
+.critical { color: var(--accent); font-size: 10px; }
 
 .level {
     margin-top: 32px;
@@ -148,13 +130,8 @@ h1 {
     margin-bottom: 20px;
 }
 
-.warning-text {
-    margin-bottom: 18px;
-}
-
-.warning-code {
-    color: #e9a184;
-}
+.warning-text { margin-bottom: 18px; }
+.warning-code { color: #e9a184; }
 
 .progress-info {
     display: flex;
@@ -173,7 +150,7 @@ h1 {
 
 .progress-bar {
     height: 100%;
-    width: 40%;
+    width: 20%;
     background: linear-gradient(90deg, #d94b29, #ff9568);
     box-shadow: 0 0 12px rgba(255,113,61,.4);
     transition: width 1.8s ease;
@@ -203,9 +180,7 @@ input:focus {
     box-shadow: 0 0 12px rgba(255,113,61,.15);
 }
 
-input:disabled {
-    opacity: .5;
-}
+input:disabled { opacity: .5; }
 
 button {
     width: 100%;
@@ -227,10 +202,7 @@ button:hover {
     box-shadow: 0 0 20px rgba(255,113,61,.2);
 }
 
-button:disabled {
-    opacity: .5;
-    cursor: default;
-}
+button:disabled { opacity: .5; cursor: default; }
 
 #result {
     min-height: 105px;
@@ -276,17 +248,9 @@ button:disabled {
 }
 
 @media (max-width: 600px) {
-    .system {
-        min-height: 790px;
-    }
-
-    .footer {
-        bottom: 25px;
-    }
-
-    .warning-box {
-        padding: 18px 14px;
-    }
+    .system { min-height: 790px; }
+    .footer { bottom: 25px; }
+    .warning-box { padding: 18px 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -299,7 +263,6 @@ button:disabled {
 </head>
 
 <body>
-
 <main class="system">
 
     <div class="top">
@@ -350,9 +313,7 @@ button:disabled {
         placeholder="Введіть код доступу..."
     >
 
-    <button id="verify">
-        VERIFY CODE →
-    </button>
+    <button id="verify">VERIFY CODE →</button>
 
     <div id="result" aria-live="polite"></div>
 
@@ -376,14 +337,6 @@ function checkPassword() {
 
     const input = password.value.trim();
 
-    if (CORRECT_PASSWORD.startsWith("CHANGE_ME_")) {
-        result.innerHTML = `
-            <div class="denied">SYSTEM NOT CONFIGURED</div>
-            <div>Спочатку встановіть пароль у коді сторінки.</div>
-        `;
-        return;
-    }
-
     if (input.toLowerCase() === CORRECT_PASSWORD.toLowerCase()) {
         result.innerHTML = `
             <div class="granted">ACCESS GRANTED</div>
@@ -391,8 +344,9 @@ function checkPassword() {
             <div class="restored">LEVEL 02 RESTORED</div>
         `;
 
-        progressBar.style.width = "20%";
-        progressText.textContent = "20%";
+        // Після успішного введення пароль піднімає прогрес до 40%.
+        progressBar.style.width = "40%";
+        progressText.textContent = "40%";
 
         password.disabled = true;
         button.disabled = true;
@@ -415,9 +369,7 @@ function checkPassword() {
 document.getElementById("verify").addEventListener("click", checkPassword);
 
 document.getElementById("password").addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        checkPassword();
-    }
+    if (e.key === "Enter") checkPassword();
 });
 </script>
 
