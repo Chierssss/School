@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ERROR // 5-6 клас</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;500;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --red: #ff303b;
+    --white: #e8e8e8;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    overflow-x: hidden;
+
+    background:
+        radial-gradient(ellipse at 50% 45%,
+        #281014 0%,
+        #0c0809 55%,
+        #030303 100%);
+
+    color: var(--white);
+    font-family: 'Share Tech Mono', monospace;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(rgba(255, 40, 50, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 40, 50, .045) 1px, transparent 1px);
+
+    background-size: 30px 30px;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(255,255,255,.025) 4px
+    );
+}
+
+.system {
+    position: relative;
+    z-index: 1;
+
+    width: min(760px, 100%);
+    padding: clamp(25px, 5vw, 48px);
+
+    background: linear-gradient(
+        145deg,
+        rgba(25, 13, 16, .98),
+        rgba(7, 7, 8, .98)
+    );
+
+    border: 1px solid #64232b;
+    border-top: 2px solid var(--red);
+
+    box-shadow:
+        0 0 30px rgba(255, 35, 45, .14),
+        0 0 100px rgba(150, 0, 15, .09),
+        inset 0 0 35px rgba(255, 0, 20, .035);
+
+    animation: appear .7s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    padding-bottom: 17px;
+    border-bottom: 1px solid #452127;
+
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #999;
+}
+
+.logo {
+    color: var(--red);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.critical {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--red);
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 12px var(--red);
+    animation: blink .8s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: .2;
+    }
+}
+
+.level {
+    margin-top: 35px;
+    color: #a9a9a9;
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+h1 {
+    margin: 17px 0 8px;
+    color: #f3f3f3;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(27px, 6vw, 43px);
+    font-weight: 800;
+    letter-spacing: 2px;
+
+    text-shadow: 0 0 20px rgba(255, 40, 50, .25);
+    animation: glitch 4s infinite;
+}
+
+@keyframes glitch {
+    0%, 90%, 100% {
+        transform: translateX(0);
+        text-shadow: 0 0 20px rgba(255, 40, 50, .25);
+    }
+
+    92% {
+        transform: translateX(-2px);
+        text-shadow: 3px 0 #ff303b, -3px 0 #8b252b;
+    }
+
+    94% {
+        transform: translateX(2px);
+        text-shadow: -3px 0 #ff303b, 3px 0 #8b252b;
+    }
+
+    96% {
+        transform: translateX(0);
+    }
+}
+
+.subtitle {
+    color: var(--red);
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+.message {
+    margin: 30px 0;
+    padding: 20px;
+
+    background: rgba(255, 35, 45, .05);
+
+    border-left: 3px solid var(--red);
+    border-top: 1px solid rgba(255, 50, 60, .13);
+    border-bottom: 1px solid rgba(255, 50, 60, .13);
+
+    color: #bcbcbc;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.warning {
+    color: #ff626b;
+    font-weight: bold;
+}
+
+.teacher {
+    margin-top: 15px;
+    color: #f0a0a5;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 9px;
+
+    color: #999;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.progress {
+    height: 6px;
+    background: #302124;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+
+    background: var(--red);
+    box-shadow: 0 0 12px var(--red);
+
+    transition: width .9s ease;
+}
+
+label {
+    display: block;
+    margin-bottom: 12px;
+
+    color: #aaa;
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+input {
+    width: 100%;
+    padding: 17px 18px;
+
+    background: #080808;
+    border: 1px solid #493034;
+    color: white;
+
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 17px;
+    letter-spacing: 3px;
+
+    outline: none;
+    transition: .2s;
+}
+
+input::placeholder {
+    color: #555;
+    letter-spacing: 1px;
+}
+
+input:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 18px rgba(255, 40, 50, .15);
+}
+
+input:disabled {
+    opacity: .5;
+}
+
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 16px;
+
+    background: linear-gradient(90deg, #97131e, #d92735);
+    border: 1px solid #ff4650;
+    color: white;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+
+    cursor: pointer;
+    transition: .2s;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #c51c29, #ff414b);
+    box-shadow: 0 0 20px rgba(255, 35, 45, .3);
+}
+
+button:active {
+    transform: scale(.99);
+}
+
+button:disabled {
+    opacity: .5;
+    cursor: default;
+}
+
+#result {
+    min-height: 75px;
+    margin-top: 25px;
+
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #aaa;
+}
+
+.granted {
+    color: #8cff9b;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 19px;
+    text-shadow: 0 0 15px #35ff65;
+}
+
+.denied {
+    color: #ff5555;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+    animation: shake .3s;
+}
+
+@keyframes shake {
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-3px); }
+}
+
+.restored {
+    color: #8cff9b;
+    margin-top: 12px;
+    letter-spacing: 2px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #382124;
+
+    color: #666;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+@media(max-width: 500px) {
+    body {
+        padding: 12px;
+    }
+
+    .system {
+        padding: 23px 18px;
+    }
+
+    .top {
+        font-size: 9px;
+    }
+
+    .message {
+        font-size: 12px;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="system">
+
+    <div class="top">
+        <span class="logo">
+            SCHOOL SYSTEM // RECOVERY
+        </span>
+
+        <span class="critical">
+            <span class="dot"></span>
+            CRITICAL ERROR
+        </span>
+    </div>
+
+    <div class="level">
+        LEVEL 01 / 04 &nbsp;·&nbsp; 5-6 КЛАС
+    </div>
+
+    <h1>SYSTEM FAILURE</h1>
+
+    <div class="subtitle">
+        SCHOOL DATABASE DAMAGED
+    </div>
+
+    <div class="message">
+
+        <span class="warning">
+            УВАГА! ШКІЛЬНУ СИСТЕМУ ЗАБЛОКОВАНО.
+        </span>
+
+        <br><br>
+
+        Доступ до наступного рівня можливий
+        лише після введення секретного коду.
+
+        <br><br>
+
+        Для початку відновлення необхідно
+        знайти перший код доступу.
+
+        <div class="teacher">
+            [ КОД ДОСТУПУ: КАБІНЕТ ВЧИТЕЛЯ №___ ]
+        </div>
+
+    </div>
+
+    <div class="progress-info">
+        <span>DATA RECOVERY</span>
+        <span id="percent">0%</span>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form id="recoveryForm">
+
+        <label for="password">
+            ENTER ACCESS CODE
+        </label>
+
+        <input
+            id="password"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Введіть секретний код..."
+            required
+        >
+
+        <button type="submit" id="verify">
+            INITIATE RECOVERY →
+        </button>
+
+    </form>
+
+    <div id="result" aria-live="polite"></div>
+
+    <div class="footer">
+        <span>SECURITY PROTOCOL: ACTIVE</span>
+        <span>DEVICE ID: SCH-005</span>
+    </div>
+
+</main>
+
+<script>
+const CORRECT_PASSWORD = "parol";
+const NEXT_PAGE = "level-2.html";
+
+const form = document.getElementById("recoveryForm");
+const password = document.getElementById("password");
+const result = document.getElementById("result");
+const button = document.getElementById("verify");
+const progressBar = document.getElementById("progressBar");
+const percent = document.getElementById("percent");
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const input = password.value.trim();
+
+    if (CORRECT_PASSWORD.startsWith("CHANGE_ME_")) {
+        result.innerHTML =
+            '<div class="denied">SYSTEM NOT CONFIGURED</div>' +
+            '<div>Спочатку встановіть пароль у коді сторінки.</div>';
+        return;
+    }
+
+    if (input.toLowerCase() === CORRECT_PASSWORD.toLowerCase()) {
+
+        result.innerHTML =
+            '<div class="granted">ACCESS GRANTED</div>' +
+            '<div>VERIFYING SECURITY CODE...</div>' +
+            '<div class="restored">LEVEL 01 RESTORED</div>';
+
+        password.disabled = true;
+        button.disabled = true;
+
+        percent.textContent = "25%";
+        progressBar.style.width = "25%";
+
+        setTimeout(function() {
+            window.location.href = NEXT_PAGE;
+        }, 2200);
+
+    } else {
+
+        result.innerHTML =
+            '<div class="denied">ACCESS DENIED</div>' +
+            '<div>НЕПРАВИЛЬНИЙ КОД ДОСТУПУ.</div>' +
+            '<div>СПРОБУЙТЕ ЩЕ РАЗ.</div>';
+
+        password.value = "";
+        password.focus();
+    }
+});
+</script>
+
+</body>
+</html>
