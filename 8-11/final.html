@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Зламана школа — Фінал 8–11 класів</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --accent: #a3ff8f;
+    --accent-glow: rgba(163, 255, 143, 0.35);
+    --bg: #07100b;
+    --panel: rgba(12, 27, 17, 0.94);
+    --text: #e5ffe8;
+    --muted: #8ba994;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-x: hidden;
+    background:
+        radial-gradient(ellipse at center, rgba(57, 125, 69, 0.18), transparent 65%),
+        linear-gradient(135deg, #030805, var(--bg));
+    color: var(--text);
+    font-family: 'Share Tech Mono', monospace;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(rgba(163,255,143,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(163,255,143,0.035) 1px, transparent 1px);
+    background-size: 35px 35px;
+    animation: gridMove 12s linear infinite;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,0.13) 4px
+    );
+}
+
+@keyframes gridMove {
+    from { background-position: 0 0; }
+    to { background-position: 35px 35px; }
+}
+
+.panel {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 620px;
+    padding: 42px 35px;
+    background: var(--panel);
+    border: 1px solid rgba(163,255,143,0.55);
+    box-shadow:
+        0 0 25px var(--accent-glow),
+        inset 0 0 30px rgba(163,255,143,0.045);
+    text-align: center;
+    animation: appear 0.8s ease both;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.top-label {
+    color: var(--accent);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+}
+
+.checkmark {
+    width: 105px;
+    height: 105px;
+    margin: 0 auto 28px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 55px;
+    text-shadow: 0 0 20px var(--accent);
+    box-shadow:
+        0 0 25px var(--accent-glow),
+        inset 0 0 20px var(--accent-glow);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 20px var(--accent-glow);
+    }
+    50% {
+        box-shadow: 0 0 40px var(--accent-glow);
+    }
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(25px, 5vw, 36px);
+    line-height: 1.3;
+    color: var(--accent);
+    text-shadow: 0 0 18px var(--accent-glow);
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.status {
+    border: 1px solid rgba(163,255,143,0.3);
+    background: rgba(163,255,143,0.045);
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.status-title {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--accent);
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.progress-track {
+    height: 12px;
+    width: 100%;
+    background: #17251b;
+    border: 1px solid rgba(163,255,143,0.25);
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 100%;
+    background: var(--accent);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.code-box {
+    border: 1px dashed rgba(163,255,143,0.55);
+    padding: 20px 15px;
+    margin-bottom: 25px;
+}
+
+.code-label {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.group-code {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(22px, 5vw, 30px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-shadow: 0 0 15px var(--accent-glow);
+    word-break: break-word;
+}
+
+.instruction {
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.footer {
+    padding-top: 18px;
+    border-top: 1px solid rgba(163,255,143,0.18);
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 2px;
+    line-height: 2;
+}
+
+.footer span {
+    color: var(--accent);
+}
+
+@media (max-width: 480px) {
+    .panel {
+        padding: 32px 20px;
+    }
+
+    .top-label {
+        font-size: 9px;
+        letter-spacing: 2px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="panel">
+
+    <div class="top-label">
+        FINAL STAGE · 8–9 КЛАСИ
+    </div>
+
+    <div class="checkmark">✓</div>
+
+    <h1>СИСТЕМУ ВІДНОВЛЕНО</h1>
+
+    <p class="subtitle">
+        Вітаємо! Ви пройшли всі п'ять рівнів та успішно
+        відновили систему «Зламаної школи».
+        <br><br>
+        Місію завершено.
+    </p>
+
+    <section class="status">
+        <div class="status-title">SYSTEM RECOVERY STATUS</div>
+
+        <div class="progress-info">
+            <span>ВІДНОВЛЕННЯ</span>
+            <span>100%</span>
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-bar"></div>
+        </div>
+    </section>
+
+    <section class="code-box">
+        <div class="code-label">
+            КОД ВАШОЇ ГРУПИ
+        </div>
+
+        <div class="group-code">
+            SCHOOL-809
+        </div>
+    </section>
+
+    <p class="instruction">
+        Запам'ятайте код групи та передайте його організатору.
+        <br>
+        Ваше завдання виконано!
+    </p>
+
+    <footer class="footer">
+        DEVICE ID: <span>SCH-089</span>
+        <br>
+        SYSTEM STATUS: <span>ONLINE</span>
+        <br>
+        ALL LEVELS COMPLETED
+    </footer>
+
+</main>
+
+</body>
+</html>
