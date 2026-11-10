@@ -5,582 +5,247 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>День науки | Зламана школа</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap');
-
-/* =====================================
-   БАЗОВІ НАЛАШТУВАННЯ
-===================================== */
-
-:root {
-  --green: #ff334d;
-  --red: #ff263f;
-  --yellow: #ff5265;
-  --bg: #05080b;
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;overflow:hidden;
+  color:#30343a;background:#f2f0e9;
+  font-family:Arial,sans-serif;
+  transition:background .25s,color .25s;
 }
-
-* {
-  box-sizing: border-box;
+body::before,body::after{
+  content:"";position:fixed;inset:0;
+  pointer-events:none;z-index:5;opacity:0;
 }
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  overflow: hidden;
-  color: #30343a;
-  background: #f2f0e9;
-  font-family: Arial, sans-serif;
-  transition: background .25s, color .25s;
+body::before{
+  background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(255,0,30,.4) 4px);
 }
-
-/* =====================================
-   ФОНОВІ ЕФЕКТИ
-===================================== */
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 5;
-  opacity: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent 3px,
-    rgba(0,0,0,.6) 4px
-  );
-  transition: opacity .3s;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 4;
-  opacity: 0;
+body::after{
   background-image:
-    linear-gradient(rgba(80,255,150,.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(80,255,150,.08) 1px, transparent 1px);
-  background-size: 45px 45px;
-  transition: opacity .3s;
+    linear-gradient(rgba(255,30,50,.12) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,30,50,.12) 1px,transparent 1px);
+  background-size:45px 45px;
+}
+.screen{
+  position:relative;z-index:2;min-height:100vh;width:100%;
+  display:none;align-items:center;justify-content:center;
+  padding:35px;text-align:center;overflow-y:auto;
+}
+.screen.active{display:flex;animation:appear .8s ease}
+.content{width:min(1050px,100%)}
+.eyebrow{
+  color:#647b8c;letter-spacing:5px;
+  font-size:clamp(12px,2vw,17px);margin-bottom:25px;
+}
+h1,h2{font-family:Georgia,serif;text-transform:uppercase}
+h1{
+  color:#26394b;font-size:clamp(35px,7vw,85px);
+  line-height:1.15;margin:15px 0;font-weight:500;
+}
+h2{color:#26394b;font-size:clamp(25px,4vw,48px);line-height:1.25}
+p{font-size:clamp(16px,2.1vw,23px);line-height:1.65;color:#555b61}
+.panel{
+  margin:30px auto;padding:25px;max-width:850px;
+  border:1px solid #d9d6cd;background:#fffefa;
+  box-shadow:0 3px 15px rgba(0,0,0,.04);text-align:left;
+}
+.panel p{margin:10px 0;color:#555b61}
+.highlight{color:#526e86}
+.small{font-size:14px;color:#88877f}
+.footer{
+  position:fixed;z-index:3;bottom:18px;left:0;width:100%;
+  text-align:center;color:#aaa69b;font-size:11px;letter-spacing:3px;
 }
 
-/* =====================================
-   ЕКРАНИ
-===================================== */
-
-.screen {
-  position: relative;
-  z-index: 2;
-  min-height: 100vh;
-  width: 100%;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 35px;
-  text-align: center;
+/* ЗАСТАВКА */
+.splash-content{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;min-height:80vh;
 }
-
-.screen.active {
-  display: flex;
-  animation: appear .8s ease;
+.splash-title{
+  font-family:Georgia,serif!important;
+  font-size:clamp(75px,13vw,150px);
+  line-height:.95;font-weight:400!important;
+  letter-spacing:-5px;color:#26394b!important;
+  text-shadow:none!important;margin:45px 0;
 }
+.splash-line{width:90px;height:1px;background:#9a9b96;margin:10px 0 25px}
+.splash-subtitle{font-size:14px;letter-spacing:5px;color:#647b8c}
+.splash-date{margin-top:65px;font-size:11px;letter-spacing:3px;color:#92918a}
 
-.content {
-  width: min(1050px, 100%);
+/* ЧЕРВОНИЙ РЕЖИМ */
+body.corrupted{
+  color:#f4eeee;
+  background:radial-gradient(ellipse at center,#31060c 0%,#130306 48%,#030203 100%);
+  font-family:'Share Tech Mono',monospace;
 }
-
-/* =====================================
-   СВІТЛИЙ РЕЖИМ — ПОЧАТОК
-===================================== */
-
-.eyebrow {
-  color: #647b8c;
-  letter-spacing: 5px;
-  font-size: clamp(12px, 2vw, 17px);
-  margin-bottom: 25px;
+body.corrupted::before{opacity:.2}
+body.corrupted::after{opacity:.2}
+body.corrupted .eyebrow{color:#ff4058;font-family:'Share Tech Mono',monospace}
+body.corrupted h1,body.corrupted h2{
+  color:#ff4058;font-family:'Orbitron',sans-serif;
+  font-weight:800;text-shadow:0 0 25px rgba(255,30,50,.65);
 }
-
-h1, h2 {
-  font-family: Georgia, serif;
-  text-transform: uppercase;
+body.corrupted p{color:#e4c8cc}
+body.corrupted .panel{
+  background:rgba(28,3,8,.8);border:1px solid rgba(255,45,65,.45);
+  box-shadow:0 0 30px rgba(255,0,30,.1);
 }
+body.corrupted .panel p{color:#e4c8cc}
+body.corrupted .highlight{color:#ff4058}
+body.corrupted .small,body.corrupted .footer{color:#9d5962}
+body.corrupted .error-code,body.corrupted .error-title{color:#ff334d}
+body.corrupted .error-title{text-shadow:0 0 30px rgba(255,30,50,.7)}
+body.corrupted .rules li{color:#e4c8cc;border-color:rgba(255,50,70,.2)}
+body.corrupted .rules li::before{color:#ff4058}
+body.corrupted .timer{color:#ff334d;text-shadow:0 0 35px rgba(255,30,50,.7)}
+body.corrupted .timer-label{color:#b77c85}
 
-h1 {
-  color: #26394b;
-  font-size: clamp(35px, 7vw, 85px);
-  line-height: 1.15;
-  margin: 15px 0;
-  font-weight: 500;
-  text-shadow: none;
-}
-
-h2 {
-  color: #26394b;
-  font-size: clamp(25px, 4vw, 48px);
-  line-height: 1.25;
-}
-
-p {
-  font-size: clamp(16px, 2.1vw, 23px);
-  line-height: 1.65;
-  color: #555b61;
-}
-
-.panel {
-  margin: 35px auto;
-  padding: 25px;
-  max-width: 850px;
-  border: 1px solid #d9d6cd;
-  background: #fffefa;
-  box-shadow: 0 3px 15px rgba(0,0,0,.04);
-  text-align: left;
-}
-
-.panel p {
-  margin: 10px 0;
-  color: #555b61;
-}
-
-.highlight {
-  color: #526e86;
-}
-
-.small {
-  font-size: 14px;
-  color: #88877f;
-}
-
-.footer {
-  position: fixed;
-  z-index: 3;
-  bottom: 18px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  color: #aaa69b;
-  font-size: 11px;
-  letter-spacing: 3px;
-}
-
-/* =====================================
-   ЧЕРВОНИЙ РЕЖИМ — ПІСЛЯ ЗЛАМУ
-===================================== */
-
-body.corrupted {
-  color: #f4eeee;
-  background:
-    radial-gradient(
-      ellipse at center,
-      #31060c 0%,
-      #130306 48%,
-      #030203 100%
-    );
-  font-family: 'Share Tech Mono', monospace;
-}
-
-body.corrupted::before {
-  opacity: .2;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent 3px,
-    rgba(255,0,30,.4) 4px
-  );
-}
-
-body.corrupted::after {
-  opacity: .2;
-  background-image:
-    linear-gradient(rgba(255,30,50,.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,30,50,.12) 1px, transparent 1px);
-}
-
-body.corrupted .eyebrow {
-  color: #ff4058;
-  font-family: 'Share Tech Mono', monospace;
-}
-
-body.corrupted h1,
-body.corrupted h2 {
-  color: #ff4058;
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 800;
-  text-shadow: 0 0 25px rgba(255,30,50,.65);
-}
-
-body.corrupted p {
-  color: #e4c8cc;
-}
-
-body.corrupted .panel {
-  background: rgba(28,3,8,.8);
-  border: 1px solid rgba(255,45,65,.45);
-  box-shadow: 0 0 30px rgba(255,0,30,.1);
-}
-
-body.corrupted .panel p {
-  color: #e4c8cc;
-}
-
-body.corrupted .highlight {
-  color: #ff4058;
-}
-
-body.corrupted .small {
-  color: #9d5962;
-}
-
-body.corrupted .footer {
-  color: #9d5962;
-}
-
-body.corrupted .error-code {
-  color: #ff334d;
-}
-
-body.corrupted .error-title {
-  color: #ff334d;
-  text-shadow: 0 0 30px rgba(255,30,50,.7);
-}
-
-body.corrupted .rules li {
-  color: #e4c8cc;
-  border-color: rgba(255,50,70,.2);
-}
-
-body.corrupted .rules li::before {
-  color: #ff4058;
-}
-
-body.corrupted .timer {
-  color: #ff334d;
-  text-shadow: 0 0 35px rgba(255,30,50,.7);
-}
-
-body.corrupted .timer-label {
-  color: #b77c85;
-}
-
-/* =====================================
-   КНОПКИ
-===================================== */
-
-button {
-  cursor: pointer;
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 700;
-}
-
-.system-btn {
-  margin-top: 25px;
-  padding: 18px 30px;
-  color: #fff;
-  background: #b42332;
-  border: none;
-  font-size: clamp(13px, 2vw, 17px);
-  letter-spacing: 2px;
-  box-shadow: 0 0 25px rgba(255,59,85,.35);
-  transition: .2s;
-}
-
-.system-btn:hover {
-  transform: scale(1.04);
-  box-shadow: 0 0 40px rgba(255,59,85,.7);
-}
-
-.danger {
-  color: white;
-  background: #ff334d;
-  box-shadow: 0 0 25px rgba(255,59,85,.4);
-}
-
-.warning {
-  color: #fff;
-  background: #b42332;
-  box-shadow: 0 0 25px rgba(255,59,85,.3);
-}
-
-/* =====================================
-   БЛОКИ ВЕДУЧИХ (ЯКЩО ВИКОРИСТОВУЮТЬСЯ)
-===================================== */
-
-.hosts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  margin-top: 35px;
-}
-
-.host {
-  padding: 20px;
-  border: 1px solid #d9d6cd;
-  background: #fffefa;
-}
-
-.host strong {
-  display: block;
-  color: #526e86;
-  font-family: Georgia, serif;
-  margin-bottom: 10px;
-}
-
-.host p {
-  color: #555b61;
-}
-
-/* =====================================
-   ГЛІТЧ-ЕФЕКТ
-===================================== */
-
-#glitch {
-  position: fixed;
-  inset: 0;
-  z-index: 10;
-  pointer-events: none;
-  display: none;
-  background: rgba(255,0,30,.15);
-}
-
+/* ГЛІТЧ */
+#glitch{position:fixed;inset:0;z-index:10;pointer-events:none;display:none}
 #glitch.active {
   display: block;
-  animation: glitch .9s steps(2) forwards;
+  animation: glitch 3.8s steps(2) forwards;
 }
 
 @keyframes glitch {
   0% {
     opacity: 0;
+    background: #000;
     transform: translateX(0);
   }
 
-  10% {
+  5% {
     opacity: 1;
+    background: #fff;
+    transform: translateX(-15px);
+  }
+
+  10% {
+    background: #ff001e;
+    transform: translateX(15px) skewX(8deg);
+  }
+
+  15% {
+    background: #000;
+    transform: translateX(-20px);
+  }
+
+  22% {
+    background: #fff;
+    transform: translateX(10px);
+  }
+
+  28% {
+    background: #ff001e;
+    transform: translateX(-15px) skewX(-8deg);
+  }
+
+  35% {
+    background: #000;
+    transform: translateX(20px);
+  }
+
+  42% {
+    background: #ff001e;
+    transform: translateX(-10px);
+  }
+
+  50% {
+    background: #fff;
+    transform: translateX(15px);
+  }
+
+  58% {
+    background: #000;
+    transform: translateX(-20px);
+  }
+
+  65% {
+    background: #ff001e;
+    transform: translateX(10px);
+  }
+
+  73% {
     background: #fff;
     transform: translateX(-10px);
   }
 
-  20% {
-    background: #ff1744;
-    transform: translateX(12px) skewX(8deg);
+  80% {
+    background: #ff001e;
+    transform: translateX(15px);
   }
 
-  30% {
+  88% {
     background: #000;
-    transform: translateX(-15px);
+    transform: translateX(-5px);
   }
 
-  40% {
-    background: #ff1744;
-    transform: translateX(10px);
-  }
-
-  55% {
-    opacity: .9;
-    transform: translateX(-5px) skewX(-5deg);
-  }
-
-  70% {
-    opacity: .4;
-    background: #fff;
+  95% {
+    background: #ff001e;
+    transform: translateX(3px);
   }
 
   100% {
     opacity: 0;
+    background: #000;
     transform: translateX(0);
   }
 }
 
-/* =====================================
-   ПОВІДОМЛЕННЯ ПРО ПОМИЛКУ
-===================================== */
-
-.error-code {
-  color: #ff334d;
-  font-size: clamp(14px, 2vw, 20px);
-  letter-spacing: 4px;
-  margin-bottom: 20px;
+.error-code{color:#ff334d;font-size:clamp(14px,2vw,20px);letter-spacing:4px;margin-bottom:20px}
+.error-title{color:#ff334d;text-shadow:0 0 25px rgba(255,59,85,.6)}
+.rules{list-style:none;padding:0;counter-reset:rule}
+.rules li{
+  counter-increment:rule;position:relative;
+  padding:13px 10px 13px 55px;
+  border-bottom:1px solid rgba(255,50,70,.2);
+  color:#e4c8cc;font-size:clamp(15px,2vw,20px);line-height:1.5;
 }
-
-.error-title {
-  color: #ff334d;
-  text-shadow: 0 0 25px rgba(255,59,85,.6);
+.rules li::before{
+  content:"0" counter(rule);position:absolute;left:5px;
+  color:#ff4058;font-family:'Orbitron',sans-serif;
 }
-
-/* =====================================
-   ПРАВИЛА МІСІЇ
-===================================== */
-
-.rules {
-  list-style: none;
-  padding: 0;
-  counter-reset: rule;
+.timer{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(65px,13vw,140px);
+  color:#ff334d;text-shadow:0 0 35px rgba(255,30,50,.7);margin:25px 0;
 }
+.timer-label{letter-spacing:5px;color:#b77c85}
 
-.rules li {
-  counter-increment: rule;
-  padding: 13px 10px 13px 55px;
-  position: relative;
-  border-bottom: 1px solid rgba(255,50,70,.2);
-  color: #e4c8cc;
-  font-size: clamp(15px, 2vw, 20px);
-  line-height: 1.5;
+@keyframes appear{
+  from{opacity:0;transform:translateY(15px)}
+  to{opacity:1;transform:translateY(0)}
 }
-
-.rules li::before {
-  content: "0" counter(rule);
-  position: absolute;
-  left: 5px;
-  color: #ff4058;
-  font-family: 'Orbitron', sans-serif;
-}
-
-/* =====================================
-   ТАЙМЕР
-===================================== */
-
-.timer {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(65px, 13vw, 140px);
-  color: #ff334d;
-  text-shadow: 0 0 35px rgba(255,30,50,.7);
-  margin: 25px 0;
-}
-
-.timer-label {
-  letter-spacing: 5px;
-  color: #b77c85;
-}
-
-/* =====================================
-   ПАНЕЛЬ ОРГАНІЗАТОРА
-===================================== */
-
-#organizer {
-  display: none;
-  position: fixed;
-  z-index: 30;
-  right: 15px;
-  top: 15px;
-  width: min(340px, calc(100vw - 30px));
-  padding: 18px;
-  background: rgba(15,2,5,.98);
-  border: 1px solid #ff334d;
-  box-shadow: 0 0 35px rgba(255,59,85,.25);
-  max-height: calc(100vh - 30px);
-  overflow-y: auto;
-}
-
-#organizer.open {
-  display: block;
-}
-
-#organizer h3 {
-  color: #ff4058;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 15px;
-}
-
-#organizer button {
-  display: block;
-  width: 100%;
-  margin: 9px 0;
-  padding: 13px 8px;
-  border: 1px solid rgba(255,50,70,.5);
-  color: #ff4058;
-  background: #26070d;
-  font-size: 11px;
-}
-
-#organizer button:hover {
-  background: #4a101b;
-}
-
-#organizer .close {
-  color: white;
-  border-color: #777;
-  background: #252525;
-}
-
-#organizer .reset {
-  color: white;
-  border-color: #ff334d;
-  background: #3b1018;
-}
-
-#stageStatus {
-  color: #b77c85;
-  font-size: 12px;
-  margin-bottom: 12px;
-}
-
-/* =====================================
-   АНІМАЦІЇ
-===================================== */
-
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =====================================
-   МОБІЛЬНА АДАПТАЦІЯ
-===================================== */
-
-@media(max-width: 600px) {
-  .screen {
-    padding: 20px;
-  }
-
-  .hosts {
-    grid-template-columns: 1fr;
-  }
-
-  .panel {
-    padding: 17px;
-  }
-
-  .eyebrow {
-    letter-spacing: 2px;
-  }
-
-  .timer-label {
-    letter-spacing: 2px;
-  }
+@media(max-width:600px){
+  .screen{padding:20px}
+  .panel{padding:17px}
+  .eyebrow{letter-spacing:2px}
+  .timer-label{letter-spacing:2px}
+  .splash-title{letter-spacing:-2px}
 }
 </style>
-
-
-
 </head>
 
 <body>
-
 <div id="glitch"></div>
 
+<!-- 1. ЗАСТАВКА -->
+<section class="screen active" id="splash">
+  <div class="content splash-content">
+    <div class="eyebrow">НАУКА • ДОСЛІДЖЕННЯ • МАЙБУТНЄ</div>
+    <h1 class="splash-title">ДЕНЬ<br>НАУКИ</h1>
+    <div class="splash-line"></div>
+  </div>
+</section>
 
-<section class="screen active" id="intro">
+<!-- 2. ОФІЦІЙНИЙ ВСТУП -->
+<section class="screen" id="intro">
   <div class="content">
-
-    <div class="eyebrow">
-      НАУКА • ДОСЛІДЖЕННЯ • МАЙБУТНЄ
-    </div>
-
-    <h1>
-      ДЕНЬ<br>НАУКИ
-    </h1>
+    <div class="eyebrow">НАУКА • ДОСЛІДЖЕННЯ • МАЙБУТНЄ</div>
+    <h1>ДЕНЬ<br>НАУКИ</h1>
 
     <p class="intro-line">
       День науки — це свято знань, відкриттів і людської допитливості,
@@ -595,18 +260,21 @@ button {
         нові знання, знаходить відповіді на складні запитання
         та створює технології, які змінюють наше повсякдення.
       </p>
-      
-        <p>
+      <p>
         Вона охоплює найрізноманітніші галузі:
         від математики, фізики й хімії до біології,
         інформатики, медицини та дослідження космосу.
       </p>
-
+      <p>
+        Кожне наукове відкриття починається з простого запитання,
+        спостереження або припущення. А шлях до нового знання
+        потребує уважності, наполегливості та логічного мислення.
+      </p>
+    </div>
   </div>
 </section>
 
-
-<!-- ЕТАП 2: ЗБІЙ -->
+<!-- 3. ЗБІЙ -->
 <section class="screen" id="glitchStage">
   <div class="content">
     <div class="error-code">SYSTEM ERROR // 0x0000F</div>
@@ -617,28 +285,25 @@ button {
   </div>
 </section>
 
-<!-- ЕТАП 3: ПОВІДОМЛЕННЯ -->
+<!-- 4. ПОВІДОМЛЕННЯ -->
 <section class="screen" id="mission">
   <div class="content">
     <div class="error-code">UNAUTHORIZED ACCESS DETECTED</div>
     <h1 class="error-title">ШКОЛУ<br>ЗЛАМАНО</h1>
-
     <div class="panel">
       <p>Увага! Систему школи було пошкоджено невідомим користувачем.</p>
       <p>Навчальні модулі заблоковано. Дані зашифровано. Доступ до системи втрачено.</p>
       <p class="highlight">Єдиний спосіб відновити роботу школи — пройти всі випробування та зібрати коди доступу.</p>
     </div>
-
     <p>Система очікує на команду відновлення...</p>
   </div>
 </section>
 
-<!-- ЕТАП 4: ПРАВИЛА -->
+<!-- 5. ПРАВИЛА -->
 <section class="screen" id="rules">
   <div class="content">
     <div class="eyebrow">PROTOCOL // MISSION RULES</div>
     <h2>ПРАВИЛА МІСІЇ</h2>
-
     <div class="panel">
       <ol class="rules">
         <li>Працюйте командою та не розділяйтеся без потреби.</li>
@@ -650,19 +315,18 @@ button {
         <li>Мета — відновити всі модулі та врятувати школу!</li>
       </ol>
     </div>
-
     <h2 class="highlight">ЧИ ГОТОВІ ВИ?</h2>
     <p>Після запуску місії розпочнеться відлік часу.</p>
   </div>
 </section>
 
-<!-- ЕТАП 5: МІСІЯ -->
+<!-- 6. ЗАПУСК МІСІЇ -->
 <section class="screen" id="countdown">
   <div class="content">
     <div class="eyebrow">SYSTEM RESTORATION PROTOCOL</div>
     <h2>МІСІЮ РОЗПОЧАТО</h2>
     <p class="timer-label">ЧАС ДО ЗАВЕРШЕННЯ МІСІЇ</p>
-    <div class="timer" id="timer">60:00</div>
+    <div class="timer" id="timer">45:00</div>
     <p class="highlight" id="timerMessage">Відновіть систему школи!</p>
     <p class="small">Працюйте швидко. Думайте уважно. Дійте разом.</p>
   </div>
@@ -670,99 +334,49 @@ button {
 
 <div class="footer">BROKEN SCHOOL // SCIENCE DAY</div>
 
-<!-- ПРИХОВАНА ПАНЕЛЬ ОРГАНІЗАТОРА -->
-
-
-<button id="organizerToggle" onclick="toggleOrganizer()">
-  ⚙ КЕРУВАННЯ
-</button>
-
-
-<div id="organizer">
-  <h3>⚙ ПАНЕЛЬ ОРГАНІЗАТОРА</h3>
-  <div id="stageStatus">Поточний етап: Вступ</div>
-
-  <button onclick="goToStage('glitchStage', 'Збій системи', true)">
-    01 / ПОЧАТИ ЗБІЙ
-  </button>
-
-  <button onclick="goToStage('mission', 'Повідомлення про злам')">
-    02 / ПОКАЗАТИ ПОВІДОМЛЕННЯ
-  </button>
-
-  <button onclick="goToStage('rules', 'Правила місії')">
-    03 / ПОКАЗАТИ ПРАВИЛА
-  </button>
-
-  <button class="warning" onclick="startMission()">
-    04 / ЗАПУСТИТИ МІСІЮ
-  </button>
-
-  <button onclick="toggleFullscreen()">
-    ⛶ ПОВНОЕКРАННИЙ РЕЖИМ
-  </button>
-
-  <button class="reset" onclick="resetPresentation()">
-    ↻ СКИНУТИ ПРЕЗЕНТАЦІЮ
-  </button>
-
-  <button class="close" onclick="toggleOrganizer()">
-    ЗАКРИТИ ПАНЕЛЬ
-  </button>
-
-  <p class="small">
-    Панель доступна лише організатору.<br>
-    Гаряча клавіша: Ctrl + Shift + O
-  </p>
-</div>
-
 <script>
-
-
 let timerInterval = null;
-let remainingSeconds = 60 * 60;
+let remainingSeconds = 45 * 60;
 let currentStep = 0;
 let missionStarted = false;
 
 const stages = [
-  { id: "intro", name: "Вступ" },
-  { id: "glitchStage", name: "Збій системи", glitch: true },
-  { id: "mission", name: "Повідомлення про злам" },
-  { id: "rules", name: "Правила місії" },
-  { id: "countdown", name: "Місія запущена" }
+  {id:"splash",name:"Заставка"},
+  {id:"intro",name:"Вступ"},
+  {id:"glitchStage",name:"Збій системи",glitch:true},
+  {id:"mission",name:"Повідомлення про злам"},
+  {id:"rules",name:"Правила місії"},
+  {id:"countdown",name:"Місія запущена"}
 ];
 
-function showStage(index) {
+function showStage(index){
   const stage = stages[index];
-  document.body.classList.toggle("corrupted", index >= 1);
 
-  document.querySelectorAll(".screen").forEach(screen => {
+  // Червоний режим вмикається саме після заставки та вступу
+  document.body.classList.toggle("corrupted",index>=2);
+
+  document.querySelectorAll(".screen").forEach(screen=>{
     screen.classList.remove("active");
   });
 
-  if (stage.glitch) {
-    const effect = document.getElementById("glitch");
+  if(stage.glitch){
+    const effect=document.getElementById("glitch");
     effect.classList.remove("active");
     void effect.offsetWidth;
     effect.classList.add("active");
   }
 
-  setTimeout(() => {
+  setTimeout(()=>{
     document.getElementById(stage.id).classList.add("active");
-  }, stage.glitch ? 450 : 0);
-
-  const status = document.getElementById("stageStatus");
-  if (status) {
-    status.textContent = "Поточний етап: " + stage.name;
-  }
+  },stage.glitch?450:0);
 }
 
-function nextStage() {
-  if (missionStarted || currentStep >= 4) return;
+function nextStage(){
+  if(missionStarted || currentStep>=5)return;
 
   currentStep++;
 
-  if (currentStep === 4) {
+  if(currentStep===5){
     startMission();
     return;
   }
@@ -770,43 +384,41 @@ function nextStage() {
   showStage(currentStep);
 }
 
-function startMission() {
-  missionStarted = true;
-  remainingSeconds = 60 * 45;
+function startMission(){
+  missionStarted=true;
+  remainingSeconds=45*60;
 
-  showStage(4);
+  showStage(5);
   updateTimer();
 
-  timerInterval = setInterval(() => {
+  timerInterval=setInterval(()=>{
     remainingSeconds--;
     updateTimer();
 
-    if (remainingSeconds <= 0) {
+    if(remainingSeconds<=0){
       clearInterval(timerInterval);
-      document.getElementById("timerMessage").textContent =
+      document.getElementById("timerMessage").textContent=
         "ЧАС ВИЧЕРПАНО. МІСІЮ ЗАВЕРШЕНО.";
-      document.getElementById("timer").style.color = "#ff3b55";
+      document.getElementById("timer").style.color="#ff3b55";
     }
-  }, 1000);
+  },1000);
 }
 
-function updateTimer() {
-  const minutes = Math.floor(remainingSeconds / 60);
-  const seconds = remainingSeconds % 60;
+function updateTimer(){
+  const minutes=Math.floor(remainingSeconds/60);
+  const seconds=remainingSeconds%60;
 
-  document.getElementById("timer").textContent =
-    String(minutes).padStart(2, "0") + ":" +
-    String(seconds).padStart(2, "0");
+  document.getElementById("timer").textContent=
+    String(minutes).padStart(2,"0")+":"+
+    String(seconds).padStart(2,"0");
 }
 
-document.addEventListener("keydown", event => {
-  if (event.code === "Space" && !event.repeat) {
+document.addEventListener("keydown",event=>{
+  if(event.code==="Space" && !event.repeat){
     event.preventDefault();
     nextStage();
   }
 });
-
 </script>
-
 </body>
 </html>
