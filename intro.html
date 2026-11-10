@@ -510,32 +510,28 @@ button {
 
 <script>
 
+
 let timerInterval = null;
 let remainingSeconds = 60 * 60;
-let currentStage = "intro";
+let currentStep = 0;
 let missionStarted = false;
 
-const stageNames = {
-  intro: "Вступ",
-  glitchStage: "Збій системи",
-  mission: "Повідомлення про злам",
-  rules: "Правила місії",
-  countdown: "Місія запущена"
-};
+const stages = [
+  { id: "intro", name: "Вступ" },
+  { id: "glitchStage", name: "Збій системи", glitch: true },
+  { id: "mission", name: "Повідомлення про злам" },
+  { id: "rules", name: "Правила місії" },
+  { id: "countdown", name: "Місія запущена" }
+];
 
-function toggleOrganizer() {
-  const panel = document.getElementById("organizer");
-  panel.classList.toggle("open");
-}
+function showStage(index) {
+  const stage = stages[index];
 
-function goToStage(stageId, label, playGlitch = false) {
   document.querySelectorAll(".screen").forEach(screen => {
     screen.classList.remove("active");
   });
 
-  document.getElementById("organizer").classList.remove("open");
-
-  if (playGlitch) {
+  if (stage.glitch) {
     const effect = document.getElementById("glitch");
     effect.classList.remove("active");
     void effect.offsetWidth;
@@ -543,21 +539,33 @@ function goToStage(stageId, label, playGlitch = false) {
   }
 
   setTimeout(() => {
-    document.getElementById(stageId).classList.add("active");
-  }, playGlitch ? 450 : 0);
+    document.getElementById(stage.id).classList.add("active");
+  }, stage.glitch ? 450 : 0);
 
-  currentStage = stageId;
-  document.getElementById("stageStatus").textContent =
-    "Поточний етап: " + (label || stageNames[stageId]);
+  const status = document.getElementById("stageStatus");
+  if (status) {
+    status.textContent = "Поточний етап: " + stage.name;
+  }
+}
+
+function nextStage() {
+  if (missionStarted || currentStep >= 4) return;
+
+  currentStep++;
+
+  if (currentStep === 4) {
+    startMission();
+    return;
+  }
+
+  showStage(currentStep);
 }
 
 function startMission() {
-  if (missionStarted) return;
-
   missionStarted = true;
   remainingSeconds = 60 * 60;
 
-  goToStage("countdown", "Місія запущена");
+  showStage(4);
   updateTimer();
 
   timerInterval = setInterval(() => {
@@ -582,35 +590,10 @@ function updateTimer() {
     String(seconds).padStart(2, "0");
 }
 
-function toggleFullscreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen?.();
-  } else {
-    document.exitFullscreen?.();
-  }
-}
-
-function resetPresentation() {
-  if (!confirm("Скинути презентацію та повернутися до вступу?")) return;
-
-  clearInterval(timerInterval);
-  timerInterval = null;
-  remainingSeconds = 60 * 60;
-  missionStarted = false;
-
-  document.getElementById("timer").style.color = "";
-  document.getElementById("timerMessage").textContent =
-    "Відновіть систему школи!";
-
-  goToStage("intro", "Вступ");
-  document.getElementById("organizer").classList.remove("open");
-}
-
 document.addEventListener("keydown", event => {
-  if (event.ctrlKey && event.shiftKey &&
-      event.key.toLowerCase() === "o") {
+  if (event.code === "Space" && !event.repeat) {
     event.preventDefault();
-    toggleOrganizer();
+    nextStage();
   }
 });
 
