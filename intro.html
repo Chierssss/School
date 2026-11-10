@@ -346,6 +346,26 @@ button {
   .hosts { grid-template-columns: 1fr; }
   .panel { padding: 17px; }
 }
+
+#organizerToggle {
+  position: fixed;
+  z-index: 29;
+  right: 18px;
+  bottom: 18px;
+  padding: 12px 16px;
+  color: #6dff9b;
+  background: rgba(3, 15, 9, .9);
+  border: 1px solid rgba(109,255,155,.5);
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+#organizerToggle:hover {
+  background: #183c27;
+  box-shadow: 0 0 20px rgba(109,255,155,.3);
+}
+
+
 </style>
 </head>
 
@@ -366,17 +386,6 @@ button {
       прагнення до знань та силу людського інтелекту.
     </p>
 
-    <div class="hosts">
-      <div class="host">
-        <strong>ВЕДУЧИЙ 01</strong>
-        <p>Наука допомагає нам краще розуміти світ, знаходити відповіді на складні запитання та відкривати нові можливості.</p>
-      </div>
-
-      <div class="host">
-        <strong>ВЕДУЧИЙ 02</strong>
-        <p>Кожне відкриття починається з цікавості. А кожне дослідження — з бажання перевірити те, що ми вже знаємо.</p>
-      </div>
-    </div>
 
     <div class="panel">
       <p><span class="highlight">Сьогодні на вас чекають:</span></p>
@@ -454,6 +463,13 @@ button {
 <div class="footer">BROKEN SCHOOL // SCIENCE DAY</div>
 
 <!-- ПРИХОВАНА ПАНЕЛЬ ОРГАНІЗАТОРА -->
+
+
+<button id="organizerToggle" onclick="toggleOrganizer()">
+  ⚙ КЕРУВАННЯ
+</button>
+
+
 <div id="organizer">
   <h3>⚙ ПАНЕЛЬ ОРГАНІЗАТОРА</h3>
   <div id="stageStatus">Поточний етап: Вступ</div>
@@ -507,6 +523,31 @@ const stageNames = {
 };
 
 function goToStage(stageId, label, playGlitch = false) {
+  if (missionStarted) return;
+
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById("organizer").classList.remove("open");
+
+  if (playGlitch) {
+    const effect = document.getElementById("glitch");
+    effect.classList.remove("active");
+    void effect.offsetWidth;
+    effect.classList.add("active");
+  }
+
+  setTimeout(() => {
+    document.getElementById(stageId).classList.add("active");
+  }, playGlitch ? 450 : 0);
+
+  currentStage = stageId;
+
+  document.getElementById("stageStatus").textContent =
+    "Поточний етап: " + (label || stageNames[stageId]);
+}
+
   if (missionStarted) return;
 
   document.querySelectorAll(".screen").forEach(screen => {
