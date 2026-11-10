@@ -509,6 +509,7 @@ button {
 </div>
 
 <script>
+
 let timerInterval = null;
 let remainingSeconds = 60 * 60;
 let currentStage = "intro";
@@ -522,37 +523,17 @@ const stageNames = {
   countdown: "Місія запущена"
 };
 
-function goToStage(stageId, label, playGlitch = false) {
-  if (missionStarted) return;
+function toggleOrganizer() {
+  const panel = document.getElementById("organizer");
+  panel.classList.toggle("open");
+}
 
+function goToStage(stageId, label, playGlitch = false) {
   document.querySelectorAll(".screen").forEach(screen => {
     screen.classList.remove("active");
   });
 
   document.getElementById("organizer").classList.remove("open");
-
-  if (playGlitch) {
-    const effect = document.getElementById("glitch");
-    effect.classList.remove("active");
-    void effect.offsetWidth;
-    effect.classList.add("active");
-  }
-
-  setTimeout(() => {
-    document.getElementById(stageId).classList.add("active");
-  }, playGlitch ? 450 : 0);
-
-  currentStage = stageId;
-
-  document.getElementById("stageStatus").textContent =
-    "Поточний етап: " + (label || stageNames[stageId]);
-}
-
-  if (missionStarted) return;
-
-  document.querySelectorAll(".screen").forEach(screen => {
-    screen.classList.remove("active");
-  });
 
   if (playGlitch) {
     const effect = document.getElementById("glitch");
@@ -601,10 +582,6 @@ function updateTimer() {
     String(seconds).padStart(2, "0");
 }
 
-function toggleOrganizer() {
-  document.getElementById("organizer").classList.toggle("open");
-}
-
 function toggleFullscreen() {
   if (!document.fullscreenElement) {
     document.documentElement.requestFullscreen?.();
@@ -636,6 +613,7 @@ document.addEventListener("keydown", event => {
     toggleOrganizer();
   }
 });
+
 </script>
 
 </body>
