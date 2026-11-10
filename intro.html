@@ -10,53 +10,141 @@
 
 
 <style>
-    
-body {
-  --green: #345b79;
-  --red: #b42332;
-  --yellow: #a47a22;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap');
 
+/* =====================================
+   БАЗОВІ НАЛАШТУВАННЯ
+===================================== */
+
+:root {
+  --green: #ff334d;
+  --red: #ff263f;
+  --yellow: #ff5265;
+  --bg: #05080b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow: hidden;
   color: #30343a;
   background: #f2f0e9;
   font-family: Arial, sans-serif;
+  transition: background .25s, color .25s;
 }
 
+/* =====================================
+   ФОНОВІ ЕФЕКТИ
+===================================== */
+
 body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
   opacity: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,.6) 4px
+  );
+  transition: opacity .3s;
 }
 
 body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
   opacity: 0;
+  background-image:
+    linear-gradient(rgba(80,255,150,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(80,255,150,.08) 1px, transparent 1px);
+  background-size: 45px 45px;
+  transition: opacity .3s;
 }
+
+/* =====================================
+   ЕКРАНИ
+===================================== */
+
+.screen {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  width: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 35px;
+  text-align: center;
+}
+
+.screen.active {
+  display: flex;
+  animation: appear .8s ease;
+}
+
+.content {
+  width: min(1050px, 100%);
+}
+
+/* =====================================
+   СВІТЛИЙ РЕЖИМ — ПОЧАТОК
+===================================== */
 
 .eyebrow {
   color: #647b8c;
-  letter-spacing: 4px;
+  letter-spacing: 5px;
+  font-size: clamp(12px, 2vw, 17px);
+  margin-bottom: 25px;
+}
+
+h1, h2 {
+  font-family: Georgia, serif;
+  text-transform: uppercase;
 }
 
 h1 {
   color: #26394b;
-  text-shadow: none;
-  font-family: Georgia, serif;
+  font-size: clamp(35px, 7vw, 85px);
+  line-height: 1.15;
+  margin: 15px 0;
   font-weight: 500;
+  text-shadow: none;
 }
 
 h2 {
   color: #26394b;
-  font-family: Georgia, serif;
+  font-size: clamp(25px, 4vw, 48px);
+  line-height: 1.25;
 }
 
 p {
+  font-size: clamp(16px, 2.1vw, 23px);
+  line-height: 1.65;
   color: #555b61;
 }
 
 .panel {
-  background: #fffefa;
+  margin: 35px auto;
+  padding: 25px;
+  max-width: 850px;
   border: 1px solid #d9d6cd;
+  background: #fffefa;
   box-shadow: 0 3px 15px rgba(0,0,0,.04);
+  text-align: left;
 }
 
 .panel p {
+  margin: 10px 0;
   color: #555b61;
 }
 
@@ -65,25 +153,35 @@ p {
 }
 
 .small {
+  font-size: 14px;
   color: #88877f;
 }
 
 .footer {
+  position: fixed;
+  z-index: 3;
+  bottom: 18px;
+  left: 0;
+  width: 100%;
+  text-align: center;
   color: #aaa69b;
-  font-family: Arial, sans-serif;
-  letter-spacing: 2px;
+  font-size: 11px;
+  letter-spacing: 3px;
 }
 
-/* ===== РІЗКИЙ ПЕРЕХІД У ЧЕРВОНИЙ РЕЖИМ ===== */
+/* =====================================
+   ЧЕРВОНИЙ РЕЖИМ — ПІСЛЯ ЗЛАМУ
+===================================== */
 
 body.corrupted {
-  --green: #ff334d;
-  --red: #ff263f;
-  --yellow: #ff5265;
-
   color: #f4eeee;
   background:
-    radial-gradient(ellipse at center, #31060c 0%, #130306 48%, #030203 100%);
+    radial-gradient(
+      ellipse at center,
+      #31060c 0%,
+      #130306 48%,
+      #030203 100%
+    );
   font-family: 'Share Tech Mono', monospace;
 }
 
@@ -104,15 +202,16 @@ body.corrupted::after {
     linear-gradient(90deg, rgba(255,30,50,.12) 1px, transparent 1px);
 }
 
-body.corrupted .eyebrow,
-body.corrupted .highlight {
+body.corrupted .eyebrow {
   color: #ff4058;
+  font-family: 'Share Tech Mono', monospace;
 }
 
 body.corrupted h1,
 body.corrupted h2 {
   color: #ff4058;
   font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
   text-shadow: 0 0 25px rgba(255,30,50,.65);
 }
 
@@ -130,9 +229,34 @@ body.corrupted .panel p {
   color: #e4c8cc;
 }
 
-body.corrupted .small,
+body.corrupted .highlight {
+  color: #ff4058;
+}
+
+body.corrupted .small {
+  color: #9d5962;
+}
+
 body.corrupted .footer {
   color: #9d5962;
+}
+
+body.corrupted .error-code {
+  color: #ff334d;
+}
+
+body.corrupted .error-title {
+  color: #ff334d;
+  text-shadow: 0 0 30px rgba(255,30,50,.7);
+}
+
+body.corrupted .rules li {
+  color: #e4c8cc;
+  border-color: rgba(255,50,70,.2);
+}
+
+body.corrupted .rules li::before {
+  color: #ff4058;
 }
 
 body.corrupted .timer {
@@ -140,30 +264,306 @@ body.corrupted .timer {
   text-shadow: 0 0 35px rgba(255,30,50,.7);
 }
 
-body.corrupted .rules li::before {
-  color: #ff4058;
+body.corrupted .timer-label {
+  color: #b77c85;
 }
 
-body.corrupted .rules li {
-  border-color: rgba(255,50,70,.2);
+/* =====================================
+   КНОПКИ
+===================================== */
+
+button {
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+}
+
+.system-btn {
+  margin-top: 25px;
+  padding: 18px 30px;
+  color: #fff;
+  background: #b42332;
+  border: none;
+  font-size: clamp(13px, 2vw, 17px);
+  letter-spacing: 2px;
+  box-shadow: 0 0 25px rgba(255,59,85,.35);
+  transition: .2s;
+}
+
+.system-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 40px rgba(255,59,85,.7);
+}
+
+.danger {
+  color: white;
+  background: #ff334d;
+  box-shadow: 0 0 25px rgba(255,59,85,.4);
+}
+
+.warning {
+  color: #fff;
+  background: #b42332;
+  box-shadow: 0 0 25px rgba(255,59,85,.3);
+}
+
+/* =====================================
+   БЛОКИ ВЕДУЧИХ (ЯКЩО ВИКОРИСТОВУЮТЬСЯ)
+===================================== */
+
+.hosts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 35px;
+}
+
+.host {
+  padding: 20px;
+  border: 1px solid #d9d6cd;
+  background: #fffefa;
+}
+
+.host strong {
+  display: block;
+  color: #526e86;
+  font-family: Georgia, serif;
+  margin-bottom: 10px;
+}
+
+.host p {
+  color: #555b61;
+}
+
+/* =====================================
+   ГЛІТЧ-ЕФЕКТ
+===================================== */
+
+#glitch {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  display: none;
+  background: rgba(255,0,30,.15);
+}
+
+#glitch.active {
+  display: block;
+  animation: glitch .9s steps(2) forwards;
+}
+
+@keyframes glitch {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+
+  10% {
+    opacity: 1;
+    background: #fff;
+    transform: translateX(-10px);
+  }
+
+  20% {
+    background: #ff1744;
+    transform: translateX(12px) skewX(8deg);
+  }
+
+  30% {
+    background: #000;
+    transform: translateX(-15px);
+  }
+
+  40% {
+    background: #ff1744;
+    transform: translateX(10px);
+  }
+
+  55% {
+    opacity: .9;
+    transform: translateX(-5px) skewX(-5deg);
+  }
+
+  70% {
+    opacity: .4;
+    background: #fff;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+}
+
+/* =====================================
+   ПОВІДОМЛЕННЯ ПРО ПОМИЛКУ
+===================================== */
+
+.error-code {
+  color: #ff334d;
+  font-size: clamp(14px, 2vw, 20px);
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+}
+
+.error-title {
+  color: #ff334d;
+  text-shadow: 0 0 25px rgba(255,59,85,.6);
+}
+
+/* =====================================
+   ПРАВИЛА МІСІЇ
+===================================== */
+
+.rules {
+  list-style: none;
+  padding: 0;
+  counter-reset: rule;
+}
+
+.rules li {
+  counter-increment: rule;
+  padding: 13px 10px 13px 55px;
+  position: relative;
+  border-bottom: 1px solid rgba(255,50,70,.2);
   color: #e4c8cc;
+  font-size: clamp(15px, 2vw, 20px);
+  line-height: 1.5;
 }
 
-body.corrupted #organizer {
+.rules li::before {
+  content: "0" counter(rule);
+  position: absolute;
+  left: 5px;
+  color: #ff4058;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* =====================================
+   ТАЙМЕР
+===================================== */
+
+.timer {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(65px, 13vw, 140px);
+  color: #ff334d;
+  text-shadow: 0 0 35px rgba(255,30,50,.7);
+  margin: 25px 0;
+}
+
+.timer-label {
+  letter-spacing: 5px;
+  color: #b77c85;
+}
+
+/* =====================================
+   ПАНЕЛЬ ОРГАНІЗАТОРА
+===================================== */
+
+#organizer {
+  display: none;
+  position: fixed;
+  z-index: 30;
+  right: 15px;
+  top: 15px;
+  width: min(340px, calc(100vw - 30px));
+  padding: 18px;
   background: rgba(15,2,5,.98);
-  border-color: #ff334d;
+  border: 1px solid #ff334d;
+  box-shadow: 0 0 35px rgba(255,59,85,.25);
+  max-height: calc(100vh - 30px);
+  overflow-y: auto;
 }
 
-body.corrupted #organizer h3 {
-  color: #ff4058;
+#organizer.open {
+  display: block;
 }
 
-body.corrupted #organizer button {
+#organizer h3 {
   color: #ff4058;
-  border-color: rgba(255,50,70,.5);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 15px;
+}
+
+#organizer button {
+  display: block;
+  width: 100%;
+  margin: 9px 0;
+  padding: 13px 8px;
+  border: 1px solid rgba(255,50,70,.5);
+  color: #ff4058;
   background: #26070d;
+  font-size: 11px;
+}
+
+#organizer button:hover {
+  background: #4a101b;
+}
+
+#organizer .close {
+  color: white;
+  border-color: #777;
+  background: #252525;
+}
+
+#organizer .reset {
+  color: white;
+  border-color: #ff334d;
+  background: #3b1018;
+}
+
+#stageStatus {
+  color: #b77c85;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+/* =====================================
+   АНІМАЦІЇ
+===================================== */
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================
+   МОБІЛЬНА АДАПТАЦІЯ
+===================================== */
+
+@media(max-width: 600px) {
+  .screen {
+    padding: 20px;
+  }
+
+  .hosts {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    padding: 17px;
+  }
+
+  .eyebrow {
+    letter-spacing: 2px;
+  }
+
+  .timer-label {
+    letter-spacing: 2px;
+  }
 }
 </style>
+
+
+
 </head>
 
 <body>
