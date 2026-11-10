@@ -1,0 +1,601 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>День науки | Зламана школа</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --green: #6dff9b;
+  --red: #ff3b55;
+  --yellow: #ffe66d;
+  --bg: #05080b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  color: #eafff0;
+  background:
+    radial-gradient(ellipse at center, #10251d 0%, #07100d 45%, #020405 100%);
+  font-family: 'Share Tech Mono', monospace;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  opacity: .16;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,.6) 4px
+  );
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  opacity: .2;
+  background-image:
+    linear-gradient(rgba(80,255,150,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(80,255,150,.08) 1px, transparent 1px);
+  background-size: 45px 45px;
+}
+
+.screen {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  width: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 35px;
+  text-align: center;
+}
+
+.screen.active {
+  display: flex;
+  animation: appear .8s ease;
+}
+
+.content {
+  width: min(1050px, 100%);
+}
+
+.eyebrow {
+  color: var(--green);
+  letter-spacing: 5px;
+  font-size: clamp(12px, 2vw, 17px);
+  margin-bottom: 25px;
+}
+
+h1, h2 {
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(35px, 7vw, 85px);
+  line-height: 1.15;
+  margin: 15px 0;
+  text-shadow: 0 0 25px rgba(109,255,155,.4);
+}
+
+h2 {
+  font-size: clamp(25px, 4vw, 48px);
+  line-height: 1.25;
+}
+
+p {
+  font-size: clamp(16px, 2.1vw, 23px);
+  line-height: 1.65;
+  color: #c5d9cc;
+}
+
+.panel {
+  margin: 35px auto;
+  padding: 25px;
+  max-width: 850px;
+  border: 1px solid rgba(109,255,155,.35);
+  background: rgba(4,18,12,.75);
+  box-shadow: 0 0 30px rgba(40,255,120,.08);
+  text-align: left;
+}
+
+.panel p {
+  margin: 10px 0;
+}
+
+.highlight {
+  color: var(--green);
+}
+
+.small {
+  font-size: 14px;
+  color: #8da99a;
+}
+
+button {
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+}
+
+.system-btn {
+  margin-top: 25px;
+  padding: 18px 30px;
+  color: #06110a;
+  background: var(--green);
+  border: none;
+  font-size: clamp(13px, 2vw, 17px);
+  letter-spacing: 2px;
+  box-shadow: 0 0 25px rgba(109,255,155,.35);
+  transition: .2s;
+}
+
+.system-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 40px rgba(109,255,155,.7);
+}
+
+.danger {
+  color: white;
+  background: var(--red);
+  box-shadow: 0 0 25px rgba(255,59,85,.4);
+}
+
+.warning {
+  color: #171000;
+  background: var(--yellow);
+  box-shadow: 0 0 25px rgba(255,230,109,.3);
+}
+
+.intro-line {
+  max-width: 800px;
+  margin: 25px auto;
+}
+
+.hosts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 35px;
+}
+
+.host {
+  padding: 20px;
+  border: 1px solid rgba(109,255,155,.2);
+  background: rgba(10,30,20,.5);
+}
+
+.host strong {
+  display: block;
+  color: var(--green);
+  font-family: 'Orbitron', sans-serif;
+  margin-bottom: 10px;
+}
+
+#glitch {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  display: none;
+  background: rgba(255,255,255,.1);
+}
+
+#glitch.active {
+  display: block;
+  animation: glitch .9s steps(2) forwards;
+}
+
+@keyframes glitch {
+  0% { opacity: 0; transform: translateX(0); }
+  10% { opacity: 1; background: #fff; transform: translateX(-10px); }
+  20% { background: #ff1744; transform: translateX(12px) skewX(8deg); }
+  30% { background: #00ff9c; transform: translateX(-15px); }
+  40% { background: #000; transform: translateX(10px); }
+  55% { opacity: .9; transform: translateX(-5px) skewX(-5deg); }
+  70% { opacity: .4; background: #fff; }
+  100% { opacity: 0; transform: translateX(0); }
+}
+
+.error-code {
+  color: var(--red);
+  font-size: clamp(14px, 2vw, 20px);
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+}
+
+.error-title {
+  color: var(--red);
+  text-shadow: 0 0 25px rgba(255,59,85,.6);
+}
+
+.rules {
+  list-style: none;
+  padding: 0;
+  counter-reset: rule;
+}
+
+.rules li {
+  counter-increment: rule;
+  padding: 13px 10px 13px 55px;
+  position: relative;
+  border-bottom: 1px solid rgba(109,255,155,.15);
+  color: #d9e9de;
+  font-size: clamp(15px, 2vw, 20px);
+  line-height: 1.5;
+}
+
+.rules li::before {
+  content: "0" counter(rule);
+  position: absolute;
+  left: 5px;
+  color: var(--green);
+  font-family: 'Orbitron', sans-serif;
+}
+
+.timer {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(65px, 13vw, 140px);
+  color: var(--green);
+  text-shadow: 0 0 35px rgba(109,255,155,.5);
+  margin: 25px 0;
+}
+
+.timer-label {
+  letter-spacing: 5px;
+  color: #9ab6a4;
+}
+
+#organizer {
+  display: none;
+  position: fixed;
+  z-index: 30;
+  right: 15px;
+  top: 15px;
+  width: min(340px, calc(100vw - 30px));
+  padding: 18px;
+  background: rgba(3,10,8,.97);
+  border: 1px solid var(--green);
+  box-shadow: 0 0 35px rgba(109,255,155,.25);
+  max-height: calc(100vh - 30px);
+  overflow-y: auto;
+}
+
+#organizer.open {
+  display: block;
+}
+
+#organizer h3 {
+  color: var(--green);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 15px;
+}
+
+#organizer button {
+  display: block;
+  width: 100%;
+  margin: 9px 0;
+  padding: 13px 8px;
+  border: 1px solid rgba(109,255,155,.4);
+  color: var(--green);
+  background: #0b1a12;
+  font-size: 11px;
+}
+
+#organizer button:hover {
+  background: #183c27;
+}
+
+#organizer .close {
+  color: white;
+  border-color: #777;
+  background: #252525;
+}
+
+#organizer .reset {
+  color: white;
+  border-color: var(--red);
+  background: #3b1018;
+}
+
+#stageStatus {
+  color: #8da99a;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.footer {
+  position: fixed;
+  z-index: 3;
+  bottom: 18px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: rgba(160,210,175,.4);
+  font-size: 11px;
+  letter-spacing: 3px;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media(max-width: 600px) {
+  .screen { padding: 20px; }
+  .hosts { grid-template-columns: 1fr; }
+  .panel { padding: 17px; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="glitch"></div>
+
+<!-- ЕТАП 1: ОФІЦІЙНИЙ ВСТУП -->
+<section class="screen active" id="intro">
+  <div class="content">
+    <div class="eyebrow">НАУКА • ДОСЛІДЖЕННЯ • МАЙБУТНЄ</div>
+
+    <h1>ДЕНЬ<br>НАУКИ</h1>
+
+    <p class="intro-line">
+      Вітаємо всіх учасників нашого наукового заходу!
+      Сьогодні ми зібралися, щоб відзначити допитливість,
+      прагнення до знань та силу людського інтелекту.
+    </p>
+
+    <div class="hosts">
+      <div class="host">
+        <strong>ВЕДУЧИЙ 01</strong>
+        <p>Наука допомагає нам краще розуміти світ, знаходити відповіді на складні запитання та відкривати нові можливості.</p>
+      </div>
+
+      <div class="host">
+        <strong>ВЕДУЧИЙ 02</strong>
+        <p>Кожне відкриття починається з цікавості. А кожне дослідження — з бажання перевірити те, що ми вже знаємо.</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <p><span class="highlight">Сьогодні на вас чекають:</span></p>
+      <p>— командна робота та логічні завдання;</p>
+      <p>— наукові загадки й несподівані відкриття;</p>
+      <p>— випробування, у яких важливі уважність і кмітливість.</p>
+    </div>
+
+    <p class="small">Просимо учасників підготуватися до початку заходу.</p>
+  </div>
+</section>
+
+<!-- ЕТАП 2: ЗБІЙ -->
+<section class="screen" id="glitchStage">
+  <div class="content">
+    <div class="error-code">SYSTEM ERROR // 0x0000F</div>
+    <h1 class="error-title">ЗБІЙ<br>СИСТЕМИ</h1>
+    <p>Виявлено стороннє втручання...</p>
+    <p>З'єднання з головним сервером втрачено.</p>
+    <p class="highlight">Спроба відновлення: НЕВДАЛА</p>
+  </div>
+</section>
+
+<!-- ЕТАП 3: ПОВІДОМЛЕННЯ -->
+<section class="screen" id="mission">
+  <div class="content">
+    <div class="error-code">UNAUTHORIZED ACCESS DETECTED</div>
+    <h1 class="error-title">ШКОЛУ<br>ЗЛАМАНО</h1>
+
+    <div class="panel">
+      <p>Увага! Систему школи було пошкоджено невідомим користувачем.</p>
+      <p>Навчальні модулі заблоковано. Дані зашифровано. Доступ до системи втрачено.</p>
+      <p class="highlight">Єдиний спосіб відновити роботу школи — пройти всі випробування та зібрати коди доступу.</p>
+    </div>
+
+    <p>Система очікує на команду відновлення...</p>
+  </div>
+</section>
+
+<!-- ЕТАП 4: ПРАВИЛА -->
+<section class="screen" id="rules">
+  <div class="content">
+    <div class="eyebrow">PROTOCOL // MISSION RULES</div>
+    <h2>ПРАВИЛА МІСІЇ</h2>
+
+    <div class="panel">
+      <ol class="rules">
+        <li>Працюйте командою та не розділяйтеся без потреби.</li>
+        <li>Виконуйте завдання послідовно.</li>
+        <li>Уважно читайте умови кожного випробування.</li>
+        <li>Знайдені коди вводьте на відповідних сторінках.</li>
+        <li>Не підказуйте іншим командам відповіді.</li>
+        <li>Дотримуйтеся правил безпеки та вказівок організаторів.</li>
+        <li>Мета — відновити всі модулі та врятувати школу!</li>
+      </ol>
+    </div>
+
+    <h2 class="highlight">ЧИ ГОТОВІ ВИ?</h2>
+    <p>Після запуску місії розпочнеться відлік часу.</p>
+  </div>
+</section>
+
+<!-- ЕТАП 5: МІСІЯ -->
+<section class="screen" id="countdown">
+  <div class="content">
+    <div class="eyebrow">SYSTEM RESTORATION PROTOCOL</div>
+    <h2>МІСІЮ РОЗПОЧАТО</h2>
+    <p class="timer-label">ЧАС ДО ЗАВЕРШЕННЯ МІСІЇ</p>
+    <div class="timer" id="timer">60:00</div>
+    <p class="highlight" id="timerMessage">Відновіть систему школи!</p>
+    <p class="small">Працюйте швидко. Думайте уважно. Дійте разом.</p>
+  </div>
+</section>
+
+<div class="footer">BROKEN SCHOOL // SCIENCE DAY</div>
+
+<!-- ПРИХОВАНА ПАНЕЛЬ ОРГАНІЗАТОРА -->
+<div id="organizer">
+  <h3>⚙ ПАНЕЛЬ ОРГАНІЗАТОРА</h3>
+  <div id="stageStatus">Поточний етап: Вступ</div>
+
+  <button onclick="goToStage('glitchStage', 'Збій системи', true)">
+    01 / ПОЧАТИ ЗБІЙ
+  </button>
+
+  <button onclick="goToStage('mission', 'Повідомлення про злам')">
+    02 / ПОКАЗАТИ ПОВІДОМЛЕННЯ
+  </button>
+
+  <button onclick="goToStage('rules', 'Правила місії')">
+    03 / ПОКАЗАТИ ПРАВИЛА
+  </button>
+
+  <button class="warning" onclick="startMission()">
+    04 / ЗАПУСТИТИ МІСІЮ
+  </button>
+
+  <button onclick="toggleFullscreen()">
+    ⛶ ПОВНОЕКРАННИЙ РЕЖИМ
+  </button>
+
+  <button class="reset" onclick="resetPresentation()">
+    ↻ СКИНУТИ ПРЕЗЕНТАЦІЮ
+  </button>
+
+  <button class="close" onclick="toggleOrganizer()">
+    ЗАКРИТИ ПАНЕЛЬ
+  </button>
+
+  <p class="small">
+    Панель доступна лише організатору.<br>
+    Гаряча клавіша: Ctrl + Shift + O
+  </p>
+</div>
+
+<script>
+let timerInterval = null;
+let remainingSeconds = 60 * 60;
+let currentStage = "intro";
+let missionStarted = false;
+
+const stageNames = {
+  intro: "Вступ",
+  glitchStage: "Збій системи",
+  mission: "Повідомлення про злам",
+  rules: "Правила місії",
+  countdown: "Місія запущена"
+};
+
+function goToStage(stageId, label, playGlitch = false) {
+  if (missionStarted) return;
+
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  if (playGlitch) {
+    const effect = document.getElementById("glitch");
+    effect.classList.remove("active");
+    void effect.offsetWidth;
+    effect.classList.add("active");
+  }
+
+  setTimeout(() => {
+    document.getElementById(stageId).classList.add("active");
+  }, playGlitch ? 450 : 0);
+
+  currentStage = stageId;
+  document.getElementById("stageStatus").textContent =
+    "Поточний етап: " + (label || stageNames[stageId]);
+}
+
+function startMission() {
+  if (missionStarted) return;
+
+  missionStarted = true;
+  remainingSeconds = 60 * 60;
+
+  goToStage("countdown", "Місія запущена");
+  updateTimer();
+
+  timerInterval = setInterval(() => {
+    remainingSeconds--;
+    updateTimer();
+
+    if (remainingSeconds <= 0) {
+      clearInterval(timerInterval);
+      document.getElementById("timerMessage").textContent =
+        "ЧАС ВИЧЕРПАНО. МІСІЮ ЗАВЕРШЕНО.";
+      document.getElementById("timer").style.color = "#ff3b55";
+    }
+  }, 1000);
+}
+
+function updateTimer() {
+  const minutes = Math.floor(remainingSeconds / 60);
+  const seconds = remainingSeconds % 60;
+
+  document.getElementById("timer").textContent =
+    String(minutes).padStart(2, "0") + ":" +
+    String(seconds).padStart(2, "0");
+}
+
+function toggleOrganizer() {
+  document.getElementById("organizer").classList.toggle("open");
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen?.();
+  } else {
+    document.exitFullscreen?.();
+  }
+}
+
+function resetPresentation() {
+  if (!confirm("Скинути презентацію та повернутися до вступу?")) return;
+
+  clearInterval(timerInterval);
+  timerInterval = null;
+  remainingSeconds = 60 * 60;
+  missionStarted = false;
+
+  document.getElementById("timer").style.color = "";
+  document.getElementById("timerMessage").textContent =
+    "Відновіть систему школи!";
+
+  goToStage("intro", "Вступ");
+  document.getElementById("organizer").classList.remove("open");
+}
+
+document.addEventListener("keydown", event => {
+  if (event.ctrlKey && event.shiftKey &&
+      event.key.toLowerCase() === "o") {
+    event.preventDefault();
+    toggleOrganizer();
+  }
+});
+</script>
+
+</body>
+</html>
